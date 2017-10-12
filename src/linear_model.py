@@ -55,6 +55,7 @@ def main():
     with tf.name_scope('train'):
         optimizer = tf.train.GradientDescentOptimizer(learning_rate=LEARNING_RATE).minimize(loss)
 
+    # compute the encoders and decoders
     with tf.Session() as sess:
         merged = tf.summary.merge_all()
         writer = tf.summary.FileWriter('./graphs/linear_model', sess.graph)
@@ -75,6 +76,8 @@ def main():
         writer.close()
 
         E1, E2, D1, D2 = sess.run([E1, E2, D1, D2])
+
+    # calculate the meta embedding
 
 if __name__ == '__main__':
     main()

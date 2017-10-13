@@ -51,7 +51,10 @@ def main():
 
     # loss = sum((E1*s1-E2*s2)^2+(D1*E1*s1-s1)^2+(D2*E2*s2-s2)^2)
     with tf.name_scope('loss'):
-        loss = tf.reduce_sum(tf.square(tf.matmul(E1, s1) - tf.matmul(E2, s2)) + tf.square(tf.matmul(D1, tf.matmul(E1, s1)) - s1) + tf.square(tf.matmul(D2, tf.matmul(E2, s2)) - s2), name='loss')
+        part1 = tf.square(tf.subtract(tf.matmul(E1, s1), tf.matmul(E2, s2)))
+        part2 = tf.square(tf.subtract(tf.matmul(D1, tf.matmul(E1, s1)), s1))
+        part3 = tf.square(tf.subtract(tf.matmul(D2, tf.matmul(E2, s2)), s2))
+        loss = tf.reduce_sum(tf.add_n([part1, part2, part3]))
         tf.summary.scalar('loss', loss)
 
     # minimize loss

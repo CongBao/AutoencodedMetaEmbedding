@@ -10,9 +10,10 @@ import utils
 
 CBOW_PATH = r'E:\Dropbox\Data\small_cbow.txt'
 GLOVE_PATH = r'E:\Dropbox\Data\small_glove.txt'
+RESULT_PATH = r'.\linear_model_result.txt'
 
 LEARNING_RATE = 0.01
-EPOCHS = 20
+EPOCHS = 5
 
 def next_element(data):
     for cbow_item, glove_item in data:
@@ -78,6 +79,10 @@ def main():
         E1, E2, D1, D2 = sess.run([E1, E2, D1, D2])
 
     # calculate the meta embedding
+    meta_embedding = {}
+    for word in inter_words:
+        meta_embedding[word] = np.concatenate([np.matmul(E1, cbow_dict[word].T).T, np.matmul(E2, glove_dict[word].T).T])
+    utils.save_embeddings(meta_embedding, RESULT_PATH)
 
 if __name__ == '__main__':
     main()

@@ -24,3 +24,10 @@ def load_intersection_words(file_path):
     load intersection words from file
     """
     return pd.read_table(file_path).values.T[0]
+
+def save_embeddings(embedding_dict, file_path):
+    """
+    write embeddings to file
+    """
+    data = pd.DataFrame.from_dict(embedding_dict, orient='index')
+    data.to_csv(file_path, sep=" ", header=False, encoding='utf-8')

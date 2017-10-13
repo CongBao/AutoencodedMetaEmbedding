@@ -2,7 +2,10 @@
 Autoencoding Meta-Embedding with linear model
 """
 
+from __future__ import division, print_function
+
 import random
+
 import numpy as np
 import tensorflow as tf
 

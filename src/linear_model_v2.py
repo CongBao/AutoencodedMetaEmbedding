@@ -1,8 +1,10 @@
 """
 Autoencoding Meta-Embedding with linear model and coupling restraints
 """
+from __future__ import division, print_function
 
 import random
+
 import numpy as np
 import tensorflow as tf
 

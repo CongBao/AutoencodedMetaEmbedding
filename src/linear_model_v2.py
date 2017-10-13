@@ -64,7 +64,7 @@ def main():
     # compute the encoders and decoders
     with tf.Session() as sess:
         merged = tf.summary.merge_all()
-        writer = tf.summary.FileWriter('./graphs/linear_model', sess.graph)
+        writer = tf.summary.FileWriter('./graphs/linear_model_v2', sess.graph)
 
         sess.run(tf.global_variables_initializer())
 

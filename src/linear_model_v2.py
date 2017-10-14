@@ -1,8 +1,10 @@
 """
 Autoencoding Meta-Embedding with linear model and coupling restraints
 """
+
 from __future__ import division, print_function
 
+import argparse
 import random
 
 import numpy as np
@@ -10,9 +12,10 @@ import tensorflow as tf
 
 import utils
 
-CBOW_PATH = r'E:\Dropbox\Data\small_cbow.txt'
-GLOVE_PATH = r'E:\Dropbox\Data\small_glove.txt'
-RESULT_PATH = r'.\linear_restraint_model_result.txt'
+# path in windows
+# CBOW_PATH = r'E:\Dropbox\Data\small_cbow.txt'
+# GLOVE_PATH = r'E:\Dropbox\Data\small_glove.txt'
+# RESULT_PATH = r'.\linear_restraint_model_result.txt'
 
 LEARNING_RATE = 0.01
 EPOCHS = 20
@@ -21,10 +24,10 @@ def next_element(data):
     for cbow_item, glove_item in data:
         yield [np.transpose([cbow_item]), np.transpose([glove_item])]
 
-def main():
+def train_embedding(source_list, output_path, learning_rate=LEARNING_RATE, epoch=EPOCHS):
     # load embedding data
-    cbow_dict = utils.load_embeddings(CBOW_PATH)
-    glove_dict = utils.load_embeddings(GLOVE_PATH)
+    cbow_dict = utils.load_embeddings(source_list[0])
+    glove_dict = utils.load_embeddings(source_list[1])
 
     # find intersection of two sources
     inter_words = set(cbow_dict.keys()) & set(glove_dict.keys())
@@ -59,7 +62,7 @@ def main():
 
     # minimize loss
     with tf.name_scope('train'):
-        optimizer = tf.train.GradientDescentOptimizer(learning_rate=LEARNING_RATE).minimize(loss)
+        optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(loss)
 
     # compute the encoders and decoders
     with tf.Session() as sess:
@@ -68,7 +71,7 @@ def main():
 
         sess.run(tf.global_variables_initializer())
 
-        for i in range(EPOCHS):
+        for i in range(epoch):
             total_loss = 0
             for x1, x2 in next_element(data):
                 _, acc = sess.run([optimizer, loss], feed_dict={s1: x1, s2: x2})
@@ -87,7 +90,18 @@ def main():
     meta_embedding = {}
     for word in inter_words:
         meta_embedding[word] = np.concatenate([np.matmul(E1, cbow_dict[word].T).T, np.matmul(E2, glove_dict[word].T).T])
-    utils.save_embeddings(meta_embedding, RESULT_PATH)
+    utils.save_embeddings(meta_embedding, output_path)
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-i', dest='input', nargs='+', type=str, required=True, help='the input file(s) containing source vectors')
+    parser.add_argument('-o', dest='output', type=str, required=True, help='the output file')
+    parser.add_argument('-e', dest='epoch', type=int, help='the number of epoches to train')
+    args = parser.parse_args()
+    if args.epoch:
+        train_embedding(args.input, args.output, epoch=args.epoch)
+    else:
+        train_embedding(args.input, args.output)
 
 if __name__ == '__main__':
     main()

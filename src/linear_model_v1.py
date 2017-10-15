@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Autoencoding Meta-Embedding with linear model and coupling restraints
+Autoencoding Meta-Embedding with linear model
 """
 
 from __future__ import division
@@ -43,7 +43,7 @@ def train_embedding(source_list, output_path, learning_rate=LEARNING_RATE, epoch
         s1 = tf.placeholder(tf.float32, [300, 1], name='s1')
         s2 = tf.placeholder(tf.float32, [300, 1], name='s2')
 
-    # define matrix E1, E2, D1 = E1.T, D2 = E2.T
+    # define matrix E1, E2, D1, D2
     with tf.name_scope('Encoder1'):
         E1 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='E1')
         tf.summary.histogram('Encoder1', E1)
@@ -51,10 +51,10 @@ def train_embedding(source_list, output_path, learning_rate=LEARNING_RATE, epoch
         E2 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='E2')
         tf.summary.histogram('Encoder2', E2)
     with tf.name_scope('Decoder1'):
-        D1 = tf.transpose(E1)
+        D1 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='D1')
         tf.summary.histogram('Decoder1', D1)
     with tf.name_scope('Decoder2'):
-        D2 = tf.transpose(E2)
+        D2 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='D2')
         tf.summary.histogram('Decoder2', D2)
 
     # loss = sum((E1*s1-E2*s2)^2+(D1*E1*s1-s1)^2+(D2*E2*s2-s2)^2)
@@ -72,7 +72,7 @@ def train_embedding(source_list, output_path, learning_rate=LEARNING_RATE, epoch
     # compute the encoders and decoders
     with tf.Session() as sess:
         merged = tf.summary.merge_all()
-        writer = tf.summary.FileWriter('./graphs/linear_model_v2', sess.graph)
+        writer = tf.summary.FileWriter('./graphs/linear_model_v1', sess.graph)
 
         sess.run(tf.global_variables_initializer())
 

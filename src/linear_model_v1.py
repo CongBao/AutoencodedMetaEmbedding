@@ -45,24 +45,32 @@ def train_embedding(source_list, output_path, learning_rate=LEARNING_RATE, epoch
 
     # define matrix E1, E2, D1, D2
     with tf.name_scope('Encoder1'):
-        E1 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='E1')
-        tf.summary.histogram('Encoder1', E1)
+        w_E1 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='w_E1')
+        b_E1 = tf.Variable(tf.zeros([300, 1]), name='b_E1')
+        tf.summary.histogram('w_E1', w_E1)
+        tf.summary.histogram('b_E1', b_E1)
     with tf.name_scope('Encoder2'):
-        E2 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='E2')
-        tf.summary.histogram('Encoder2', E2)
+        w_E2 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='w_E2')
+        b_E2 = tf.Variable(tf.zeros([300, 1]), name='b_E2')
+        tf.summary.histogram('w_E2', w_E2)
+        tf.summary.histogram('b_E2', b_E2)
     with tf.name_scope('Decoder1'):
-        D1 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='D1')
-        tf.summary.histogram('Decoder1', D1)
+        w_D1 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='w_D1')
+        b_D1 = tf.Variable(tf.zeros([300, 1]), name='b_D1')
+        tf.summary.histogram('w_D1', w_D1)
+        tf.summary.histogram('b_D1', b_D1)
     with tf.name_scope('Decoder2'):
-        D2 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='D2')
-        tf.summary.histogram('Decoder2', D2)
+        w_D2 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='w_D2')
+        b_D2 = tf.Variable(tf.zeros([300, 1]), name='b_D2')
+        tf.summary.histogram('w_D2', w_D2)
+        tf.summary.histogram('b_D2', b_D2)
 
     # loss = sum((E1*s1-E2*s2)^2+(D1*E1*s1-s1)^2+(D2*E2*s2-s2)^2)
     with tf.name_scope('loss'):
-        part1 = tf.square(tf.subtract(tf.matmul(E1, s1), tf.matmul(E2, s2)))
-        part2 = tf.square(tf.subtract(tf.matmul(D1, tf.matmul(E1, s1)), s1))
-        part3 = tf.square(tf.subtract(tf.matmul(D2, tf.matmul(E2, s2)), s2))
-        loss = tf.add_n([tf.reduce_sum(part1), tf.reduce_sum(part2), tf.reduce_sum(part3)])
+        part1 = tf.square(tf.subtract(tf.matmul(w_E1, s1) + b_E1, tf.matmul(w_E2, s2) + b_E2))
+        part2 = tf.square(tf.subtract(tf.matmul(w_D1, tf.matmul(w_E1, s1) + b_E1) + b_D1, s1))
+        part3 = tf.square(tf.subtract(tf.matmul(w_D2, tf.matmul(w_E2, s2) + b_E2) + b_D2, s2))
+        loss = tf.reduce_sum(part1) + tf.reduce_sum(part2) + tf.reduce_sum(part3)
         tf.summary.scalar('loss', loss)
 
     # minimize loss
@@ -89,12 +97,13 @@ def train_embedding(source_list, output_path, learning_rate=LEARNING_RATE, epoch
 
         writer.close()
 
-        E1, E2, D1, D2 = sess.run([E1, E2, D1, D2])
+        w_E1, w_E2, w_D1, w_D2 = sess.run([w_E1, w_E2, w_D1, w_D2])
+        b_E1, b_E2, b_D1, b_D2 = sess.run([b_E1, b_E2, b_D1, b_D2])
 
     # calculate the meta embedding
     meta_embedding = {}
     for word in inter_words:
-        meta_embedding[word] = np.concatenate([np.matmul(E1, cbow_dict[word].T).T, np.matmul(E2, glove_dict[word].T).T])
+        meta_embedding[word] = np.concatenate([(np.matmul(w_E1, cbow_dict[word].reshape([300, 1])) + b_E1).reshape([300]), (np.matmul(w_E2, glove_dict[word].reshape([300, 1])) + b_E2).reshape([300])])
     logger.log('Saving data into output file: %s' % output_path)
     utils.save_embeddings(meta_embedding, output_path)
     logger.log('Complete.')

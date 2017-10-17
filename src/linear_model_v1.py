@@ -24,19 +24,30 @@ EPOCHS = 500
 logger = Logger(str(os.path.basename(__file__)).replace('.py', ''))
 
 def next_batch(data, batch_size):
-    cbow_batch = []
-    glove_batch = []
-    for cbow_item, glove_item in data:
-        cbow_batch.append(cbow_item)
-        glove_batch.append(glove_item)
-        if len(cbow_batch) == batch_size:
-            yield (np.transpose(cbow_batch), np.transpose(glove_batch))
-            cbow_batch = []
-            glove_batch = []
-    for cbow_item, glove_item in random.sample(data, batch_size - len(cbow_batch)):
-        cbow_batch.append(cbow_item)
-        glove_batch.append(glove_item)
-    yield (np.transpose(cbow_batch), np.transpose(glove_batch))
+    if batch_size == 1:
+        for cbow_item, glove_item in data:
+            yield (np.transpose([cbow_item]), np.transpose([glove_item]))
+    elif batch_size == len(data):
+        cbow_batch = []
+        glove_batch = []
+        for cbow_item, glove_item in data:
+            cbow_batch.append(cbow_item)
+            glove_batch.append(glove_item)
+        yield (np.transpose(cbow_batch), np.transpose(glove_batch))
+    else:
+        cbow_batch = []
+        glove_batch = []
+        for cbow_item, glove_item in data:
+            cbow_batch.append(cbow_item)
+            glove_batch.append(glove_item)
+            if len(cbow_batch) == batch_size:
+                yield (np.transpose(cbow_batch), np.transpose(glove_batch))
+                cbow_batch = []
+                glove_batch = []
+        for cbow_item, glove_item in random.sample(data, batch_size - len(cbow_batch)):
+            cbow_batch.append(cbow_item)
+            glove_batch.append(glove_item)
+        yield (np.transpose(cbow_batch), np.transpose(glove_batch))
 
 
 def train_embedding(source_list, output_path, learning_rate, batch_size, epoch):

@@ -67,7 +67,7 @@ def train_embedding(source_list, output_path, learning_rate, batch_size, epoch):
         s1 = tf.placeholder(tf.float32, [300, batch_size], name='s1')
         s2 = tf.placeholder(tf.float32, [300, batch_size], name='s2')
 
-    # define matrix E1, E2, D1, D2
+    # define E1, E2, D1, D2
     with tf.name_scope('Encoder1'):
         w_E1 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='w_E1')
         b_E1 = tf.Variable(tf.zeros([300, 1]), name='b_E1')

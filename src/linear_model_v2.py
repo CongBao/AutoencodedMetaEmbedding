@@ -24,7 +24,7 @@ logger = Logger(str(os.path.basename(__file__)).replace('.py', ''))
 
 def next_element(data):
     for cbow_item, glove_item in data:
-        yield [np.transpose([cbow_item]), np.transpose([glove_item])]
+        yield (np.transpose([cbow_item]), np.transpose([glove_item]))
 
 def train_embedding(source_list, output_path, learning_rate=LEARNING_RATE, epoch=EPOCHS):
     # load embedding data
@@ -59,9 +59,9 @@ def train_embedding(source_list, output_path, learning_rate=LEARNING_RATE, epoch
 
     # loss = sum((E1*s1-E2*s2)^2+(D1*E1*s1-s1)^2+(D2*E2*s2-s2)^2)
     with tf.name_scope('loss'):
-        part1 = tf.square(tf.subtract(tf.matmul(E1, s1), tf.matmul(E2, s2)))
-        part2 = tf.square(tf.subtract(tf.matmul(D1, tf.matmul(E1, s1)), s1))
-        part3 = tf.square(tf.subtract(tf.matmul(D2, tf.matmul(E2, s2)), s2))
+        part1 = tf.squared_difference(tf.matmul(E1, s1), tf.matmul(E2, s2))
+        part2 = tf.squared_difference(tf.matmul(D1, tf.matmul(E1, s1)), s1)
+        part3 = tf.squared_difference(tf.matmul(D2, tf.matmul(E2, s2)), s2)
         loss = tf.add_n([tf.reduce_sum(part1), tf.reduce_sum(part2), tf.reduce_sum(part3)])
         tf.summary.scalar('loss', loss)
 

@@ -29,7 +29,7 @@ class Logger(object):
         fh.setLevel(logging.INFO)
         sh = logging.StreamHandler()
         sh.setLevel(logging.INFO)
-        fmt = logging.Formatter('%(asctime)s %(filename)s:%(lineno)d %(levelname)s: %(message)s')
+        fmt = logging.Formatter('%(asctime)s %(levelname)s: %(message)s')
         fh.setFormatter(fmt)
         sh.setFormatter(fmt)
         self.__logger.addHandler(fh)

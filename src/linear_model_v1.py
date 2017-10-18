@@ -104,8 +104,7 @@ def train_embedding(source_list, output_path, learning_rate, batch_size, epoch):
         optimizer = tf.train.AdamOptimizer(rate).minimize(loss, global_step=step)
 
     # compute the encoders and decoders
-    gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.75)
-    with tf.Session(config=tf.ConfigProto(gpu_options=gpu_options)) as sess:
+    with tf.Session() as sess:
         merged = tf.summary.merge_all()
         writer = tf.summary.FileWriter('./graphs/linear_model_v1', sess.graph)
 

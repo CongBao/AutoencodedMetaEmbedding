@@ -99,7 +99,9 @@ def train_embedding(source_list, output_path, learning_rate, batch_size, epoch):
 
     # minimize loss
     with tf.name_scope('train'):
-        optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(loss)
+        step = tf.Variable(0, trainable=False)
+        rate = tf.train.exponential_decay(learning_rate, step, 50, 0.999)
+        optimizer = tf.train.AdamOptimizer(rate).minimize(loss, global_step=step)
 
     # compute the encoders and decoders
     with tf.Session() as sess:
@@ -115,7 +117,7 @@ def train_embedding(source_list, output_path, learning_rate, batch_size, epoch):
                 total_loss += batch_loss
             logger.log('Epoch {0}: {1}'.format(i, total_loss / batch_size))
 
-            if i % 10 == 0:
+            if i % 100 == 0:
                 cbow_test = []
                 glove_test = []
                 for cbow_item, glove_item in random.sample(data, batch_size):

@@ -70,13 +70,13 @@ def train_embedding(source_list, output_path, learning_rate, batch_size, epoch):
     with tf.name_scope('Encoder1'):
         w_E1 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='w_E1')
         b_E1 = tf.Variable(tf.zeros([1, 300]), name='b_E1')
-        E1 = tf.nn.tanh(tf.matmul(s1, w_E1) + b_E1)
+        E1 = tf.nn.sigmoid(tf.matmul(s1, w_E1) + b_E1) - 0.5
         tf.summary.histogram('w_E1', w_E1)
         tf.summary.histogram('b_E1', b_E1)
     with tf.name_scope('Encoder2'):
         w_E2 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='w_E2')
         b_E2 = tf.Variable(tf.zeros([1, 300]), name='b_E2')
-        E2 = tf.nn.tanh(tf.matmul(s2, w_E2) + b_E2)
+        E2 = tf.nn.sigmoid(tf.matmul(s2, w_E2) + b_E2) - 0.5
         tf.summary.histogram('w_E2', w_E2)
         tf.summary.histogram('b_E2', b_E2)
     with tf.name_scope('Decoder1'):

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Autoencoding Meta-Embedding with non-linear nn model
+Autoencoding Meta-Embedding with non-linear nn model and and coupling restraints
 """
 
 from __future__ import division
@@ -11,6 +11,7 @@ import random
 
 import numpy as np
 import tensorflow as tf
+from scipy.special import expit
 
 import utils
 from logger import Logger
@@ -80,13 +81,13 @@ def train_embedding(source_list, output_path, learning_rate, batch_size, epoch):
         tf.summary.histogram('w_E2', w_E2)
         tf.summary.histogram('b_E2', b_E2)
     with tf.name_scope('Decoder1'):
-        w_D1 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='w_D1')
+        w_D1 = tf.transpose(w_E1, name='w_D1')
         b_D1 = tf.Variable(tf.zeros([1, 300]), name='b_D1')
         D1 = tf.matmul(E1, w_D1) + b_D1
         tf.summary.histogram('w_D1', w_D1)
         tf.summary.histogram('b_D1', b_D1)
     with tf.name_scope('Decoder2'):
-        w_D2 = tf.Variable(tf.random_normal(shape=[300, 300], stddev=0.01), name='w_D2')
+        w_D2 = tf.transpose(w_E2, name='w_E2')
         b_D2 = tf.Variable(tf.zeros([1, 300]), name='b_D2')
         D2 = tf.matmul(E2, w_D2) + b_D2
         tf.summary.histogram('w_D2', w_D2)
@@ -109,7 +110,7 @@ def train_embedding(source_list, output_path, learning_rate, batch_size, epoch):
 
     with tf.Session() as sess:
         merged = tf.summary.merge_all()
-        writer = tf.summary.FileWriter('./graphs/nonlinear_nn_v1', sess.graph)
+        writer = tf.summary.FileWriter('./graphs/nonlinear_nn_v2', sess.graph)
 
         sess.run(tf.global_variables_initializer())
 
@@ -137,7 +138,9 @@ def train_embedding(source_list, output_path, learning_rate, batch_size, epoch):
     # calculate the meta embedding
     meta_embedding = {}
     for word in inter_words:
-        meta_embedding[word] = np.concatenate([(np.dot(cbow_dict[word].reshape((1, 300)), w_E1) + b_E1).reshape((300)), (np.dot(glove_dict[word].reshape((1, 300)), w_E2) + b_E2).reshape((300))])
+        embed_cbow = (expit(np.dot(cbow_dict[word].reshape((1, 300)), w_E1) + b_E1) - 0.5).reshape((300))
+        embed_glove = (expit(np.dot(glove_dict[word].reshape((1, 300)), w_E2) + b_E2) - 0.5).reshape((300))
+        meta_embedding[word] = np.concatenate([embed_cbow, embed_glove])
     logger.log('Saving data into output file: %s' % output_path)
     utils.save_embeddings(meta_embedding, output_path)
     logger.log('Complete.')

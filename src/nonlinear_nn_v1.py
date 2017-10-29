@@ -152,12 +152,16 @@ def main():
     parser.add_argument('-r', dest='rate', type=float, default=LEARNING_RATE, help='the learning rate of gradient descent')
     parser.add_argument('-b', dest='batch', type=int, default=BATCH_SIZE, help='the size of batches')
     parser.add_argument('-e', dest='epoch', type=int, default=EPOCHS, help='the number of epoches to train')
+    parser.add_argument('--cpu-only', dest='cpu', action='store_true', help='if use cpu only')
     args = parser.parse_args()
     logger.log('Input file(s): %s' % args.input)
     logger.log('Output file: %s' % args.output)
     logger.log('Learning rate: %s' % args.rate)
     logger.log('Batch size: %s' % args.batch)
     logger.log('Epoches to train: %s' % args.epoch)
+    logger.log('Running on %s' % ('CPU' if args.cpu else 'GPU'))
+    if args.cpu:
+        os.environ['CUDA_VISIBLE_DEVICES'] = ''
     train_embedding(args.input, args.output, args.rate, args.batch, args.epoch)
 
 if __name__ == '__main__':

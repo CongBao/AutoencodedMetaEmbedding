@@ -164,7 +164,7 @@ def main():
     parser.add_argument('-r', dest='rate', type=float, default=LEARNING_RATE, help='the learning rate of gradient descent')
     parser.add_argument('-b', dest='batch', type=int, default=BATCH_SIZE, help='the size of batches')
     parser.add_argument('-e', dest='epoch', type=int, default=EPOCHS, help='the number of epoches to train')
-    parser.add_argument('--noise_ratio', dest='noise', type=float, default=0.5, help='the ratio of noise to the input')
+    parser.add_argument('--noise-ratio', dest='noise', type=float, default=0.5, help='the ratio of noise to the input')
     parser.add_argument('--cpu-only', dest='cpu', action='store_true', help='if use cpu only')
     args = parser.parse_args()
     logger.log('Input file(s): %s' % args.input)

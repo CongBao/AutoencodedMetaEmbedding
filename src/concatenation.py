@@ -9,6 +9,7 @@ import argparse
 import os
 
 import numpy as np
+import sklearn.preprocessing as skpre
 
 import utils
 from logger import Logger
@@ -17,12 +18,20 @@ __author__ = 'Cong Bao'
 
 logger = Logger(str(os.path.basename(__file__)).replace('.py', ''))
 
+def normalize_embeddings(embedding_dict, scale_factor):
+    for word, values in embedding_dict.items():
+        embedding_dict[word] = scale_factor * skpre.normalize(values.reshape(1,-1))[0]
+    return embedding_dict
+
 def train_embedding(source_list, output_path):
     # load embedding data
     logger.log('Loading file: %s' % source_list[0])
     cbow_dict = utils.load_embeddings(source_list[0])
     logger.log('Loading file: %s' % source_list[1])
     glove_dict = utils.load_embeddings(source_list[1])
+
+    cbow_dict = normalize_embeddings(cbow_dict, 1.0)
+    glove_dict = normalize_embeddings(glove_dict, 1.0)
 
     # find intersection of two sources
     inter_words = set(cbow_dict.keys()) & set(glove_dict.keys())

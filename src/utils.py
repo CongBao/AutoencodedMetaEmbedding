@@ -19,12 +19,6 @@ def load_embeddings(file_path, header=None, index=0):
         embeddings[data.index[i]] = np.asarray(data.values[i], dtype='float32')
     return embeddings
 
-def load_intersection_words(file_path):
-    """
-    load intersection words from file
-    """
-    return pd.read_table(file_path).values.T[0]
-
 def save_embeddings(embedding_dict, file_path):
     """
     write embeddings to file

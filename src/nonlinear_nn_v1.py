@@ -127,7 +127,7 @@ def train_embedding(source_list, output_path, learning_rate, batch_size, epoch):
                 total_loss += batch_loss
             logger.log('Epoch {0}: {1}'.format(i, total_loss / batch_size))
 
-            if i % 100 == 0:
+            if i % 50 == 0:
                 cbow_test = []
                 glove_test = []
                 for cbow_item, glove_item in random.sample(data, batch_size):

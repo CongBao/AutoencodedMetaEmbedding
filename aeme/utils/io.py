@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Some useful io functions
+Some functions deal with input and output
 """
 
 import csv
@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
+__author__ = 'Cong Bao'
 
 def load_embeddings(file_path, header=None, index=0):
     """

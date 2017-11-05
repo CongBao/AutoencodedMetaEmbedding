@@ -8,10 +8,7 @@ from __future__ import division
 import argparse
 import os
 
-import numpy as np
-
-from aeme.utils import io
-from aeme.utils import preprocess
+from aeme.utils import io, preprocess
 from aeme.utils.logger import Logger
 
 __author__ = 'Cong Bao'

@@ -12,8 +12,9 @@ import random
 import numpy as np
 import tensorflow as tf
 
-import utils
-from logger import Logger
+from aeme.utils import io
+from aeme.utils import preprocess
+from aeme.utils.logger import Logger
 
 __author__ = 'Cong Bao'
 
@@ -53,14 +54,14 @@ def next_batch(data, batch_size):
 def train_embedding(source_list, output_path, learning_rate, batch_size, epoch):
     # load and normalize source embeddings
     logger.log('Loading file: %s' % source_list[0])
-    cbow_dict = utils.load_embeddings(source_list[0])
+    cbow_dict = io.load_embeddings(source_list[0])
     logger.log('normalizing source embeddings')
-    cbow_dict = utils.normalize_embeddings(cbow_dict, 1.0)
+    cbow_dict = preprocess.normalize_embeddings(cbow_dict, 1.0)
 
     logger.log('Loading file: %s' % source_list[1])
-    glove_dict = utils.load_embeddings(source_list[1])
+    glove_dict = io.load_embeddings(source_list[1])
     logger.log('normalizing source embeddings')
-    glove_dict = utils.normalize_embeddings(glove_dict, 1.0)
+    glove_dict = preprocess.normalize_embeddings(glove_dict, 1.0)
 
     # find intersection of two sources
     inter_words = set(cbow_dict.keys()) & set(glove_dict.keys())
@@ -141,7 +142,7 @@ def train_embedding(source_list, output_path, learning_rate, batch_size, epoch):
     for word in inter_words:
         meta_embedding[word] = np.concatenate([(np.dot(w_E1, cbow_dict[word].reshape((300, 1))) + b_E1).reshape((300)), (np.dot(w_E2, glove_dict[word].reshape((300, 1))) + b_E2).reshape((300))])
     logger.log('Saving data into output file: %s' % output_path)
-    utils.save_embeddings(meta_embedding, output_path)
+    io.save_embeddings(meta_embedding, output_path)
     logger.log('Complete.')
 
 def main():

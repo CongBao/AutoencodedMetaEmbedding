@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 """
-Some useful functions
+Some useful io functions
 """
 
 import csv
 
 import numpy as np
 import pandas as pd
-import sklearn.preprocessing as skpre
 from tqdm import tqdm
 
 
@@ -27,11 +26,3 @@ def save_embeddings(embedding_dict, file_path):
     """
     data = pd.DataFrame.from_dict(embedding_dict, orient='index')
     data.to_csv(file_path, sep=" ", header=False, encoding='utf-8')
-
-def normalize_embeddings(embedding_dict, scale_factor):
-    """
-    normalize the embeddings
-    """
-    for word, values in embedding_dict.items():
-        embedding_dict[word] = scale_factor * skpre.normalize(values.reshape(1,-1))[0]
-    return embedding_dict

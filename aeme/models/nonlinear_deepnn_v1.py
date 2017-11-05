@@ -13,8 +13,9 @@ import numpy as np
 import tensorflow as tf
 from scipy.special import expit
 
-import utils
-from logger import Logger
+from aeme.utils import io
+from aeme.utils import preprocess
+from aeme.utils.logger import Logger
 
 __author__ = 'Cong Bao'
 
@@ -72,14 +73,14 @@ def train_embedding(source_list, output_path, learning_rate, batch_size, epoch, 
     # load embedding data
     # load and normalize source embeddings
     logger.log('Loading file: %s' % source_list[0])
-    cbow_dict = utils.load_embeddings(source_list[0])
+    cbow_dict = io.load_embeddings(source_list[0])
     logger.log('normalizing source embeddings')
-    cbow_dict = utils.normalize_embeddings(cbow_dict, 1.0)
+    cbow_dict = preprocess.normalize_embeddings(cbow_dict, 1.0)
 
     logger.log('Loading file: %s' % source_list[1])
-    glove_dict = utils.load_embeddings(source_list[1])
+    glove_dict = io.load_embeddings(source_list[1])
     logger.log('normalizing source embeddings')
-    glove_dict = utils.normalize_embeddings(glove_dict, 1.0)
+    glove_dict = preprocess.normalize_embeddings(glove_dict, 1.0)
 
     # find intersection of two sources
     inter_words = set(cbow_dict.keys()) & set(glove_dict.keys())
@@ -160,7 +161,7 @@ def train_embedding(source_list, output_path, learning_rate, batch_size, epoch, 
             meta_embedding[word] = np.concatenate([s1_embed.reshape((150)), s2_embed.reshape((150))])
 
     logger.log('Saving data into output file: %s' % output_path)
-    utils.save_embeddings(meta_embedding, output_path)
+    io.save_embeddings(meta_embedding, output_path)
     logger.log('Complete.')
 
 def main():

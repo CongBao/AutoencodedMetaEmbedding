@@ -14,7 +14,7 @@ MODULE_PATH = r'F:/GitHub/AutoencodingMetaEmbedding'
 
 MODEL_TYPES = ['ae', 'conc', 'dae', 'linear', 'sdae']
 MODEL_NAMES = ['LinearModel']
-NOISE_TYPES = ['GS', 'MN', 'SP']
+NOISE_TYPES = ['GS', 'MN', 'SP', 'None']
 
 LOG_PATH = './log/'
 GRAPH_PATH = './graphs/'
@@ -23,7 +23,7 @@ LEARNING_RATE = 0.001
 BATCH_SIZE = 64
 EPOCHS = 1000
 
-NOISE_TYPE = None
+NOISE_TYPE = 'None'
 NOISE_RATIO = 0.5
 
 def main():
@@ -61,7 +61,19 @@ def main():
                  str(args.ratio) + ')')
     if args.cpu:
         os.environ['CUDA_VISIBLE_DEVICES'] = ''
-    model.train_model()
+    model.logger.log('AEME module path: %s' % args.module)
+    model.logger.log('Model type: %s, model name: %s' % (model_type, model_name))
+    model.logger.log('Input files: %s' % args.input)
+    model.logger.log('Output file: %s' % args.output)
+    model.logger.log('Log path: %s' % args.log)
+    model.logger.log('Graph path: %s' % args.graph)
+    model.logger.log('Learning rate: %s' % args.rate)
+    model.logger.log('Batch size: %s' % args.batch)
+    model.logger.log('Epoches to train: %s' % args.epoch)
+    model.logger.log('Noise type: %s' % args.type)
+    model.logger.log('Noise ratio: %s' % args.ratio)
+    model.logger.log('Running on %s' % ('CPU' if args.cpu else 'GPU'))
+    model.run()
     
 if __name__ == '__main__':
     main()

@@ -6,7 +6,6 @@ linear model
 from __future__ import division
 
 import json
-import os
 
 from aeme.models.core.model import Model
 
@@ -35,7 +34,7 @@ class LinearModel(Model):
         self.noise_type = noise_type
         self.noise_ratio = noise_ratio
 
-        # init source data
+        # init source data & build model
         self._load_data()
         self._init_source()
         self._build_model()

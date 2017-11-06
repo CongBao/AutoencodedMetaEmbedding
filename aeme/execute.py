@@ -10,7 +10,7 @@ import sys
 
 __author__ = 'Cong Bao'
 
-MODULE_PATH = r'F:\GitHub\AutoencodingMetaEmbedding'
+MODULE_PATH = r'F:/GitHub/AutoencodingMetaEmbedding'
 
 MODEL_TYPES = ['ae', 'conc', 'dae', 'linear', 'sdae']
 MODEL_NAMES = ['LinearModel']

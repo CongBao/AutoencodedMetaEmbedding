@@ -139,6 +139,9 @@ class Model(object):
         else:
             return activation_func(tf.matmul(pre_layer, weight) + bias)
 
+    def _build_model(self):
+        raise NotImplementedError()
+
     def train_model(self):
         with tf.name_scope('loss'):
             part1 = tf.squared_difference(self.encoder['cbow'], self.encoder['glove'])

@@ -42,8 +42,7 @@ def main():
     parser.add_argument('--cpu-only', dest='cpu', action='store_true', help='if use cpu only')
     args = parser.parse_args()
     sys.path.append(args.module)
-    model_type = args.model[0]
-    model_name = args.model[1]
+    model_type, model_name = args.model
     assert model_type in MODEL_TYPES
     assert model_name in MODEL_NAMES
     exec('from aeme.models.' + model_type + '.' + model_type + '_model import ' + model_name)

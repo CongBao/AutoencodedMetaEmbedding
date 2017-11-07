@@ -116,6 +116,7 @@ def train_embedding(source_list, output_path, learning_rate, batch_size, epoch):
         sess.run(tf.global_variables_initializer())
 
         for i in range(epoch):
+            np.random.shuffle(data)
             total_loss = 0
             for s1_batch, s2_batch in next_batch(data, batch_size):
                 _, batch_loss = sess.run([optimizer, loss], feed_dict={s1: s1_batch, s2: s2_batch})

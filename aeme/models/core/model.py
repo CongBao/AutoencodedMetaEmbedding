@@ -122,8 +122,7 @@ class Model(object):
 
     def __corrupt_input(self, input_batch):
         noisy_batch = np.copy(input_batch)
-        batch_size = input_batch.shape[0]
-        feature_size = input_batch.shape[1]
+        batch_size, feature_size = input_batch.shape
         if self.noise_type is None:
             pass
         elif self.noise_type == 'GS':
@@ -150,6 +149,7 @@ class Model(object):
             self.summary_writer = tf.summary.FileWriter(self.graph_path, self.graph)
             self.session.run(tf.global_variables_initializer())
             for itr in range(self.epoch):
+                np.random.shuffle(self.source_groups)
                 total_loss = 0.
                 for s1_batch, s2_batch in self.__next_batch():
                     i1_batch = self.__corrupt_input(s1_batch)
@@ -222,4 +222,4 @@ class Model(object):
         self.__def_optimizer()
         self.__train_model()
         self.__generate_meta_embedding()
-        self.logger.log('Complete')
+        self.logger.log('Complete.')

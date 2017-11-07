@@ -58,7 +58,7 @@ class Model(object):
         self.merged_summaries = None
         self.summary_writer = None
 
-    def __load_data(self):
+    def _load_data(self):
         self.logger.log('Loading file: %s' % self.input_path['cbow'])
         self.source_dict['cbow'] = io.load_embeddings(self.input_path['cbow'])
         self.logger.log('Normalizing source embeddings: cbow')
@@ -73,14 +73,14 @@ class Model(object):
         self.logger.log('Number of intersection words: %s' % len(self.inter_words))
         self.source_groups = [[self.source_dict['cbow'][i], self.source_dict['glove'][i]] for i in self.inter_words]
 
-    def __def_inputs(self):
+    def _def_inputs(self):
         with tf.name_scope('inputs'):
             self.source['cbow'] = tf.placeholder(tf.float32, (None, 300), 's_cbow')
             self.source['glove'] = tf.placeholder(tf.float32, (None, 300), 's_glove')
             self.input['cbow'] = tf.placeholder(tf.float32, (None, 300), 'i_cbow')
             self.input['glove'] = tf.placeholder(tf.float32, (None, 300), 'i_glove')
 
-    def __def_loss(self):
+    def _def_loss(self):
         with tf.name_scope('loss'):
             part1 = tf.squared_difference(self.encoder['cbow'], self.encoder['glove'])
             part2 = tf.squared_difference(self.decoder['cbow'], self.source['cbow'])
@@ -88,13 +88,13 @@ class Model(object):
             self.loss = tf.reduce_sum(part1) + tf.reduce_sum(part2) + tf.reduce_sum(part3)
             tf.summary.scalar('loss', self.loss)
 
-    def __def_optimizer(self):
+    def _def_optimizer(self):
         with tf.name_scope('train'):
             step = tf.Variable(0, trainable=False)
             rate = tf.train.exponential_decay(self.learning_rate, step, 50, 0.999)
             self.optimizer = tf.train.AdamOptimizer(rate).minimize(self.loss, global_step=step)
 
-    def __next_batch(self):
+    def _next_batch(self):
         if self.batch_size == 1:
             for cbow_item, glove_item in self.source_groups:
                 yield (np.asarray([cbow_item]), np.asarray([glove_item]))
@@ -120,7 +120,7 @@ class Model(object):
                 glove_batch.append(glove_item)
             yield (np.asarray(cbow_batch), np.asarray(glove_batch))
 
-    def __corrupt_input(self, input_batch):
+    def _corrupt_input(self, input_batch):
         noisy_batch = np.copy(input_batch)
         batch_size, feature_size = input_batch.shape
         if self.noise_type is None:
@@ -141,7 +141,7 @@ class Model(object):
             pass
         return noisy_batch
 
-    def __train_model(self):
+    def _train_model(self):
         self.session = tf.Session()
         with self.session.as_default():
             self.graph = self.session.graph
@@ -151,9 +151,9 @@ class Model(object):
             for itr in range(self.epoch):
                 np.random.shuffle(self.source_groups)
                 total_loss = 0.
-                for s1_batch, s2_batch in self.__next_batch():
-                    i1_batch = self.__corrupt_input(s1_batch)
-                    i2_batch = self.__corrupt_input(s2_batch)
+                for s1_batch, s2_batch in self._next_batch():
+                    i1_batch = self._corrupt_input(s1_batch)
+                    i2_batch = self._corrupt_input(s2_batch)
                     _, batch_loss = self.session.run([self.optimizer, self.loss],
                                                      {self.source['cbow']: s1_batch,
                                                       self.source['glove']: s2_batch,
@@ -176,7 +176,7 @@ class Model(object):
                     self.summary_writer.add_summary(result, itr)
             self.summary_writer.close()
 
-    def __generate_meta_embedding(self):
+    def _generate_meta_embedding(self):
         meta_embedding = {}
         self.logger.log('Generating meta embeddings...')
         for word in self.inter_words:
@@ -191,7 +191,7 @@ class Model(object):
         self.logger.log('Saving data into output file: %s' % self.output_path)
         io.save_embeddings(meta_embedding, self.output_path)
 
-    def _add_layer(self, pre_layer, shape=None, activation_func=None, name=None):
+    def add_layer(self, pre_layer, shape=None, activation_func=None, name=None):
         """ Function used to add a layer
             :param pre_layer: the previous layer
             :param shape: the shape of this layer, default None
@@ -209,17 +209,17 @@ class Model(object):
         else:
             return activation_func(tf.matmul(pre_layer, weight) + bias)
 
-    def _build_model(self):
+    def build_model(self):
         """Define the encoder and decoder here"""
         raise NotImplementedError('Model Not Defined')
 
     def run(self):
         """Use this function to run and train model"""
-        self.__load_data()
-        self.__def_inputs()
-        self._build_model()
-        self.__def_loss()
-        self.__def_optimizer()
-        self.__train_model()
-        self.__generate_meta_embedding()
+        self._load_data()
+        self._def_inputs()
+        self.build_model()
+        self._def_loss()
+        self._def_optimizer()
+        self._train_model()
+        self._generate_meta_embedding()
         self.logger.log('Complete.')

@@ -13,7 +13,7 @@ __author__ = 'Cong Bao'
 MODULE_PATH = r'F:/GitHub/AutoencodingMetaEmbedding'
 
 MODEL_TYPES = ['ae', 'conc', 'linear', 'sae']
-MODEL_NAMES = ['LinearModel', 'AESigmoidModel', 'AETanHModel', 'AEReluModel']
+MODEL_NAMES = ['AESigmoidModel', 'AETanHModel', 'AEReluModel', 'LinearModel', 'ConcModel']
 NOISE_TYPES = ['GS', 'MN', 'SP', 'None']
 
 LOG_PATH = './log/'
@@ -65,13 +65,15 @@ def main():
     model.logger.log('Input files: %s' % args.input)
     model.logger.log('Output file: %s' % args.output)
     model.logger.log('Log path: %s' % args.log)
-    model.logger.log('Graph path: %s' % args.graph)
-    model.logger.log('Learning rate: %s' % args.rate)
-    model.logger.log('Batch size: %s' % args.batch)
-    model.logger.log('Epoches to train: %s' % args.epoch)
-    model.logger.log('Noise type: %s' % args.type)
-    model.logger.log('Noise ratio: %s' % args.ratio)
-    model.logger.log('Running on %s' % ('CPU' if args.cpu else 'GPU'))
+    if model_type != 'conc':
+        model.logger.log('Graph path: %s' % args.graph)
+        model.logger.log('Learning rate: %s' % args.rate)
+        model.logger.log('Batch size: %s' % args.batch)
+        model.logger.log('Epoches to train: %s' % args.epoch)
+        model.logger.log('Noise type: %s' % args.type)
+        if args.type != 'None':
+            model.logger.log('Noise ratio: %s' % args.ratio)
+        model.logger.log('Running on %s' % ('CPU' if args.cpu else 'GPU'))
     model.run()
     
 if __name__ == '__main__':

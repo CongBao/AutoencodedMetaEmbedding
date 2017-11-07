@@ -35,11 +35,11 @@ class AESigmoidModel(Model):
         self.noise_type = noise_type
         self.noise_ratio = noise_ratio
 
-    def _build_model(self):
-        self.encoder['cbow'] = self._add_layer(self.input['cbow'], (300, 300), lambda x:tf.nn.sigmoid(x) - 0.5, 'cbow_encoder')
-        self.decoder['cbow'] = self._add_layer(self.encoder['cbow'], (300, 300), None, 'cbow_decoder')
-        self.encoder['glove'] = self._add_layer(self.input['glove'], (300, 300), lambda x:tf.nn.sigmoid(x) - 0.5, 'glove_encoder')
-        self.decoder['glove'] = self._add_layer(self.encoder['glove'], (300, 300), None, 'glove_decoder')
+    def build_model(self):
+        self.encoder['cbow'] = self.add_layer(self.input['cbow'], (300, 300), lambda x:tf.nn.sigmoid(x) - 0.5, 'cbow_encoder')
+        self.decoder['cbow'] = self.add_layer(self.encoder['cbow'], (300, 300), None, 'cbow_decoder')
+        self.encoder['glove'] = self.add_layer(self.input['glove'], (300, 300), lambda x:tf.nn.sigmoid(x) - 0.5, 'glove_encoder')
+        self.decoder['glove'] = self.add_layer(self.encoder['glove'], (300, 300), None, 'glove_decoder')
 
 class AETanHModel(Model):
 
@@ -64,11 +64,11 @@ class AETanHModel(Model):
         self.noise_type = noise_type
         self.noise_ratio = noise_ratio
 
-    def _build_model(self):
-        self.encoder['cbow'] = self._add_layer(self.input['cbow'], (300, 300), tf.nn.tanh, 'cbow_encoder')
-        self.decoder['cbow'] = self._add_layer(self.encoder['cbow'], (300, 300), None, 'cbow_decoder')
-        self.encoder['glove'] = self._add_layer(self.input['glove'], (300, 300), tf.nn.tanh, 'glove_encoder')
-        self.decoder['glove'] = self._add_layer(self.encoder['glove'], (300, 300), None, 'glove_decoder')
+    def build_model(self):
+        self.encoder['cbow'] = self.add_layer(self.input['cbow'], (300, 300), tf.nn.tanh, 'cbow_encoder')
+        self.decoder['cbow'] = self.add_layer(self.encoder['cbow'], (300, 300), None, 'cbow_decoder')
+        self.encoder['glove'] = self.add_layer(self.input['glove'], (300, 300), tf.nn.tanh, 'glove_encoder')
+        self.decoder['glove'] = self.add_layer(self.encoder['glove'], (300, 300), None, 'glove_decoder')
 
 class AEReluModel(Model):
 
@@ -93,8 +93,8 @@ class AEReluModel(Model):
         self.noise_type = noise_type
         self.noise_ratio = noise_ratio
 
-    def _build_model(self):
-        self.encoder['cbow'] = self._add_layer(self.input['cbow'], (300, 300), tf.nn.relu, 'cbow_encoder')
-        self.decoder['cbow'] = self._add_layer(self.encoder['cbow'], (300, 300), None, 'cbow_decoder')
-        self.encoder['glove'] = self._add_layer(self.input['glove'], (300, 300), tf.nn.relu, 'glove_encoder')
-        self.decoder['glove'] = self._add_layer(self.encoder['glove'], (300, 300), None, 'glove_decoder')
+    def build_model(self):
+        self.encoder['cbow'] = self.add_layer(self.input['cbow'], (300, 300), tf.nn.relu, 'cbow_encoder')
+        self.decoder['cbow'] = self.add_layer(self.encoder['cbow'], (300, 300), None, 'cbow_decoder')
+        self.encoder['glove'] = self.add_layer(self.input['glove'], (300, 300), tf.nn.relu, 'glove_encoder')
+        self.decoder['glove'] = self.add_layer(self.encoder['glove'], (300, 300), None, 'glove_decoder')

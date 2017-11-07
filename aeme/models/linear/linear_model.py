@@ -34,8 +34,8 @@ class LinearModel(Model):
         self.noise_type = noise_type
         self.noise_ratio = noise_ratio
 
-    def _build_model(self):
-        self.encoder['cbow'] = self._add_layer(self.input['cbow'], (300, 300), None, 'cbow_encoder')
-        self.decoder['cbow'] = self._add_layer(self.encoder['cbow'], (300, 300), None, 'cbow_decoder')
-        self.encoder['glove'] = self._add_layer(self.input['glove'], (300, 300), None, 'glove_encoder')
-        self.decoder['glove'] = self._add_layer(self.encoder['glove'], (300, 300), None, 'glove_decoder')
+    def build_model(self):
+        self.encoder['cbow'] = self.add_layer(self.input['cbow'], (300, 300), None, 'cbow_encoder')
+        self.decoder['cbow'] = self.add_layer(self.encoder['cbow'], (300, 300), None, 'cbow_decoder')
+        self.encoder['glove'] = self.add_layer(self.input['glove'], (300, 300), None, 'glove_encoder')
+        self.decoder['glove'] = self.add_layer(self.encoder['glove'], (300, 300), None, 'glove_decoder')

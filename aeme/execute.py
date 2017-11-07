@@ -12,8 +12,8 @@ __author__ = 'Cong Bao'
 
 MODULE_PATH = r'F:/GitHub/AutoencodingMetaEmbedding'
 
-MODEL_TYPES = ['ae', 'conc', 'dae', 'linear', 'sdae']
-MODEL_NAMES = ['LinearModel']
+MODEL_TYPES = ['ae', 'conc', 'linear', 'sae']
+MODEL_NAMES = ['LinearModel', 'AESigmoidModel', 'AETanHModel', 'AEReluModel']
 NOISE_TYPES = ['GS', 'MN', 'SP', 'None']
 
 LOG_PATH = './log/'

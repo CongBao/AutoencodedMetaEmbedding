@@ -1,3 +1,3 @@
-"""stacked denoising autoencoder models"""
+"""stacked autoencoder models"""
 
 from __future__ import absolute_import

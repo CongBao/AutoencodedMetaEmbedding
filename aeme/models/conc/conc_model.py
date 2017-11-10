@@ -37,9 +37,6 @@ class ConcModel(Model):
         self.noise_type = noise_type
         self.noise_ratio = noise_ratio
 
-    def build_model(self):
-        pass
-
     def _generate_meta_embedding(self):
         meta_embedding = {}
         self.logger.log('Generating meta embeddings...')
@@ -47,6 +44,9 @@ class ConcModel(Model):
             meta_embedding[word] = np.concatenate([self.source_dict['cbow'][word], self.source_dict['glove'][word]])
         self.logger.log('Saving data into output file: %s' % self.output_path)
         io.save_embeddings(meta_embedding, self.output_path)
+
+    def build_model(self):
+        pass
 
     def run(self):
         self._load_data()

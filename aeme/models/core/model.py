@@ -222,10 +222,6 @@ class Model(object):
         else:
             return activation_func(tf.matmul(pre_layer, weight) + bias)
 
-    def show_params(self):
-        """Define the which log of parameters to show"""
-        raise NotImplementedError('Parameters Log Not Defined')
-
     def build_model(self):
         """Define the encoder and decoder here"""
         raise NotImplementedError('Model Not Defined')
@@ -235,7 +231,6 @@ class Model(object):
             :param params: a dict of parameters
         """
         self._configure(params)
-        self.show_params()
         self._load_data()
         self._def_inputs()
         self.build_model()

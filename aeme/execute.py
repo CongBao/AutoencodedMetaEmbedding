@@ -40,10 +40,15 @@ def main():
     parser.add_argument('--noise-ratio', dest='ratio', type=float, default=NOISE_RATIO, help='the ratio of noise')
     parser.add_argument('--cpu-only', dest='cpu', action='store_true', help='if use cpu only')
     args = parser.parse_args()
+
     sys.path.append(args.module)
+    if args.cpu:
+        os.environ['CUDA_VISIBLE_DEVICES'] = ''
+
     model_type, model_name = args.model
     assert model_type in MODEL_TYPES
     assert model_name in MODEL_NAMES
+    assert args.type in NOISE_TYPES
     exec('from aeme.models.' + model_type + '.' + model_type + '_model import ' + model_name)
     params = {
         'input_path': {
@@ -58,10 +63,7 @@ def main():
         'noise_type': args.type,
         'noise_ratio': args.ratio
     }
-    assert args.type in NOISE_TYPES
     model = eval(model_name + '(\'' + args.log + '\')')
-    if args.cpu:
-        os.environ['CUDA_VISIBLE_DEVICES'] = ''
     model.logger.log('AEME module path: %s' % args.module)
     model.logger.log('Model type: %s, model name: %s' % (model_type, model_name))
     model.logger.log('Input files: %s' % args.input)

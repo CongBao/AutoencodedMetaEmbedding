@@ -12,7 +12,7 @@ __author__ = 'Cong Bao'
 MODULE_PATH = r'F:/GitHub/AutoencodingMetaEmbedding'
 
 MODEL_TYPES = ['ae', 'conc', 'linear', 'sae']
-MODEL_NAMES = ['AESigmoidModel', 'AETanHModel', 'AEReluModel', 'LinearModel', 'TiedLinearModel', 'ConcModel']
+MODEL_NAMES = ['AESigmoidModel', 'AETanHModel', 'AEReluModel', 'LinearModel', 'TiedLinearModel', 'ConcModel', 'SAEModel']
 NOISE_TYPES = ['GS', 'MN', 'SP', None]
 
 LOG_PATH = './log/'
@@ -24,6 +24,8 @@ EPOCHS = 1000
 
 NOISE_TYPE = None
 NOISE_RATIO = 0.2
+
+STACK_TRAIN = [2, 1]
 
 def main():
     parser = argparse.ArgumentParser()
@@ -38,6 +40,7 @@ def main():
     parser.add_argument('-e', dest='epoch', type=int, default=EPOCHS, help='the number of epoches to train')
     parser.add_argument('--noise-type', dest='type', type=str, default=NOISE_TYPE, help='the type of noise')
     parser.add_argument('--noise-ratio', dest='ratio', type=float, default=NOISE_RATIO, help='the ratio of noise')
+    parser.add_argument('--stacked-train', dest='stack', nargs='+', type=int, default=STACK_TRAIN, help='the times of stacked training')
     parser.add_argument('--cpu-only', dest='cpu', action='store_true', help='if use cpu only')
     args = parser.parse_args()
 
@@ -61,7 +64,11 @@ def main():
         'batch_size': args.batch,
         'epoch': args.epoch,
         'noise_type': args.type,
-        'noise_ratio': args.ratio
+        'noise_ratio': args.ratio,
+        'stacked_train': {
+            'separate': args.stack[0],
+            'combine': args.stack[1]
+        }
     }
     model = eval(model_name + '(\'' + args.log + '\')')
     model.logger.log('AEME module path: %s' % args.module)
@@ -77,6 +84,8 @@ def main():
         model.logger.log('Noise type: %s' % args.type)
         if args.type is not None:
             model.logger.log('Noise ratio: %s' % args.ratio)
+        if model_type == 'sae':
+            model.logger.log('Stacked training times, separate: %s, combine: %s' % (args.stack[0], args.stack[1]))
         model.logger.log('Running on %s' % ('CPU' if args.cpu else 'GPU'))
     model.run(params)
 

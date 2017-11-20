@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-linear model
+regular model
 """
 
 from __future__ import division

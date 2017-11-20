@@ -84,7 +84,7 @@ class Model(object):
         self.logger.log('Loading glove complete')
         self.inter_words = set(self.source_dict['cbow'].keys()) & set(self.source_dict['glove'].keys())
         self.logger.log('Number of intersection words: %s' % len(self.inter_words))
-        self.source_groups = [[self.source_dict['cbow'][i], self.source_dict['glove'][i]] for i in self.inter_words]
+        self.source_groups = [[self.source_dict['cbow'][w], self.source_dict['glove'][w]] for w in self.inter_words]
 
     def _def_inputs(self):
         with tf.name_scope('inputs'):
@@ -194,7 +194,7 @@ class Model(object):
         for word in self.inter_words:
             i1_cbow = self.source_dict['cbow'][word].reshape((1, 300))
             i2_glove = self.source_dict['glove'][word].reshape((1, 300))
-            embed_cbow, embed_glove = self.session.run([self.encoder['cbow'], self.decoder['glove']],
+            embed_cbow, embed_glove = self.session.run([self.encoder['cbow'], self.encoder['glove']],
                                                        {self.input['cbow']: i1_cbow,
                                                         self.input['glove']: i2_glove})
             embed_cbow = embed_cbow.reshape((self.encoder['cbow'].shape[1]))

@@ -53,7 +53,7 @@ class Model(object):
 
         # tensorflow config
         self.graph = tf.Graph()
-        self.session = None
+        self.session = tf.Session()
         self.saver = None
         self.merged_summaries = None
         self.summary_writer = None
@@ -155,7 +155,6 @@ class Model(object):
         return noisy_batch
 
     def _train_model(self):
-        self.session = tf.Session()
         with self.session.as_default():
             self.graph = self.session.graph
             self.merged_summaries = tf.summary.merge_all()

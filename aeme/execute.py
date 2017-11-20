@@ -47,17 +47,21 @@ def main():
     assert model_name in MODEL_NAMES
     exec('from aeme.models.' + model_type + '.' + model_type + '_model import ' + model_name)
     input_path = json.dumps({'cbow': args.input[0], 'glove': args.input[1]})
+    params = {
+        'input_path': {
+            'cbow': args.input[0],
+            'glove': args.input[1]
+        },
+        'output_path': args.output,
+        'graph_path': args.graph,
+        'learning_rate': args.rate,
+        'batch_size': args.batch,
+        'epoch': args.epoch,
+        'noise_type': args.type,
+        'noise_ratio': args.ratio
+    }
     assert args.type in NOISE_TYPES
-    model = eval(model_name + '(\'' + 
-                 input_path + '\', \'' +
-                 args.output + '\', \'' +
-                 args.log + '\', \'' +
-                 args.graph + '\', ' +
-                 str(args.rate) + ', ' + 
-                 str(args.batch) + ', ' +
-                 str(args.epoch) + ', \'' +
-                 args.type + '\', ' +
-                 str(args.ratio) + ')')
+    model = eval(model_name + '(\'' + args.log + '\')')
     if args.cpu:
         os.environ['CUDA_VISIBLE_DEVICES'] = ''
     model.logger.log('AEME module path: %s' % args.module)
@@ -74,7 +78,7 @@ def main():
         if args.type != 'None':
             model.logger.log('Noise ratio: %s' % args.ratio)
         model.logger.log('Running on %s' % ('CPU' if args.cpu else 'GPU'))
-    model.run()
+    model.run(params)
     
 if __name__ == '__main__':
     main()

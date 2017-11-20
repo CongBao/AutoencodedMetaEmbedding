@@ -5,8 +5,6 @@ linear model
 
 from __future__ import division
 
-import json
-
 import tensorflow as tf
 
 from aeme.models.core.model import Model
@@ -15,26 +13,8 @@ __author__ = 'Cong Bao'
 
 class LinearModel(Model):
 
-    def __init__(self,
-                 input_path,
-                 output_path,
-                 log_path,
-                 graph_path,
-                 learning_rate,
-                 batch_size,
-                 epoch,
-                 noise_type,
-                 noise_ratio):
+    def __init__(self, log_path):
         Model.__init__(self, self.__class__.__name__, log_path)
-        self.input_path = json.loads(input_path)
-        self.output_path = output_path
-        self.log_path = log_path
-        self.graph_path = graph_path + self.name
-        self.learning_rate = learning_rate
-        self.batch_size = batch_size
-        self.epoch = epoch
-        self.noise_type = noise_type
-        self.noise_ratio = noise_ratio
 
     def build_model(self):
         self.encoder['cbow'] = self.add_layer(self.input['cbow'], (300, 300), None, 'cbow_encoder')
@@ -44,26 +24,8 @@ class LinearModel(Model):
 
 class TiedLinearModel(Model):
     
-    def __init__(self,
-                 input_path,
-                 output_path,
-                 log_path,
-                 graph_path,
-                 learning_rate,
-                 batch_size,
-                 epoch,
-                 noise_type,
-                 noise_ratio):
+    def __init__(self, log_path):
         Model.__init__(self, self.__class__.__name__, log_path)
-        self.input_path = json.loads(input_path)
-        self.output_path = output_path
-        self.log_path = log_path
-        self.graph_path = graph_path + self.name
-        self.learning_rate = learning_rate
-        self.batch_size = batch_size
-        self.epoch = epoch
-        self.noise_type = noise_type
-        self.noise_ratio = noise_ratio
 
     def build_model(self):
         with tf.name_scope('cbow_encoder'):

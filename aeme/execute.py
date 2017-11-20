@@ -4,7 +4,6 @@ execute the aeme
 """
 
 import argparse
-import json
 import os
 import sys
 
@@ -14,7 +13,7 @@ MODULE_PATH = r'F:/GitHub/AutoencodingMetaEmbedding'
 
 MODEL_TYPES = ['ae', 'conc', 'linear', 'sae']
 MODEL_NAMES = ['AESigmoidModel', 'AETanHModel', 'AEReluModel', 'LinearModel', 'TiedLinearModel', 'ConcModel']
-NOISE_TYPES = ['GS', 'MN', 'SP', 'None']
+NOISE_TYPES = ['GS', 'MN', 'SP', None]
 
 LOG_PATH = './log/'
 GRAPH_PATH = './graphs/'
@@ -23,8 +22,8 @@ LEARNING_RATE = 0.001
 BATCH_SIZE = 64
 EPOCHS = 1000
 
-NOISE_TYPE = 'None'
-NOISE_RATIO = 0.5
+NOISE_TYPE = None
+NOISE_RATIO = 0.2
 
 def main():
     parser = argparse.ArgumentParser()
@@ -46,7 +45,6 @@ def main():
     assert model_type in MODEL_TYPES
     assert model_name in MODEL_NAMES
     exec('from aeme.models.' + model_type + '.' + model_type + '_model import ' + model_name)
-    input_path = json.dumps({'cbow': args.input[0], 'glove': args.input[1]})
     params = {
         'input_path': {
             'cbow': args.input[0],
@@ -75,10 +73,10 @@ def main():
         model.logger.log('Batch size: %s' % args.batch)
         model.logger.log('Epoches to train: %s' % args.epoch)
         model.logger.log('Noise type: %s' % args.type)
-        if args.type != 'None':
+        if args.type is not None:
             model.logger.log('Noise ratio: %s' % args.ratio)
         model.logger.log('Running on %s' % ('CPU' if args.cpu else 'GPU'))
     model.run(params)
-    
+
 if __name__ == '__main__':
     main()

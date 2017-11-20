@@ -58,6 +58,19 @@ class Model(object):
         self.merged_summaries = None
         self.summary_writer = None
 
+    def _configure(self, params):
+        """ Configure parameters or hyperparameters
+            :param params: a dict of parameters
+        """
+        self.input_path = params.get('input_path')
+        self.output_path = params.get('output_path')
+        self.graph_path = params.get('graph_path', './graphs/') + self.name
+        self.learning_rate = params.get('learning_rate', 0.001)
+        self.batch_size = params.get('batch_size', 64)
+        self.epoch = params.get('epoch', 1000)
+        self.noise_type = params.get('noise_type')
+        self.noise_ratio = params.get('noise_ratio', 0.2)
+
     def _load_data(self):
         self.logger.log('Loading file: %s' % self.input_path['cbow'])
         self.source_dict['cbow'] = io.load_embeddings(self.input_path['cbow'])
@@ -209,12 +222,20 @@ class Model(object):
         else:
             return activation_func(tf.matmul(pre_layer, weight) + bias)
 
+    def show_params(self):
+        """Define the which log of parameters to show"""
+        raise NotImplementedError('Parameters Log Not Defined')
+
     def build_model(self):
         """Define the encoder and decoder here"""
         raise NotImplementedError('Model Not Defined')
 
-    def run(self):
-        """Use this function to run and train model"""
+    def run(self, params):
+        """ Use this function to run and train model
+            :param params: a dict of parameters
+        """
+        self._configure(params)
+        self.show_params()
         self._load_data()
         self._def_inputs()
         self.build_model()

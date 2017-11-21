@@ -20,10 +20,12 @@ class SAEModel(Model):
     def __init__(self, log_path):
         Model.__init__(self, self.__class__.__name__, log_path)
         self.stacked_train = {}
+        self.base_graph_path = None
 
     def _configure(self, params):
         super(SAEModel, self)._configure(params)
         self.stacked_train = params.get('stacked_train')
+        self.base_graph_path = self.graph_path
 
     def _redef_data(self):
         self.source_groups = []
@@ -138,6 +140,7 @@ class SAEModel(Model):
         self._def_optimizer()
         for itr in range(self.stacked_train['separate']):
             self.logger.log('Separated training: ' + str(itr + 1))
+            self.graph_path = self.base_graph_path + '_sep_' + str(itr + 1)
             self._train_model()
             self._redef_data()
             self.session = tf.Session()
@@ -148,6 +151,7 @@ class SAEModel(Model):
         self._def_regular_ae()
         for itr in range(self.stacked_train['combine']):
             self.logger.log('Combined training: ' + str(itr + 1))
+            self.graph_path = self.base_graph_path + '_com_' + str(itr + 1)
             self._train_regular_ae()
             self._redef_combine_data()
             self.session = tf.Session()

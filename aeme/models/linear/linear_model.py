@@ -12,6 +12,7 @@ from aeme.models.core.model import Model
 __author__ = 'Cong Bao'
 
 class LinearModel(Model):
+    """A regular linear model"""
 
     def __init__(self, log_path):
         Model.__init__(self, self.__class__.__name__, log_path)
@@ -23,6 +24,7 @@ class LinearModel(Model):
         self.decoder['glove'] = self.add_layer(self.encoder['glove'], (300, 300), None, 'glove_decoder')
 
 class TiedLinearModel(Model):
+    """A linear model with tied weight: W_D = W_E.T"""
     
     def __init__(self, log_path):
         Model.__init__(self, self.__class__.__name__, log_path)

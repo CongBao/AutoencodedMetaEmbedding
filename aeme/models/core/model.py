@@ -16,7 +16,7 @@ from aeme.utils.logger import Logger
 __author__ = 'Cong Bao'
 
 class Model(object):
-    """the base class of all models"""
+    """The base class of all models"""
 
     def __init__(self, name, log_path):
         # basic info
@@ -215,7 +215,7 @@ class Model(object):
         """ Function used to add a layer
             :param pre_layer: the previous layer
             :param shape: the shape of this layer, default None
-            :param activation_func: the activation function of this layer, None if linear, default None
+            :param activ_func: the activation function of this layer, None if linear, default None
             :param name: the name of this layer, default None
             :return: a new layer
         """

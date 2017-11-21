@@ -13,6 +13,7 @@ from aeme.utils import io
 __author__ = 'Cong Bao'
 
 class ConcModel(Model):
+    """A simple model using concatenation"""
 
     def __init__(self, log_path):
         Model.__init__(self, self.__class__.__name__, log_path)

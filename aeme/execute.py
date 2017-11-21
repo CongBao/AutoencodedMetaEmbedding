@@ -12,7 +12,8 @@ __author__ = 'Cong Bao'
 MODULE_PATH = r'F:/GitHub/AutoencodingMetaEmbedding'
 
 MODEL_TYPES = ['ae', 'conc', 'linear', 'sae']
-MODEL_NAMES = ['AESigmoidModel', 'AETanHModel', 'AEReluModel', 'LinearModel', 'TiedLinearModel', 'ConcModel', 'SAEModel']
+MODEL_NAMES = ['AEModel', 'TiedAEModel', 'ConcModel', 'LinearModel', 'TiedLinearModel', 'SAEModel']
+ACTIVATION_TYPES = ['sigmoid', 'tanh', 'relu', None]
 NOISE_TYPES = ['GS', 'MN', 'SP', None]
 
 LOG_PATH = './log/'
@@ -21,6 +22,7 @@ GRAPH_PATH = './graphs/'
 LEARNING_RATE = 0.001
 BATCH_SIZE = 64
 EPOCHS = 1000
+ACTIVATION = 'sigmoid'
 
 NOISE_TYPE = None
 NOISE_RATIO = 0.2
@@ -38,6 +40,7 @@ def main():
     parser.add_argument('-r', dest='rate', type=float, default=LEARNING_RATE, help='the learning rate of gradient descent')
     parser.add_argument('-b', dest='batch', type=int, default=BATCH_SIZE, help='the size of batches')
     parser.add_argument('-e', dest='epoch', type=int, default=EPOCHS, help='the number of epoches to train')
+    parser.add_argument('-a', dest='activ', type=str, default=ACTIVATION, help='the activation function')
     parser.add_argument('--noise-type', dest='type', type=str, default=NOISE_TYPE, help='the type of noise')
     parser.add_argument('--noise-ratio', dest='ratio', type=float, default=NOISE_RATIO, help='the ratio of noise')
     parser.add_argument('--stacked-train', dest='stack', nargs='+', type=int, default=STACK_TRAIN, help='the times of stacked training')
@@ -51,6 +54,7 @@ def main():
     model_type, model_name = args.model
     assert model_type in MODEL_TYPES
     assert model_name in MODEL_NAMES
+    assert args.activ in ACTIVATION_TYPES
     assert args.type in NOISE_TYPES
     exec('from aeme.models.' + model_type + '.' + model_type + '_model import ' + model_name)
     params = {
@@ -63,6 +67,7 @@ def main():
         'learning_rate': args.rate,
         'batch_size': args.batch,
         'epoch': args.epoch,
+        'activ_func': args.activ,
         'noise_type': args.type,
         'noise_ratio': args.ratio,
         'stacked_train': {
@@ -81,6 +86,8 @@ def main():
         model.logger.log('Learning rate: %s' % args.rate)
         model.logger.log('Batch size: %s' % args.batch)
         model.logger.log('Epoches to train: %s' % args.epoch)
+        if model_type == 'ae' or model_type == 'sae':
+            model.logger.log('Activation function: %s' % args.activ)
         model.logger.log('Noise type: %s' % args.type)
         if args.type is not None:
             model.logger.log('Noise ratio: %s' % args.ratio)

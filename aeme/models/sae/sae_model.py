@@ -61,7 +61,7 @@ class SAEModel(Model):
             self.source['meta'] = tf.placeholder(tf.float32, (None, 600), 's_meta')
             self.input['meta'] = tf.placeholder(tf.float32, (None, 600), 'i_meta')
         with tf.name_scope('meta_ae'):
-            self.encoder['meta'] = self.add_layer(self.input['meta'], (600, 600), lambda x:tf.nn.sigmoid(x) - 0.5, 'meta_encoder')
+            self.encoder['meta'] = self.add_layer(self.input['meta'], (600, 600), self.activ_func, 'meta_encoder')
             self.decoder['meta'] = self.add_layer(self.encoder['meta'], (600, 600), None, 'meta_decoder')
         with tf.name_scope('loss'):
             diff = tf.squared_difference(self.decoder['meta'], self.source['meta'])
@@ -124,9 +124,9 @@ class SAEModel(Model):
         io.save_embeddings(self.source_dict['meta'], self.output_path)
     
     def build_model(self):
-        self.encoder['cbow'] = self.add_layer(self.input['cbow'], (300, 300), lambda x:tf.nn.sigmoid(x) - 0.5, 'cbow_encoder')
+        self.encoder['cbow'] = self.add_layer(self.input['cbow'], (300, 300), self.activ_func, 'cbow_encoder')
         self.decoder['cbow'] = self.add_layer(self.encoder['cbow'], (300, 300), None, 'cbow_decoder')
-        self.encoder['glove'] = self.add_layer(self.input['glove'], (300, 300), lambda x:tf.nn.sigmoid(x) - 0.5, 'glove_encoder')
+        self.encoder['glove'] = self.add_layer(self.input['glove'], (300, 300), self.activ_func, 'glove_encoder')
         self.decoder['glove'] = self.add_layer(self.encoder['glove'], (300, 300), None, 'glove_decoder')
 
     def run(self, params):

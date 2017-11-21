@@ -40,6 +40,7 @@ class Model(object):
         self.learning_rate = None
         self.batch_size = None
         self.epoch = None
+        self.activ_func = None
         self.noise_type = None
         self.noise_ratio = None
 
@@ -68,6 +69,13 @@ class Model(object):
         self.learning_rate = params.get('learning_rate', 0.001)
         self.batch_size = params.get('batch_size', 64)
         self.epoch = params.get('epoch', 1000)
+        activ_type = params.get('activ_func')
+        if activ_type == 'sigmoid':
+            self.activ_func = lambda x: tf.nn.sigmoid(x) - 0.5
+        elif activ_type == 'tanh':
+            self.activ_func = tf.nn.tanh
+        elif activ_type == 'relu':
+            self.activ_func = tf.nn.relu
         self.noise_type = params.get('noise_type')
         self.noise_ratio = params.get('noise_ratio', 0.2)
 
@@ -203,7 +211,7 @@ class Model(object):
         self.logger.log('Saving data into output file: %s' % self.output_path)
         io.save_embeddings(meta_embedding, self.output_path)
 
-    def add_layer(self, pre_layer, shape=None, activation_func=None, name=None):
+    def add_layer(self, pre_layer, shape=None, activ_func=None, name=None):
         """ Function used to add a layer
             :param pre_layer: the previous layer
             :param shape: the shape of this layer, default None
@@ -216,10 +224,10 @@ class Model(object):
             bias = tf.Variable(tf.zeros(shape=(1, shape[1])), name='b_' + name)
             tf.summary.histogram('w_' + name, weight)
             tf.summary.histogram('b_' + name, bias)
-        if activation_func is None:
+        if activ_func is None:
             return tf.matmul(pre_layer, weight) + bias
         else:
-            return activation_func(tf.matmul(pre_layer, weight) + bias)
+            return activ_func(tf.matmul(pre_layer, weight) + bias)
 
     def build_model(self):
         """Define the encoder and decoder here"""

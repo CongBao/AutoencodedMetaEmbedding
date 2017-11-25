@@ -147,7 +147,7 @@ class Model(object):
         if self.noise_type is None:
             pass
         elif self.noise_type == 'GS':
-            noisy_batch += np.random.normal(0.0, self.noise_ratio, input_batch.shape)
+            noisy_batch += np.random.normal(0.0, self.noise_ratio ** 0.5, input_batch.shape)
         elif self.noise_type == 'MN':
             for i in range(batch_size):
                 mask = np.random.randint(0, feature_size, int(feature_size * self.noise_ratio))

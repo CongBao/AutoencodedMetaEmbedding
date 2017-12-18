@@ -22,6 +22,7 @@ GRAPH_PATH = './graphs/'
 LEARNING_RATE = 0.001
 BATCH_SIZE = 64
 EPOCHS = 1000
+REGULARIZATION_RATIO = None
 ACTIVATION = 'sigmoid'
 
 NOISE_TYPE = None
@@ -41,6 +42,7 @@ def main():
     parser.add_argument('-b', dest='batch', type=int, default=BATCH_SIZE, help='the size of batches')
     parser.add_argument('-e', dest='epoch', type=int, default=EPOCHS, help='the number of epoches to train')
     parser.add_argument('-a', dest='activ', type=str, default=ACTIVATION, help='the activation function')
+    parser.add_argument('--reg-ratio', dest='reg', type=float, default=REGULARIZATION_RATIO, help='the ratio of regularization')
     parser.add_argument('--noise-type', dest='type', type=str, default=NOISE_TYPE, help='the type of noise')
     parser.add_argument('--noise-ratio', dest='ratio', type=float, default=NOISE_RATIO, help='the ratio of noise')
     parser.add_argument('--stacked-train', dest='stack', nargs='+', type=int, default=STACK_TRAIN, help='the times of stacked training')
@@ -67,6 +69,7 @@ def main():
         'learning_rate': args.rate,
         'batch_size': args.batch,
         'epoch': args.epoch,
+        'reg_ratio': args.reg,
         'activ_func': args.activ,
         'noise_type': args.type,
         'noise_ratio': args.ratio,
@@ -86,6 +89,7 @@ def main():
         model.logger.log('Learning rate: %s' % args.rate)
         model.logger.log('Batch size: %s' % args.batch)
         model.logger.log('Epoches to train: %s' % args.epoch)
+        model.logger.log('Regularization ratio: %s' % args.reg)
         if model_type == 'ae' or model_type == 'sae':
             model.logger.log('Activation function: %s' % args.activ)
         model.logger.log('Noise type: %s' % args.type)

@@ -50,6 +50,11 @@ class TiedAEModel(Model):
             b_glove_de = tf.Variable(tf.zeros(shape=(1, 300)), name='b_glove_de')
             tf.summary.histogram('w_glove_de', w_glove_de)
             tf.summary.histogram('b_glove_de', b_glove_de)
+        if self.reg_ratio is not None:
+            self.reg_var.append(w_cbow_en)
+            self.reg_var.append(w_cbow_de)
+            self.reg_var.append(w_glove_en)
+            self.reg_var.append(w_glove_de)
         self.encoder['cbow'] = self.activ_func(tf.matmul(self.input['cbow'], w_cbow_en) + b_cbow_en)
         self.decoder['cbow'] = tf.matmul(self.encoder['cbow'], w_cbow_de) + b_cbow_de
         self.encoder['glove'] = self.activ_func(tf.matmul(self.input['glove'], w_glove_en) + b_glove_en)

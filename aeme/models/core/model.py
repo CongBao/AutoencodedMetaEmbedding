@@ -102,7 +102,7 @@ class Model(object):
         self.inter_words = set(self.source_dict['cbow'].keys()) & set(self.source_dict['glove'].keys())
         self.logger.log('Number of intersection words: %s' % len(self.inter_words))
         self.source_groups = [[self.source_dict['cbow'][w], self.source_dict['glove'][w]] for w in self.inter_words]
-        self.valid_words = set(random.sample(self.inter_words, round(0.1 * len(self.inter_words))))
+        self.valid_words = set(random.sample(self.inter_words, int(0.1 * len(self.inter_words))))
         self.train_words = self.inter_words - self.valid_words
         self.logger.log('Number of training words: %s' % len(self.train_words))
         self.logger.log('Number of validation words: %s' % len(self.valid_words))

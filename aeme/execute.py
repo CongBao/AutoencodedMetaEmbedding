@@ -22,6 +22,7 @@ GRAPH_PATH = './graphs/'
 LEARNING_RATE = 0.001
 BATCH_SIZE = 64
 EPOCHS = 1000
+VALIDATION_RATIO = 0.1
 REGULARIZATION_RATIO = None
 ACTIVATION = 'sigmoid'
 
@@ -42,6 +43,7 @@ def main():
     parser.add_argument('-b', dest='batch', type=int, default=BATCH_SIZE, help='the size of batches')
     parser.add_argument('-e', dest='epoch', type=int, default=EPOCHS, help='the number of epoches to train')
     parser.add_argument('-a', dest='activ', type=str, default=ACTIVATION, help='the activation function')
+    parser.add_argument('--valid-ratio', dest='valid', type=float, default=VALIDATION_RATIO, help='the ratio of validation set')
     parser.add_argument('--reg-ratio', dest='reg', type=float, default=REGULARIZATION_RATIO, help='the ratio of regularization')
     parser.add_argument('--noise-type', dest='type', type=str, default=NOISE_TYPE, help='the type of noise')
     parser.add_argument('--noise-ratio', dest='ratio', type=float, default=NOISE_RATIO, help='the ratio of noise')
@@ -69,6 +71,7 @@ def main():
         'learning_rate': args.rate,
         'batch_size': args.batch,
         'epoch': args.epoch,
+        'valid_ratio': args.valid,
         'reg_ratio': args.reg,
         'activ_func': args.activ,
         'noise_type': args.type,
@@ -89,6 +92,7 @@ def main():
         model.logger.log('Learning rate: %s' % args.rate)
         model.logger.log('Batch size: %s' % args.batch)
         model.logger.log('Epoches to train: %s' % args.epoch)
+        model.logger.log('Validation set ratio: %s' % args.valid)
         model.logger.log('Regularization ratio: %s' % args.reg)
         if model_type == 'ae' or model_type == 'sae':
             model.logger.log('Activation function: %s' % args.activ)

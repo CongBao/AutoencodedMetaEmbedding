@@ -45,6 +45,7 @@ class Model(object):
         self.learning_rate = None
         self.batch_size = None
         self.epoch = None
+        self.valid_ratio = None
         self.reg_ratio = None
         self.activ_func = None
         self.noise_type = None
@@ -77,6 +78,7 @@ class Model(object):
         self.learning_rate = params.get('learning_rate', 0.001)
         self.batch_size = params.get('batch_size', 64)
         self.epoch = params.get('epoch', 1000)
+        self.valid_ratio = params.get('valid_ratio', 0.1)
         self.reg_ratio = params.get('reg_ratio', None)
         activ_type = params.get('activ_func')
         if activ_type == 'sigmoid':
@@ -101,8 +103,8 @@ class Model(object):
         self.logger.log('Loading glove complete')
         self.inter_words = set(self.source_dict['cbow'].keys()) & set(self.source_dict['glove'].keys())
         self.logger.log('Number of intersection words: %s' % len(self.inter_words))
-        self.source_groups = [[self.source_dict['cbow'][w], self.source_dict['glove'][w]] for w in self.inter_words]
-        self.valid_words = set(random.sample(self.inter_words, int(0.1 * len(self.inter_words))))
+        #self.source_groups = [[self.source_dict['cbow'][w], self.source_dict['glove'][w]] for w in self.inter_words]
+        self.valid_words = set(random.sample(self.inter_words, int(self.valid_ratio * len(self.inter_words))))
         self.train_words = self.inter_words - self.valid_words
         self.logger.log('Number of training words: %s' % len(self.train_words))
         self.logger.log('Number of validation words: %s' % len(self.valid_words))

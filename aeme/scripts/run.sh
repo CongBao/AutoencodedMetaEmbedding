@@ -10,4 +10,5 @@ MODEL="ae AEModel"
 if [ -f "nohup.out" ]; then
     `rm nohup.out`
 fi
+
 `nohup python ../execute.py --module-path ~/aeme -m $MODEL -i $IN -o $OUT -b 128 -e 1000 --noise-type SP --noise-ratio 0.05 &`

@@ -1,0 +1,79 @@
+1, a, CLASS-INCLUSION, Taxonomic
+1, b, CLASS-INCLUSION, Functional
+1, c, CLASS-INCLUSION, Singular Collective
+1, d, CLASS-INCLUSION, Plural Collective
+1, e, CLASS-INCLUSION, ClassIndividual
+2, a, PART-WHOLE, Object:Component
+2, b, PART-WHOLE, Collection:Member
+2, c, PART-WHOLE, Mass:Potion
+2, d, PART-WHOLE, Event:Feature
+2, e, PART-WHOLE, Activity:Stage
+2, f, PART-WHOLE, Item:Topological Part
+2, g, PART-WHOLE, Object:Stuff
+2, h, PART-WHOLE, Creature:Possession
+2, i, PART-WHOLE, Item:Distinctive Nonpart
+2, j, PART-WHOLE, Item:Ex-part/Ex-possession
+3, a, SIMILAR, Synonymity
+3, b, SIMILAR, Dimensional Similarity
+3, c, SIMILAR, Dimensional Excessive
+3, d, SIMILAR, Dimensional Naughty
+3, e, SIMILAR, Conversion
+3, f, SIMILAR, Attribute Similarity
+3, g, SIMILAR, Coordinates
+3, h, SIMILAR, Change
+4, a, CONTRAST, Contradictory
+4, b, CONTRAST, Contrary
+4, c, CONTRAST, Reverse
+4, d, CONTRAST, Directional
+4, e, CONTRAST, Incompatible
+4, f, CONTRAST, Asymmetric Contrary
+4, g, CONTRAST, Pseudoantonym
+4, h, CONTRAST, Defective
+5, a, ATTRIBUTE, ItemAttribute(noun:adjective)
+5, b, ATTRIBUTE, Object Attribute:Condition
+5, c, ATTRIBUTE, ObjectState(noun:noun)
+5, d, ATTRIBUTE, Agent Attribute:State
+5, e, ATTRIBUTE, Object:Typical Action (noun.verb)
+5, f, ATTRIBUTE, Agent/ObjectAttribute:Typical Action
+5, g, ATTRIBUTE, Action:Action Attribute
+5, h, ATTRIBUTE, Action:Object Attribute
+5, i, ATTRIBUTE, Action:Resultant Attribute (verb:noun/adjective)
+6, a, NON-ATTRIBUTE, Item:Nonattribute (noun:adjective)
+6, b, NON-ATTRIBUTE, ObjectAttribute:Noncondition (adjective:adjective)
+6, c, NON-ATTRIBUTE, Object:Nonstate (noun:noun)
+6, d, NON-ATTRIBUTE, Attribute:Nonstate (adjective:noun)
+6, e, NON-ATTRIBUTE, Objects:Atypical Action (noun:verb)
+6, f, NON-ATTRIBUTE, Agent/Object Attribute: Atypical Action (adjective:verb)
+6, g, NON-ATTRIBUTE, Action:Action Nonattribute
+6, h, NON-ATTRIBUTE, Action:Object Nonattribute
+7, a, CASE RELATIONS, Agent:Object
+7, b, CASE RELATIONS, Agent:Recipient
+7, c, CASE RELATIONS, Agent:Instrument
+7, d, CASE RELATIONS, Action:Object
+7, e, CASE RELATIONS, Action:Recipient
+7, f, CASE RELATIONS, Object:Recipient
+7, g, CASE RELATIONS, Object:Instrument
+7, h, CASE RELATIONS, Recipient:Instrument
+8, a, CAUSE-PURPOSE, Cause:Effect
+8, b, CAUSE-PURPOSE, Cause:Compensatory Action
+8, c, CAUSE-PURPOSE, EnablingAgent:Object
+8, d, CAUSE-PURPOSE, Action/Activity:Goal
+8, e, CAUSE-PURPOSE, Agent:Goal
+8, f, CAUSE-PURPOSE, Instrument:Goal
+8, g, CAUSE-PURPOSE, Instrument:Intended Action
+8, h, CAUSE-PURPOSE, Prevention
+9, a, SPACE-TIME, Item:Location
+9, b, SPACE-TIME, Location:Process/Product
+9, c, SPACE-TIME, Location:Action/Activity
+9, d, SPACE-TIME, Location:Instrument/Associated Item
+9, e, SPACE-TIME, Contiguity
+9, f, SPACE-TIME, Time Action/Activity
+9, g, SPACE-TIME, Time Associated Item
+9, h, SPACE-TIME, Sequence
+9, i, SPACE-TIME, Attachment
+10, a, REFERENCE, Sign:Significant
+10, b, REFERENCE, Expression
+10, c, REFERENCE, Representation
+10, d, REFERENCE, Plan
+10, e, REFERENCE, Knowledge
+10, f, REFERENCE, Concealment

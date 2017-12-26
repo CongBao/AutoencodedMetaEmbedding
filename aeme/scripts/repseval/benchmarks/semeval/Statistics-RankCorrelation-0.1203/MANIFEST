@@ -1,0 +1,15 @@
+CHANGES
+eg/boolean_grids
+eg/permutations
+ignore.txt
+lib/Statistics/RankCorrelation.pm
+Makefile.PL
+MANIFEST			This list of files
+MANIFEST.SKIP
+README
+t/00-load.t
+t/01-methods.t
+t/boilerplate.t
+t/pod-coverage.t
+t/pod.t
+META.yml                                 Module meta-data (added by MakeMaker)

@@ -1,0 +1,3365 @@
+190 FROM REAL SATs
+lull	trust
+balk	fortitude
+betray	loyalty
+cajole	compliance
+hinder	destination
+soothe	passion
+c
+
+190 FROM REAL SATs
+ostrich	bird
+lion	cat
+goose	flock
+ewe	sheep
+cub	bear
+primate	monkey
+a
+
+190 FROM REAL SATs
+word	language
+paint	portrait
+poetry	rhythm
+note	music
+tale	story
+week	year
+c
+
+190 FROM REAL SATs
+coop	poultry
+aquarium	fish
+forest	wildlife
+crib	nursery
+fence	yard
+barn	tool
+a
+
+190 FROM REAL SATs
+legend	map
+subtitle	translation
+bar	graph
+figure	blueprint
+key	chart
+footnote	information
+d
+
+190 FROM REAL SATs
+billboard	advertisement
+sculpture	museum
+store	window
+library	book
+canvas	painting
+theater	intermission
+d
+
+190 FROM REAL SATs
+custom	society
+hypothesis	evidence
+testimony	trial
+ballot	election
+rule	game
+contest	debate
+d
+
+190 FROM REAL SATs
+tunnel	mine
+conduit	fluid
+corner	intersection
+sign	detour
+aisle	seat
+corridor	building
+e
+
+190 FROM REAL SATs
+diversion	boredom
+assurance	uncertainty
+enmity	hatred
+secrecy	curiosity
+reward	deed
+sluggishness	fatigue
+a
+
+190 FROM REAL SATs
+thicket	shrubs
+grove	trees
+orchard	apples
+pasture	cows
+reef	waves
+crop	plants
+a
+
+190 FROM REAL SATs
+condescending	respect
+bashful	attention
+obliging	thanks
+insecure	doubt
+merciless	compassion
+pathetic	pity
+d
+
+190 FROM REAL SATs
+livid	anger
+querulous	reconciliation
+forlorn	hope
+radiant	happiness
+graceful	posture
+marvelous	wonder
+c
+
+190 FROM REAL SATs
+fathom	depth
+amplify	volume
+overflow	capacity
+appraise	value
+stump	answer
+weigh	scale
+c
+
+190 FROM REAL SATs
+remuneration	labor
+gratuity	bonus
+apology	regret
+pledge	donation
+trophy	victory
+debt	loan
+d
+
+190 FROM REAL SATs
+tutor	pupil
+patron	client
+coach	athlete
+waiter	diner
+driver	passenger
+novelist	writer
+b
+
+190 FROM REAL SATs
+decorate	plain
+create	talented
+mend	repaired
+cook	raw
+sing	vocal
+narrate	fictitious
+c
+
+190 FROM REAL SATs
+pallid	color
+vital	energy
+parched	moisture
+restrained	limit
+measured	quantity
+deliberate	intention
+b
+
+190 FROM REAL SATs
+drift	move
+sprint	run
+boil	heat
+ramble	walk
+evade	elude
+crawl	creep
+c
+
+190 FROM REAL SATs
+crass	refinement
+inefficient	time
+prudent	discretion
+clairvoyant	perception
+inept	mistake
+pretentious	modesty
+e
+
+190 FROM REAL SATs
+pariah	ostracism
+idol	adulation
+gourmand	food
+scapegoat	symbol
+collector	ownership
+protagonist	narrative
+a
+
+190 FROM REAL SATs
+audience	theater
+crew	ship
+scholars	library
+group	society
+spectators	arena
+actors	stage
+d
+
+190 FROM REAL SATs
+quart	volume
+day	night
+mile	distance
+decade	century
+friction	heat
+part	whole
+b
+
+190 FROM REAL SATs
+cartographer	maps
+architect	blueprints
+bibliographer	books
+curator	artworks
+traveler	countries
+surveyor	instruments
+a
+
+190 FROM REAL SATs
+abrasive	skin
+flammable	fire
+resilient	shock
+soluble	water
+corrosive	iron
+responsive	stimulus
+d
+
+190 FROM REAL SATs
+canal	waterway
+skyline	city
+bank	stream
+hub	wheel
+dam	river
+reservoir	lake
+e
+
+190 FROM REAL SATs
+throng	people
+game	players
+picnic	woods
+swarm	insects
+cat	kittens
+vase	flowers
+c
+
+190 FROM REAL SATs
+foolhardy	recklessness
+defiant	complacency
+serene	tranquillity
+precious	worthlessness
+sociable	antagonism
+lucky	persistence
+b
+
+190 FROM REAL SATs
+emend	faulty
+recruit	competent
+fracture	separable
+renovate	habitable
+purify	contaminated
+reproduce	copied
+d
+
+190 FROM REAL SATs
+neighbor	proximity
+supervisor	obedience
+comrade	victory
+adversary	opposition
+traitor	loyalty
+teammate	competitiveness
+c
+
+190 FROM REAL SATs
+heckler	disconcert
+outcast	exclude
+firebrand	soothe
+performer	applaud
+monarch	depose
+lobbyist	persuade
+e
+
+190 FROM REAL SATs
+veer	course
+swerve	obstacle
+blaze	paint
+bar	door
+emigrate	travel
+digress	subject
+e
+
+190 FROM REAL SATs
+reveler	merrymaking
+hedonist	restraint
+demagogue	emotion
+anarchist	authority
+disputant	argument
+litigant	settlement
+d
+
+190 FROM REAL SATs
+malinger	work
+escape	flight
+accuse	crime
+hide	discovery
+shun	ridicule
+guess	answer
+c
+
+190 FROM REAL SATs
+shove	nudge
+vex	mutter
+calm	quell
+teach	lecture
+push	fight
+stare	glance
+e
+
+190 FROM REAL SATs
+barley	grain
+yeast	bread
+pine	tree
+vine	fruit
+knot	rope
+twig	nest
+b
+
+190 FROM REAL SATs
+locomotive	train
+horse	saddle
+tractor	plow
+rudder	rowboat
+camel	desert
+gasoline	automobile
+b
+
+190 FROM REAL SATs
+abridge	novel
+interrupt	conversation
+rehearse	play
+terminate	ending
+punctuate	sentence
+abbreviate	word
+e
+
+190 FROM REAL SATs
+chief	hierarchy
+office	rank
+platoon	army
+president	term
+lawyer	court
+summit	mountain
+e
+
+190 FROM REAL SATs
+unfetter	pinioned
+recite	practiced
+sully	impure
+enlighten	ignorant
+revere	unrecognized
+adore	cordial
+c
+
+190 FROM REAL SATs
+wing	air
+arm	hand
+lung	breath
+flipper	water
+cloud	sky
+engine	jet
+c
+
+190 FROM REAL SATs
+condense	short
+shrink	wet
+measure	equal
+magnify	invisible
+deflate	flat
+increase	boundless
+d
+
+190 FROM REAL SATs
+orator	speech
+protagonist	story
+chronicler	events
+playwright	stage
+comedian	jokes
+vocalist	voice
+d
+
+190 FROM REAL SATs
+jubilation	joy
+exaggeration	truth
+compassion	sympathy
+security	instability
+fortitude	danger
+emotion	anger
+b
+
+190 FROM REAL SATs
+dingy	building
+shabby	clothes
+discolored	bruise
+devastated	city
+vacant	apartment
+chapped	lips
+a
+
+190 FROM REAL SATs
+rangers	forest
+panel	contest
+corps	army
+members	board
+police	precinct
+climbers	mountain
+d
+
+190 FROM REAL SATs
+stimulant	activity
+symptom	disease
+food	hunger
+fertilizer	growth
+diagnosis	treatment
+gravity	force
+c
+
+190 FROM REAL SATs
+paramount	importance
+debatable	quality
+inaccurate	correction
+modulated	pitch
+unheralded	publicity
+precious	value
+e
+
+190 FROM REAL SATs
+raucous	sound
+dim	light
+noisy	uproar
+tanned	leather
+rough	texture
+hard	granite
+d
+
+190 FROM REAL SATs
+tourniquet	bleeding
+relapse	condition
+lotion	skin
+hoist	elevating
+splint	movement
+inflation	expanding
+d
+
+190 FROM REAL SATs
+cloying	sweetness
+shiny	polish
+pale	hue
+raspy	softness
+enchanting	desire
+garish	brightness
+e
+
+190 FROM REAL SATs
+perfidious	treachery
+philanthropic	destitution
+servile	submissiveness
+truculent	temperament
+bereft	consolation
+resplendent	drabness
+b
+
+190 FROM REAL SATs
+corroborate	claim
+document	assertion
+disprove	evidence
+sentence	punishment
+promise	advancement
+disseminate	information
+a
+
+190 FROM REAL SATs
+lubricant	slide
+battery	discharge
+glue	adhere
+stain	cleanse
+poison	ingest
+water	drink
+b
+
+190 FROM REAL SATs
+stomp	walk
+devour	starve
+shout	speak
+run	scamper
+prepare	finish
+deliberate	conclude
+b
+
+190 FROM REAL SATs
+index	topics
+agenda	meeting
+diary	secrets
+roster	names
+manual	equipment
+ledger	numbers
+c
+
+190 FROM REAL SATs
+mendicant	beg
+sycophant	demean
+braggart	boast
+parasite	contribute
+hero	worship
+dissembler	believe
+b
+
+190 FROM REAL SATs
+prudent	indiscretion
+frugal	wastefulness
+proud	accomplishment
+generous	wealth
+disqualified	competition
+disgruntled	cynicism
+a
+
+190 FROM REAL SATs
+viscous	flow
+transparent	see
+stationary	stop
+arid	rain
+stiff	bend
+damp	soak
+d
+
+190 FROM REAL SATs
+map	navigate
+manuscript	submit
+license	revoke
+writing	erase
+blueprint	build
+receipt	pay
+d
+
+190 FROM REAL SATs
+skull	head
+heart	organ
+finger	hand
+skeleton	body
+elbow	joint
+scalp	hair
+c
+
+190 FROM REAL SATs
+accomplice	crime
+inmate	prison
+detective	clue
+employer	work
+salesperson	store
+partner	business
+e
+
+190 FROM REAL SATs
+barricade	access
+heal	illness
+demand	due
+bind	movement
+complete	task
+chat	conversation
+c
+
+190 FROM REAL SATs
+ensemble	dancer
+clique	outsider
+band	musician
+gymnasium	athlete
+museum	curator
+audience	performer
+b
+
+190 FROM REAL SATs
+consider	contemplate
+smile	greet
+write	compose
+complain	bicker
+examine	scrutinize
+ignore	notice
+d
+
+190 FROM REAL SATs
+congeal	solid
+heat	fire
+breathe	air
+immunize	disease
+melt	liquid
+push	resistance
+d
+
+190 FROM REAL SATs
+shear	wool
+reap	wheat
+whittle	wood
+sweep	broom
+prune	tree
+rake	leaves
+a
+
+190 FROM REAL SATs
+epilogue	book
+sequel	movie
+conclusion	title
+tiff	quarrel
+intermission	play
+finale	symphony
+e
+
+190 FROM REAL SATs
+glutton	moderation
+thief	larceny
+peer	nobility
+scoundrel	virtue
+gambler	luck
+benefactor	gift
+c
+
+190 FROM REAL SATs
+affectation	behavior
+speech	topic
+tension	violence
+facade	appearance
+buffoonery	action
+pretense	honesty
+c
+
+190 FROM REAL SATs
+exhortation	urge
+division	unite
+agreement	dissent
+eulogy	praise
+travesty	reproduce
+charity	donate
+c
+
+190 FROM REAL SATs
+cooperation	collusion
+evidence	proof
+achievement	reward
+damage	compensation
+imitation	forgery
+emotion	ecstasy
+d
+
+190 FROM REAL SATs
+gaze	observer
+hear	listener
+banish	exile
+separate	joint
+operate	doctor
+sprain	ankle
+a
+
+190 FROM REAL SATs
+odometer	distance
+microscope	size
+decibel	loudness
+orchestra	instrument
+computer	data
+scale	weight
+e
+
+190 FROM REAL SATs
+copyright	book
+franchise	license
+lease	owner
+patent	design
+trademark	registration
+brand	manufacturer
+c
+
+190 FROM REAL SATs
+feign	deceive
+flee	elude
+dangle	drop
+send	receive
+contract	lengthen
+publish	write
+a
+
+190 FROM REAL SATs
+ethos	values
+accord	nations
+code	principles
+policy	officials
+debate	opinions
+offense	criminals
+b
+
+190 FROM REAL SATs
+torpid	sluggish
+wrong	apologetic
+refracted	direct
+comic	funny
+sad	empathetic
+merry	morose
+c
+
+190 FROM REAL SATs
+ruler	line
+stamp	letter
+period	dot
+key	door
+compass	circle
+thermometer	degree
+d
+
+190 FROM REAL SATs
+catnap	sleep
+exhaustion	slumber
+blink	eye
+snack	meal
+swallow	bite
+feast	banquet
+c
+
+190 FROM REAL SATs
+manager	store
+technician	laboratory
+student	school
+administrator	hospital
+spectator	arena
+president	electorate
+c
+
+190 FROM REAL SATs
+wallet	money
+safe	lock
+suitcase	clothing
+camera	film
+setting	jewel
+car	engine
+b
+
+190 FROM REAL SATs
+lubricate	smoothly
+weigh	heavily
+assist	grudgingly
+speak	softly
+muffle	quietly
+absorb	quickly
+d
+
+190 FROM REAL SATs
+bird	avian
+plant	tropical
+meat	carnivorous
+snake	slippery
+dog	canine
+lung	amphibian
+d
+
+190 FROM REAL SATs
+irrational	logic
+unrealistic	understanding
+unethical	morality
+illegible	erasure
+infinite	expansion
+factual	verification
+b
+
+190 FROM REAL SATs
+constellation	stars
+construction	houses
+honey	bees
+map	boundaries
+train	passengers
+range	mountains
+e
+
+190 FROM REAL SATs
+calculator	compute
+plug	insert
+clamp	grip
+saddle	straddle
+bridge	suspend
+incinerator	warm
+b
+
+190 FROM REAL SATs
+extravagant	spend
+belligerent	fight
+remarkable	surprise
+charitable	receive
+antagonistic	agree
+persuasive	believe
+a
+
+190 FROM REAL SATs
+architect	blueprint
+instructor	blackboard
+graduate	diploma
+musician	note
+painter	brush
+composer	score
+e
+
+190 FROM REAL SATs
+weave	fabric
+illustrate	manual
+hang	picture
+sew	thread
+bake	oven
+write	text
+e
+
+190 FROM REAL SATs
+testimony	witness
+leadership	follower
+proof	theorist
+expertise	authority
+contradiction	investigator
+confiscation	official
+c
+
+ML: http://www.kagi.com/edicom/edu/sat_51.htm (1) (fix judgment)
+criterion	judgment
+height	statue
+depth	bottom
+song	voice
+edge	sharpness
+standard	selection
+e
+
+ML: http://www.kagi.com/edicom/edu/sat_51.htm (2)
+abbreviation	word
+outline	story
+plot	fiction
+page	paper
+paragraph	book
+abstract	report
+e
+
+ML: http://www.kagi.com/edicom/edu/sat_51.htm (3)
+avaricious	greed
+proud	winner
+choleric	anger
+artistic	work
+ironic	wrath
+prolific	author
+b
+
+ML: http://www.kagi.com/edicom/edu/sat_51.htm (4)
+animosity	hatred
+carnal	active
+genial	amiable
+insomnia	sleepy
+pacify	peace
+liveliness	careful
+b
+
+ML: http://www.kagi.com/edicom/edu/sat_51.htm (5)
+mason	stone
+teacher	chalk
+carpenter	wood
+soldier	gun
+photograph	camera
+book	word
+b
+
+ML: http://www.kagi.com/edicom/edu/sat_51.htm (6)
+precarious	stability
+mean	gauge
+huge	weight
+exact	measure
+exotic	accord
+anomalous	model
+e
+
+ML: http://www.kagi.com/edicom/edu/sat_51.htm (7)
+binomial	name
+octagon	eight
+entreat	gift
+normal	mean
+centennial	year
+benediction	church
+d
+
+ML: http://www.kagi.com/edicom/edu/sat_51.htm (8)
+amplifier	ear
+computer	brain
+telescope	eye
+book	library
+clock	time
+keyboard	finger
+b
+
+ML: http://www.kagi.com/edicom/edu/sat_51.htm (9)
+opaque	transparent
+gaunt	rotund
+wary	angry
+thin	elongated
+proud	arrogant
+libel	free
+a
+
+ML: http://www.kagi.com/edicom/edu/sat_51.htm (10)
+rife	singular
+sharp	pointed
+one	unit
+round	square
+strong	weak
+smell	good
+d
+
+ML: http://www.kagi.com/edicom/edu/sat_52.htm (1)
+swarm	bee
+school	fish
+venison	deer
+oxen	cow
+peak	mountain
+skin	lion
+a
+
+ML: http://www.kagi.com/edicom/edu/sat_52.htm (2)
+obtain	steal
+quest	search
+ask	interrogate
+testify	perjure
+buy	sell
+ask	donate
+c
+
+ML: http://www.kagi.com/edicom/edu/sat_52.htm (3)
+inadvertent	thought
+ironic	wrath
+proud	prize
+artistic	work
+ungainly	skill
+prolific	design
+d
+
+ML: http://www.kagi.com/edicom/edu/sat_52.htm (4)
+parsimony	philanthropy
+carnal	active
+prejudice	tolerance
+generosity	kindness
+rivalry	noise
+liveliness	patience
+b
+
+ML: http://www.kagi.com/edicom/edu/sat_52.htm (5)
+devotion	obsession
+ability	skill
+confidence	conceit
+intelligence	capability
+surprise	horror
+pleasure	blessing
+b
+
+ML: http://www.kagi.com/edicom/edu/sat_52.htm (6)
+bequest	heir
+gift	recipient
+huge	weight
+painting	artist
+payment	donor
+measure	gauge
+a
+
+ML: http://www.kagi.com/edicom/edu/sat_52.htm (7) (spell corrected prosaic)
+prosaic	epic
+normal	mean
+powerful	omnipotent
+ephemeral	eternal
+octagon	eight
+beneficent	strong
+c
+
+ML: http://www.kagi.com/edicom/edu/sat_52.htm (8)
+corroded	alloy
+broken	contract
+written	rule
+outdated	book
+adjusted	clock
+corrupted	morality
+e
+
+ML: http://www.kagi.com/edicom/edu/sat_52.htm (9)
+depose	king
+eulogize	hero
+inaugurate	mayor
+promote	general
+unfrock	minister
+elect	leader
+d
+
+ML: http://www.kagi.com/edicom/edu/sat_52.htm (10)
+gauche	adroit
+weak	strong
+formidable	strong
+round	square
+sharp	pointed
+stately	grand
+a
+
+ML: http://www.kagi.com/edicom/edu/sat_53.htm (1)
+archeology	science
+ridge	mountain
+pride	lion
+oxen	cow
+chair	furniture
+mammal	horse
+d
+
+ML: http://www.kagi.com/edicom/edu/sat_53.htm (2)
+apprehensive	petrified
+happy	hostile
+elated	deaden
+sincere	satisfied
+emotional	accord
+cheerful	hilarious
+e
+
+ML: http://www.kagi.com/edicom/edu/sat_53.htm (3)
+stay	depart
+take	move
+stagnate	flow
+run	walk
+sleep	rest
+create	design
+b
+
+ML: http://www.kagi.com/edicom/edu/sat_53.htm (4)
+stammer	speech
+ovation	adulation
+hobble	movement
+generosity	kindness
+fighting	noise
+brightness	sight
+b
+
+ML: http://www.kagi.com/edicom/edu/sat_53.htm (5)
+corpulence	obesity
+ability	question
+enigma	puzzle
+intelligence	capability
+strong	weak
+pleasure	blessing
+b
+
+ML: http://www.kagi.com/edicom/edu/sat_53.htm (6)
+callow	experience
+painting	artist
+heavy	weight
+barren	fruit
+gift	donor
+measure	ounce
+c
+
+ML: http://www.kagi.com/edicom/edu/sat_53.htm (7)
+indolent	assiduous
+normal	mean
+powerful	omnipotent
+abstemious	overindulgent
+rife	vogue
+beneficial	strong
+c
+
+ML: http://www.kagi.com/edicom/edu/sat_53.htm (8)
+strident	sound
+fragrant	flower
+acrid	taste
+outdated	book
+adjusted	clock
+broken	glass
+b
+
+ML: http://www.kagi.com/edicom/edu/sat_53.htm (9)
+rehearsal	impromptu
+selection	decisive
+food	alive
+promotion	public
+comment	eulogize
+congregation	alone
+e
+
+ML: http://www.kagi.com/edicom/edu/sat_53.htm (10)
+lynch	execute
+interrogate	prosecute
+deface	kill
+testify	subpoena
+good	bad
+steal	confiscate
+e
+
+ML: http://www.appliedpractice.com/pdfs/Anal.%20and%20Sent.%20Comp.%20for%20S.%20L.pdf (1)
+audible	blaring
+silent	loud
+annoying	obnoxious
+clear	ostentatious
+legible	published
+edible	poisonous
+b
+
+ML: http://www.appliedpractice.com/pdfs/Anal.%20and%20Sent.%20Comp.%20for%20S.%20L.pdf (2)
+insubordination	punishment
+evening	night
+earthquake	tornado
+candor	falsehood
+heroism	praise
+fine	penalty
+d
+
+ML: http://www.appliedpractice.com/pdfs/Anal.%20and%20Sent.%20Comp.%20for%20S.%20L.pdf (3)
+enthusiast	fervor
+soldier	strength
+prisoner	remorse
+expert	skill
+servant	obedience
+parent	wisdom
+c
+
+ML: http://www.appliedpractice.com/pdfs/Anal.%20and%20Sent.%20Comp.%20for%20S.%20L.pdf (4)
+novice	experience
+pauper	wealth
+vehicle	wheels
+drop	out
+weather	mutability
+nurse	information
+a
+
+ML: http://www.appliedpractice.com/pdfs/Anal.%20and%20Sent.%20Comp.%20for%20S.%20L.pdf (5)
+talisman	charm
+omen	evil
+garb	rank
+signal	warning
+visage	countenance
+hate	love
+d
+
+ML: http://www.appliedpractice.com/pdfs/Anal.%20and%20Sent.%20Comp.%20for%20S.%20L.pdf (6)
+progenitor	descendant
+stem	leaves
+teacher	student
+mother	aunt
+cloud	rain
+parent	offspring
+e
+
+ML: http://www.appliedpractice.com/pdfs/Anal.%20and%20Sent.%20Comp.%20for%20S.%20L.pdf (7)
+dearth	abundance
+retribution	infamy
+death	funeral
+poverty	wealth
+contempt	anger
+ruse	plan
+c
+
+ML: http://www.appliedpractice.com/pdfs/Anal.%20and%20Sent.%20Comp.%20for%20S.%20L.pdf (8)
+eminence	infamy
+power	fame
+east	west
+indifference	nonchalance
+pride	shame
+royalty	nobility
+d
+
+ML: http://www.appliedpractice.com/pdfs/Anal.%20and%20Sent.%20Comp.%20for%20S.%20L.pdf (9) (spell corrected "conspiculous")
+vivid	lurid
+effectual	able
+expensive	exorbitant
+ghastly	gruesome
+conspicuous	sullied
+bold	tremulous
+b
+
+ML: http://www.appliedpractice.com/pdfs/Anal.%20and%20Sent.%20Comp.%20for%20S.%20L.pdf (10) (spell corrected "spontaneity")
+caprice	predictable
+indifference	callous
+caution	reckless
+concern	affectionate
+friendliness	congenial
+spontaneity	whimsical
+b
+
+ML: http://www.collegeboard.org/sat/center/q0101/113q.html (medium)
+precarious	stability
+cantankerous	testiness
+ornamental	flourishes
+susceptible	resistance
+flexible	strength
+conclusive	results
+c
+
+ML: http://www.collegeboard.org/sat/center/q1000/113q.html (hard)
+quack	doctor
+charlatan	impostor
+pretender	monarch
+defendant	prosecutor
+arbitrator	judge
+professional	amateur
+b
+
+ML: http://www.collegeboard.org/sat/center/q0501/v_a_1q.html (hard)
+hapless	lucky
+focused	attentive
+rash	prudent
+considerate	angry
+controversial	argumentative
+fortunate	complacent
+b
+
+ML: http://www.collegeboard.org/sat/center/q0501/v_a_2q.html (hard)
+acquit	charge
+accuse	offense
+punish	reward
+extricate	freedom
+camouflage	identity
+rescue	danger
+e
+
+ML: http://www.collegeboard.org/psat/student/bin/practice.cgi?va
+judicious	prudence
+deferential	scorn
+malevolent	influence
+indomitable	defeat
+stoic	hardship
+frivolous	giddiness
+e
+
+ML: http://www.collegeboard.org/psat/student/bin/practice.cgi?va&12&q
+lethargic	energy
+contrived	plot
+desultory	direction
+durable	structure
+frenetic	activity
+dejected	sympathy
+b
+
+ML: http://www.collegeboard.org/psat/student/bin/practice.cgi?va&11&q
+elastic	flexible
+diamond	hard
+ocean	nautical
+iron	rusty
+sandpaper	smooth
+water	irrigated
+a
+
+ML: http://www.collegeboard.org/psat/student/bin/practice.cgi?va&10&q
+unnerve	composure
+deviate	individuality
+corrupt	purity
+judge	verdict
+shock	amazement
+threaten	attack
+b
+
+ML: http://www.collegeboard.org/psat/student/bin/practice.cgi?va&9&q
+overexertion	fatigue
+exemption	participation
+injury	pain
+labor	recreation
+immunity	disease
+transformation	deterioration
+b
+
+ML: http://www.collegeboard.org/psat/student/bin/practice.cgi?va&8&q
+encourage	coerce
+implement	accomplish
+suggest	command
+hinder	facilitate
+filter	separate
+oppose	disagree
+b
+
+ML: http://www.collegeboard.org/psat/student/bin/practice.cgi?va&7&q
+bungler	finesse
+athlete	prowess
+thief	felony
+gossip	reserve
+preacher	oratory
+gourmet	cuisine
+c
+
+ML: http://www.collegeboard.org/psat/student/bin/practice.cgi?va&6&q
+drapery	fabric
+fireplace	wood
+curtain	stage
+shutter	light
+sieve	liquid
+window	glass
+e
+
+ML: http://www.collegeboard.org/psat/student/bin/practice.cgi?va&5&q
+best	seller
+anthology	poem
+rave	critic
+collector	painting
+performance	play
+hit	song
+e
+
+ML: http://www.collegeboard.org/psat/student/bin/practice.cgi?va&4&q
+excitement	frenzy
+communication	signal
+strength	resistance
+surprise	astonishment
+reform	corruption
+fondness	hatred
+c
+
+ML: http://www.collegeboard.org/psat/student/bin/practice.cgi?va&3&q
+magnify	appearance
+rectify	error
+augment	reduction
+probe	feeling
+amplify	volume
+distort	image
+d
+
+ML: http://www.collegeboard.org/psat/student/bin/practice.cgi?va&2&q
+pedestrian	walks
+soldier	obeys
+runner	stretches
+dentist	drills
+bicyclist	brakes
+motorist	drives
+e
+
+ML: http://www.collegeboard.org/psat/student/bin/practice.cgi?va&1&q
+song	repertoire
+score	melody
+instrument	artist
+solo	chorus
+benediction	church
+suit	wardrobe
+e
+
+ML: not sure...
+courier	message
+soldier	battle
+student	knowledge
+prophet	revelation
+judge	law
+athlete	prowess
+c
+
+ML: standard ETS example http://www.collegeboard.org/sat/center/tutor/anyl005.html
+crumb	bread
+ounce	unit
+splinter	wood
+water	bucket
+twine	rope
+cream	butter
+b
+
+ML: "One-on-one with the SATs" (1) EASY
+overcoat	warmth
+glove	hand
+jewelry	wealth
+slicker	moisture
+disguise	identification
+helmet	protection
+e
+
+ML: "One-on-one with the SATs" (2) EASY
+immaculate	clean
+enormous	large
+superficial	careful
+tiresome	bored
+precious	greedy
+obvious	deceptive
+a
+
+ML: "One-on-one with the SATs" (3) EASY
+scene	act
+outline	book
+line	stanza
+accent	stress
+rhyme	sound
+palette	painting
+b
+
+ML: "One-on-one with the SATs" (4) MEDIUM
+traffic	street
+ship	gangplank
+crop	harvest
+car	garage
+pedestrians	feet
+water	riverbed
+e
+
+ML: "One-on-one with the SATs" (5) MEDIUM
+mortar	brick
+sap	tree
+siding	house
+glue	paper
+core	apple
+oil	engine
+c
+
+ML: "One-on-one with the SATs" (6) HARD
+avenge	wrong
+reciprocate	favor
+compete	contest
+ponder	decision
+relegate	position
+decree	religion
+a
+
+ML: "One-on-one with the SATs" (7) HARD
+arboretum	botanical
+farm	domesticated
+planetarium	artificial
+university	academic
+aquarium	marine
+gymnasium	athletic
+d
+
+ML: "One-on-one with the SATs" (8) HARD
+fame	celebrity
+diploma	graduation
+vacation	employee
+value	treasure
+actor	theater
+laughter	joke
+c
+
+ML: "One-on-one with the SATs" (9) HARD
+squall	wind
+blizzard	winter
+spark	flame
+desert	sand
+cloudburst	rain
+snow	drift
+d
+
+ML: "One-on-one with the SATs" (10) HARD
+frighten	skittish
+despise	pleasant
+swindle	gullible
+parole	guilty
+caution	watchful
+shock	abrupt
+b
+
+ML: "One-on-one with the SATs" (11) HARD
+puppeteer	marionette
+teacher	textbook
+ballerina	leotard
+hypnotist	subject
+lawyer	criminal
+manager	baseball
+c
+
+ML: "One-on-one with the SATs" (12) HARD
+scapegoat	blame
+ingrate	gratitude
+apprentice	skill
+trickster	honesty
+truant	education
+effigy	hatred
+e
+
+ML: "One-on-one with the SATs" (13) HARD
+atrophy	withered
+contamination	impure
+putrefaction	preserved
+replication	completed
+inflation	reduced
+destruction	violent
+a
+
+ML: http://www.gre.org/pprepdwnld.html GRE questions (1)
+adult	child
+horse	mare
+cat	kitten
+swine	sow
+human	animal
+cow	herd
+b
+
+ML: http://www.gre.org/pprepdwnld.html GRE questions (2)
+mansion	residence
+limousine	automobile
+chandelier	candle
+tuxedo	wardrobe
+diamond	rhinestone
+yacht	harbor
+a
+
+ML: http://www.gre.org/pprepdwnld.html GRE questions (3)
+envelope	letter
+scarf	hat
+box	bag
+crate	produce
+neck	head
+blood	heart
+c
+
+ML: http://www.gre.org/pprepdwnld.html GRE questions (4)
+choreography	dance
+ceremony	sermon
+agenda	advertisement
+poetry	recitation
+instrumentation	conductor
+plot	story
+e
+
+ML: http://www.gre.org/pprepdwnld.html GRE questions (5)
+overdose	prescription
+deprivation	materialism
+indiscretion	convention
+affliction	sympathy
+adventure	expedition
+drug	medicine
+b
+
+ML: http://www.gre.org/pprepdwnld.html GRE questions (6)
+evaporate	vapor
+petrify	stone
+centrifuge	liquid
+saturate	fluid
+corrode	acid
+incinerate	fire
+a
+
+ML: http://www.gre.org/pprepdwnld.html GRE questions (7)
+shard	pottery
+flint	stone
+flange	wheel
+cinder	coal
+fragment	bone
+tare	grain
+d
+
+ML: http://www.gre.org/pprepdwnld.html GRE questions (8)  (PDT: "reverence" --> "revenge")
+mercenary	money
+vindictive	revenge
+scholarly	library
+immaculate	cleanliness
+thirsty	water
+belligerent	invasion
+a
+
+ML: http://www.gre.org/pprepdwnld.html GRE questions (9)
+hammer	anvil
+knocker	door
+stick	gong
+hand	drum
+pestle	mortar
+gavel	lectern
+d
+
+ML: http://www.gre.org/pprepdwnld.html GRE questions (10)
+numb	insensible
+reflect	luminous
+burnish	lustrous
+heckle	raucous
+repulse	odious
+braid	sinuous
+b
+
+ML: http://www.gre.org/pprepdwnld.html GRE questions (11)
+exorbitant	moderation
+dispassionate	equanimity
+macabre	interest
+perfidious	loyalty
+brilliant	gullibility
+lavish	extravagance
+c
+
+ML: http://www.gre.org/pprepdwnld.html GRE questions (12)
+troubled	distraught
+annoyed	disillusioned
+disturbed	interrupted
+covetous	rapacious
+outmoded	ostentatious
+tranquil	placid
+c
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_a_1.html (1)
+vertigo	dizzy
+temperature	virus
+influenza	feverish
+fear	heights
+illness	germs
+no	choice
+b
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_a_1.html (2)
+indigenous	native
+new	used
+alien	foreign
+aged	wrinkled
+immigrate	exodus
+no	choice
+b
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_a_1.html (3)
+palatable	toothsome
+rancid	fragrant
+chewy	textured
+coarse	rough
+solitude	company
+no	choice
+c
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_a_1.html (4)
+paint	canvas
+brush	bucket
+peanut	butter
+clock	time
+art	life
+no	choice
+b
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_a_1.html (5)
+seedy	elegant
+posh	sumptuous
+luxurious	spare
+moneyed	frugal
+rich	poor
+no	choice
+b
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_a_1.html (6)
+bungalow	domicile
+castle	turret
+bathroom	sink
+chair	furniture
+apartment	rent
+no	choice
+c
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_a_1.html (6)
+devour	consume
+abhor	dislike
+reject	despise
+praise	lavish
+ingest	reject
+no	choice
+a
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_a_1.html (7)
+tentacle	octopus
+oak	tree
+tendril	vine
+rat	vermin
+meow	cat
+no	choice
+b
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_a_1.html (8)
+submit	subordinate
+loud	cacophony
+rebel	solitude
+secede	autonomous
+inferior	dominant
+no	choice
+c
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_a_1.html (9)
+beagle	dog
+africa	continent
+meow	cat
+barnyard	farm
+picnic	basket
+no	choice
+a
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_b_1.html (1)
+indigence	opulence
+isolation	solitude
+inflated	exaggerated
+willful	oblivious
+infirmity	strength
+no	choice
+d
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_b_1.html (2)
+mentor	guide
+prophet	predict
+instructor	discipline
+tyrant	relentless
+citizen	unique
+no	choice
+a
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_b_1.html (3)
+haiku	poem
+song	musician
+novel	book
+artist	painting
+page	typeface
+no	choice
+b
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_b_1.html (4)
+dynamic	static
+movement	fluidity
+inherent	extrinsic
+border	threshold
+permission	allowance
+no	choice
+b
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_b_1.html (5) (wet stone->stone)
+sword	sheath
+knife	stone
+tool	garage
+pistol	holster
+gun	bullet
+no	choice
+d
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_b_1.html (6) (corrected tyrannosaurus)
+paleontologist	tyrannosaurus
+botanist	capsicum
+professor	student
+agriculturist	dairy
+priest	religion
+no	choice
+a
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_b_1.html (7)
+food	hunger
+love	loneliness
+ginseng	energy
+antiseptic	wound
+anodyne	pain
+no	choice
+a
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_b_1.html (8) (fishing rod->rod)
+crowbar	pry
+rod	trout
+pencil	draw
+nail	hammer
+telescope	star
+no	choice
+b
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_b_1.html (9)
+ream	paper
+stack	brick
+cord	wood
+barrel	oil
+bushel	apple
+no	choice
+b
+
+ML: http://www.queendom.com/tests/iq/verbal_iq_b_1.html (10)
+fond	doting
+polite	servile
+whisper	scream
+grasping	needy
+abstinent	indulgent
+no	choice
+c
+
+KS type: 1
+eagle	bird
+halibut	salmon
+beak	feather
+deer	fawn
+beagle	dog
+egg	chick
+d
+
+KS type: 2
+worry	panic
+brain	intelligence
+happiness	bliss
+smile	anger
+agenda	list
+clock	time
+b
+
+KS type: 3
+birds	wings
+moose	antlers
+camel	hump
+spider	legs
+alligator	tail
+cat	whiskers
+c
+
+KS type: 4
+pebble	rock
+mountain	peak
+gravel	driveway
+sand	desert
+minnow	fish
+melon	fruit
+d
+
+KS type: 5
+livid	angry
+vital	wary
+effusive	emotional
+vain	beautiful
+resolute	weak
+old	modern
+b
+
+KS type: 6
+saunter	walk
+snore	sleep
+drawl	speak
+throw	toss
+ladle	brush
+finish	end
+b
+
+KS type: 7
+alligator	reptile
+fish	school
+lion	cat
+wolf	sheep
+cub	bear
+dog	bone
+b
+
+KS type: 8
+cherry	fruit
+flour	bread
+knife	utensil
+grass	water
+sail	ship
+leaf	tree
+b
+
+KS type: 9
+oxygen	gas
+cobra	venom
+doctor	hospital
+aluminum	metal
+gymnasium	track
+airplane	cloud
+c
+
+KS type: 10
+shallow	depth
+salty	ocean
+cloudy	height
+lurid	shock
+pious	faith
+apathetic	caring
+e
+
+KS type: 11
+brazen	shame
+comprehensive	total
+inquisitive	curiosity
+moral	integrity
+oblivious	awareness
+witty	levity
+d
+
+KS type: 12
+amorphous	shape
+morbid	death
+intrepid	fear
+fundamental	basics
+prominent	sight
+hopeless	pessimism
+b
+
+KS type: 13
+scissors	cut
+window	close
+spice	season
+cloth	weave
+mask	frighten
+country	vote
+b
+
+KS type: 14
+glue	fasten
+laundry	fold
+bleach	color
+computer	repair
+steel	forge
+elevator	lift
+e
+
+KS type: 15
+ornament	embellish
+radio	repair
+antidote	poison
+detergent	clean
+carpenter	build
+rocket	launch
+c
+
+KS type: 16
+reprehensible	condemn
+torpid	rule
+innocent	judge
+depraved	admire
+estimable	praise
+worthy	parody
+d
+
+KS type: 17
+smile	happiness
+boredom	apathy
+cook	food
+comedy	laughter
+frown	anger
+resentment	mutiny
+d
+
+KS type: 18
+flowers	florist
+rings	jeweler
+pharmacy	pharmacist
+roses	arrangement
+wedding	caterer
+stethoscope	doctor
+a
+
+KS type: 19
+hoard	save
+economize	spend
+revere	admire
+sulk	roar
+flirt	giggle
+ignore	notice
+b
+
+KS type: 20
+playwright	actor
+architect	custodian
+composer	musician
+biographer	celebrity
+soldier	colonel
+lawyer	judge
+b
+
+KS type: 21
+building	blueprint
+report	outline
+chicken	egg
+brick	wall
+soup	ladle
+conduit	cement
+a
+
+KS type: 22
+antiseptic	germs
+sneezing	allergies
+earthquake	destruction
+water	thirst
+illness	fever
+executive	agenda
+c
+
+KS type: 23
+sluggish	energy
+sheer	cliff
+reticent	tack
+inebriated	memory
+trite	speech
+satiated	hunger
+e
+
+KS type: 24
+library	book
+scholar	knowledge
+stable	horse
+factory	outlet
+laboratory	radiation
+laser	energy
+b
+
+KS type: 25
+move	scurry
+scream	shout
+labor	rest
+breathe	pant
+arrest	indict
+jeer	mock
+c
+
+KS type: 26
+iron	metal
+hydrogen	water
+rock	quarry
+wheel	bicycle
+emerald	gem
+coral	ocean
+d
+
+KS type: 27
+emigrate	country
+retreat	position
+retire	pension
+voyage	suitcase
+swindle	property
+novel	old
+a
+
+KS type: 28
+injurious	harm
+criminal	restitution
+insincere	dismay
+sacred	relic
+soporific	sleep
+unethical	principles
+d
+
+KS type: 29
+omnipotent	power
+impudent	control
+daring	audacity
+parochial	scope
+objective	rage
+beguiling	disgust
+b
+
+KS type: 30
+temper	extreme
+deliver	speedy
+provoke	angry
+mitigate	severe
+slander	dishonest
+assuage	commodious
+c
+
+KS type: 31
+caricature	drawing
+eagle	bird
+impersonation	flattery
+limerick	poem
+ballad	song
+license	hunter
+c
+
+KS type: 32
+incorrigible	reformed
+unnerving	irritated
+innocuous	harmed
+irrelevant	verified
+insolvent	dissolved
+indelible	erased
+e
+
+KS type: 33
+propagandize	principles
+plagiarize	writing
+indemnify	damages
+indoctrinate	institutions
+pacify	aggression
+proselytize	religion
+e
+
+KS type: 34
+loathsome	contempt
+strident	loneliness
+unwitting	awareness
+impudent	regret
+omniscient	understanding
+meritorious	esteem
+e
+
+KS type: 35
+neophyte	experienced
+invalid	healthy
+pugilist	stubborn
+defendant	guilty
+scholar	erudite
+sentinel	guarded
+a
+
+KS type: 36
+hostile	bellicose
+indifferent	averse
+stubborn	obdurate
+morose	slothful
+unequivocal	skeptical
+angry	passive
+b
+
+KS type: 37
+bus	passengers
+train	caboose
+car	tires
+freighter	cargo
+plane	pilot
+yacht	owner
+c
+
+KS type: 38
+glaze	pottery
+scuff	furniture
+donate	tree
+ice	cake
+injure	gun
+chortle	laugh
+c
+
+KS type: 39
+burnish	metal
+cut	scissors
+deliver	box
+polish	wax
+sand	wood
+tarnish	silver
+d
+
+KS type: 40
+promontory	view
+haven	refuge
+waterfall	revelation
+prison	interrogation
+church	diversity
+memorial	architecture
+a
+
+KS type: 41
+amalgam	metals
+fracture	bones
+divorce	marriages
+coalition	factions
+car	payments
+convention	speeches
+c
+
+KS type: 42
+verification	confirm
+synopsis	avoid
+application	file
+obscenity	censor
+conciliation	appease
+reiteration	say
+c
+
+KS type: 43
+mechanical	garage
+artist	canvas
+administrator	personnel
+teller	window
+teacher	information
+nurse	hospital
+e
+
+KS type: 44
+sap	tree
+syrup	candy
+lint	clothes
+blood	mammal
+mold	bread
+fertilizer	plant
+c
+
+KS type: 45
+repeal	law
+withdraw	offer
+amend	agreement
+reconcile	amends
+demote	employee
+renovate	house
+a
+
+KS type: 46
+epilogue	play
+aria	opera
+trailer	movie
+afterword	book
+act	scene
+comedy	drama
+c
+
+KS type: 47
+treason	country
+settlement	lawyer
+embezzlement	employer
+justice	honor
+hospitality	generosity
+chagrin	mistake
+b
+
+KS type: 48
+territory	delegate
+whole	sample
+agent	manager
+lobbyist	senator
+pitch	salesman
+minority	majority
+a
+
+KS type: 49
+inquisitorial	curiosity
+morose	behavior
+injurious	prying
+ingenuous	innocence
+pernicious	damage
+laconic	speech
+c
+
+KS type: 50
+vulnerable	hurt
+fluid	changed
+vague	truncated
+virtuous	bribed
+witty	amused
+divergent	exploited
+a
+
+KS type: 51
+prevarication	statement
+conflagration	fire
+preamble	introduction
+indifferent	interest
+colt	horse
+pseudonym	name
+e
+
+KS type: 52
+abbreviation	word
+laminate	layer
+inhibit	idea
+expedite	mail
+invoke	deity
+abridge	book
+e
+
+KS type: 53
+patent	obvious
+contrite	happy
+curt	expansive
+voracious	hungry
+dissonant	emotive
+ephemeral	exorbitant
+c
+
+KS type: 54
+mundane	novel
+rate	prevalent
+essential	imperative
+sealed	hermetic
+spontaneous	combustive
+judicious	minimal
+a
+
+KS type: 55
+criticize	censorious
+explain	enigmatic
+discard	useless
+exude	flamboyant
+concur	sycophantic
+tremble	jocular
+d
+
+KS type: 56
+lame	mobility
+lively	energy
+hostile	enemy
+hoarse	speech
+fractured	cast
+walk	transportation
+c
+
+KS type: 57
+bankruptcy	money
+discrepancy	account
+empathy	feeling
+plan	organization
+apathy	caring
+homely	household
+d
+
+KS type: 58
+asteroid	planet
+quibble	objection
+gravel	sand
+mountain	hill
+wood	splinter
+radio	television
+a
+
+KS type: 59
+embargo	trade
+umbrella	clouds
+engine	automobile
+license	fishing
+alarm	valuable
+helmet	injury
+e
+
+KS type: 60
+alteration	suit
+digestion	snack
+revision	story
+irrigation	crop
+cooking	apron
+detection	gun
+b
+
+KS type: 61
+resolute	determination
+pristine	grace
+skeptical	doubt
+tainted	honor
+stringent	suggestions
+wary	risks
+b
+
+KS type: 62
+inaudible	amplifier
+incomprehensible	story
+imperceptible	microscope
+inadvertent	telescope
+heat	radiator
+unknown	mystery
+b
+
+KS type: 63
+vacillate	indecision
+lament	woe
+hibernate	winter
+extricate	entanglements
+digress	angst
+emulate	egotism
+a
+
+KS type: 64
+pastiche	writing
+collage	art
+melody	music
+bandage	medicine
+school	philosophy
+sequel	film
+a
+
+KS type: 65
+simian	ape
+feathered	vulture
+bovine	pasture
+infantile	child
+carnivorous	plant
+wizened	wisdom
+c
+
+KS type: 66
+levee	flood
+snow	avalanche
+rain	deluge
+immunization	disease
+zenith	view
+buttress	building
+c
+
+KS type: 67
+purgation	impurities
+catharsis	epiphanies
+sterilization	ailments
+salvation	prayers
+disinfection	bacteria
+inattention	details
+d
+
+KS type: 68
+philanthropist	largesse
+acrobat	net
+doctor	nurse
+mercenary	money
+professor	knowledge
+opportunist	advantage
+d
+
+ML: Kaplan, sample
+flake	snow
+storm	hail
+drop	rain
+field	wheat
+stack	hay
+cloud	sky
+b
+
+ML: Kaplan, adjustment sample
+banana	peel
+egg	crack
+carrot	uproot
+apple	core
+bread	slice
+corn	husk
+e
+
+ML: Kaplan, practice set 1 (1)
+tree	forest
+bird	sky
+fish	sea
+star	galaxy
+mammal	land
+lake	river
+c
+
+ML: Kaplan, practice set 1 (2)
+mare	horse
+cat	dog
+shark	fish
+worm	snake
+lion	tiger
+ewe	sheep
+e
+
+ML: Kaplan, practice set 1 (3)  (PDT: "cease-fire" --> "armistice")
+armistice	hostilities
+reckoning	probabilities
+truce	belligerents
+artillery	tanks
+campaign	strategies
+adjournment	proceedings
+e
+
+ML: Kaplan, practice set 1 (4)
+floral	flowers
+perennial	plants
+morbid	cemeteries
+emotional	feelings
+moral	stories
+maniacal	men
+c
+
+ML: Kaplan, practice set 1 (5)
+sequester	juror
+quarantine	patient
+cloister	convent
+parole	prisoner
+graduate	pupil
+elect	mayor
+a
+
+ML: Kaplan, practice set 1 (6)
+void	empty
+glut	prosperous
+system	organized
+answer	questioning
+ration	scarce
+intent	clear
+b
+
+ML: Kaplan, practice set 1 (7)
+evade	straightforward
+leave	inviting
+enliven	animated
+flatten	smooth
+boast	modest
+assist	helpful
+d
+
+ML: Kaplan, practice set 1 (8)
+fickle	inconsistency
+cloudy	warmth
+innate	capability
+worthy	heroism
+placid	calmness
+solid	order
+d
+
+ML: Kaplan, practice set 1 (9)
+immature	develop
+tempestuous	explode
+unready	prepare
+superstitious	believe
+unfeasible	originate
+fortuitous	plan
+b
+
+ML: Kaplan, practice set 1 (10)
+indolent	sloth
+fertile	fecundity
+presumptuous	deviation
+miserable	tragedy
+appealing	delineation
+destructive	progress
+a
+
+190 FROM REAL SATs
+recuperate	surgery
+restore	furniture
+cleanse	alcohol
+cure	illness
+revive	faint
+hospitalize	patient
+d
+
+190 FROM REAL SATs
+sketch	artist
+secret	confidant
+palette	painter
+cell	prisoner
+draft	writer
+chisel	sculptor
+d
+
+190 FROM REAL SATs
+yearn	longing
+beware	danger
+rush	patience
+enjoy	pleasure
+suppress	rage
+sleep	insomnia
+c
+
+190 FROM REAL SATs
+freight	truck
+goods	warehouse
+customers	store
+stevedores	ship
+engine	train
+passengers	bus
+e
+
+190 FROM REAL SATs
+chat	converse
+allege	deny
+halt	traverse
+purchase	rent
+study	learn
+browse	read
+e
+
+190 FROM REAL SATs
+collage	images
+medley	songs
+book	volumes
+survey	lands
+collection	lists
+assembly	bills
+a
+
+190 FROM REAL SATs
+abash	embarrassment
+dislike	hypocrisy
+pretend	imagination
+annoy	irritation
+suspect	illegality
+demolish	renovation
+c
+
+190 FROM REAL SATs
+terrestrial	land
+vegetarian	plants
+predatory	animal
+nocturnal	day
+arid	desert
+aquatic	water
+e
+
+190 FROM REAL SATs
+trial	jury
+dispute	arbiter
+poll	contestant
+championship	spectator
+conference	speaker
+match	competitor
+a
+
+190 FROM REAL SATs
+wedding	marriage
+birthday	cake
+coronation	reign
+graduation	diploma
+promotion	job
+decoration	bravery
+b
+
+190 FROM REAL SATs
+salve	wound
+utter	apology
+exploit	weakness
+mollify	anger
+squander	opportunity
+emulate	achievement
+c
+
+190 FROM REAL SATs
+refugee	asylum
+astronaut	capsule
+perfectionist	frustration
+consumer	impulse
+opportunist	advantage
+director	stage
+d
+
+190 FROM REAL SATs
+mystify	understanding
+nip	maturation
+insure	disaster
+rearrange	order
+intensify	endurance
+reciprocate	interchange
+a
+
+190 FROM REAL SATs
+actor	cast
+musician	orchestra
+singer	song
+lecturer	class
+congregation	church
+proofreader	text
+a
+
+190 FROM REAL SATs
+border	country
+current	river
+water	lake
+waves	sea
+horizon	sunset
+shore	ocean
+e
+
+190 FROM REAL SATs
+catalog	shopper
+contract	lawyer
+schedule	worker
+menu	diner
+article	author
+bank	teller
+c
+
+190 FROM REAL SATs
+volatile	vaporize
+translucent	illuminate
+brittle	bend
+frigid	chill
+ponderous	lift
+soluble	dissolve
+e
+
+190 FROM REAL SATs
+buttress	support
+encore	applause
+ornament	decoration
+choreography	dance
+prayer	religion
+thesis	evidence
+b
+
+190 FROM REAL SATs
+iconoclast	orthodoxy
+scientist	theory
+impostor	identity
+libertarian	tyranny
+conformist	expectation
+soldier	combat
+c
+
+190 FROM REAL SATs
+eraser	page
+mop	floor
+sponge	soap
+pen	ink
+nail	wall
+bleach	stain
+a
+
+190 FROM REAL SATs
+goggles	eyes
+belt	waist
+earrings	ears
+razor	hair
+gloves	cold
+helmet	head
+e
+
+190 FROM REAL SATs
+portfolio	documents
+album	photographs
+government	policies
+drama	acts
+excavation	artifacts
+rhythm	drums
+a
+
+190 FROM REAL SATs
+tentacles	octopus
+petals	flower
+tadpoles	frog
+claws	crab
+algae	seaweed
+quills	porcupine
+c
+
+190 FROM REAL SATs
+ticket	admission
+letter	salutation
+coupon	discount
+receipt	payment
+license	travel
+application	interview
+b
+
+190 FROM REAL SATs
+proficiency	expert
+recognition	winner
+victory	athlete
+passion	enthusiast
+appointment	official
+medicine	doctor
+c
+
+190 FROM REAL SATs
+cosmetics	embellish
+calculation	assess
+ornament	adorn
+painting	hang
+posture	improve
+dish	garnish
+b
+
+190 FROM REAL SATs
+carping	criticize
+vain	admire
+obliging	help
+retiring	boast
+jealous	possess
+wary	surprise
+b
+
+190 FROM REAL SATs
+reclusive	companionship
+frugal	extravagance
+organized	structure
+pitiful	compassion
+provocative	anger
+moody	unhappiness
+a
+
+190 FROM REAL SATs
+tactile	touch
+musical	hearing
+audible	volume
+nasal	smell
+sensitive	feeling
+visible	sight
+e
+
+190 FROM REAL SATs
+sort	criterion
+shuffle	order
+train	competence
+rank	value
+divide	quantity
+poll	opinion
+c
+
+190 FROM REAL SATs
+forensics	argumentation
+autopsy	death
+syntax	grammar
+jurisprudence	law
+archaeology	site
+etymology	dictionary
+c
+
+190 FROM REAL SATs
+intransigent	compromise
+permanent	stability
+dogged	surrender
+disorganized	chaos
+lonesome	friendship
+strenuous	exercise
+b
+
+190 FROM REAL SATs
+current	electricity
+gauge	measurement
+forge	metal
+beam	light
+ripple	lake
+curve	circle
+c
+
+190 FROM REAL SATs
+embroidery	cloth
+bracelet	jewelry
+mural	wall
+tattoo	design
+paint	color
+flower	vase
+b
+
+190 FROM REAL SATs
+waiter	diner
+ballerina	dancer
+clerk	customer
+nurse	orderly
+juror	judge
+captain	teammate
+b
+
+190 FROM REAL SATs
+kernel	nut
+yolk	egg
+grape	raisin
+flour	bread
+soil	seed
+thorn	stem
+a
+
+190 FROM REAL SATs
+nightmare	dream
+semaphore	signal
+dread	expectation
+lure	trap
+fear	victim
+frustration	confusion
+b
+
+190 FROM REAL SATs
+cogent	persuasiveness
+pardoned	blame
+staid	manner
+tactful	awkwardness
+conceited	reputation
+lucid	clarity
+e
+
+190 FROM REAL SATs
+drought	rain
+desert	sun
+hurricane	wind
+epidemic	disease
+volcano	lava
+famine	nourishment
+e
+
+190 FROM REAL SATs
+antibiotic	infection
+thermometer	fever
+anesthesia	surgery
+vaccine	inoculation
+antiseptic	alcohol
+antidote	poisoning
+e
+
+190 FROM REAL SATs
+humidifier	moisture
+iron	wrinkle
+candle	wax
+tub	liquid
+furnace	heat
+chimney	smoke
+d
+
+190 FROM REAL SATs
+condolence	mourner
+secret	stranger
+loan	borrower
+rescue	knight
+congratulation	victor
+record	athlete
+d
+
+190 FROM REAL SATs
+petal	flower
+oak	tree
+staple	paper
+sprout	seed
+tooth	comb
+tide	beach
+d
+
+190 FROM REAL SATs
+ruthless	compassion
+theatrical	emotion
+naive	sophistication
+scrupulous	propriety
+self-righteous	indignation
+formidable	awe
+b
+
+190 FROM REAL SATs
+emollient	soften
+oil	lubricate
+disinfectant	contaminate
+concrete	harden
+storm	thunder
+steam	evaporate
+a
+
+190 FROM REAL SATs
+caption	cartoon
+byline	newspaper
+laughter	comedy
+subtitle	film
+translation	paraphrase
+billboard	road
+c
+
+190 FROM REAL SATs
+berate	criticize
+goad	urge
+accuse	apologize
+regret	remember
+betray	follow
+evaluate	praise
+a
+
+190 FROM REAL SATs
+perceptive	discern
+determined	hesitate
+authoritarian	heed
+persistent	persevere
+abandoned	neglect
+restrained	rebel
+c
+
+190 FROM REAL SATs
+emulate	person
+admire	reputation
+obey	leader
+cooperate	partner
+mimic	gesture
+mock	sarcasm
+d
+
+190 FROM REAL SATs
+incumbent	office
+politician	campaign
+tenant	dwelling
+jailer	cell
+secretary	desk
+retiree	service
+b
+
+190 FROM REAL SATs
+conundrum	perplex
+theory	refute
+explanation	suffice
+blueprint	construct
+entertainment	divert
+expedition	discover
+d
+
+190 FROM REAL SATs
+museum	exhibit
+studio	painter
+library	research
+theater	performance
+picture	frame
+orchestra	conductor
+c
+
+190 FROM REAL SATs
+lens	glass
+well	water
+saw	wood
+sweater	wool
+fuel	fire
+ink	paper
+c
+
+190 FROM REAL SATs
+arena	conflict
+mirage	reality
+forum	discussion
+asylum	pursuit
+utopia	place
+amphitheater	stage
+b
+
+190 FROM REAL SATs
+arable	cultivation
+exploited	protection
+healthy	medication
+insular	discovery
+productive	surplus
+navigable	sailing
+e
+
+190 FROM REAL SATs
+refurbish	worn
+revive	exhausted
+reward	outstanding
+resume	interrupted
+replace	stolen
+repaint	glossy
+a
+
+190 FROM REAL SATs
+defend	untenable
+escape	unfettered
+judge	punitive
+modify	invariable
+flourish	vigorous
+protect	dangerous
+c
+
+190 FROM REAL SATs
+flap	wing
+speak	sound
+wave	hand
+whisper	word
+stub	toe
+sing	bird
+b
+
+190 FROM REAL SATs
+poison	toxic
+mixture	soluble
+sugar	sweet
+medicine	prescribed
+milk	bottled
+solid	liquid
+b
+
+190 FROM REAL SATs
+deduction	rational
+hunch	intuitive
+ploy	spontaneous
+maxim	hackneyed
+hypothesis	tested
+daydream	bored
+a
+
+190 FROM REAL SATs
+beauty	aesthete
+pleasure	hedonist
+emotion	demagogue
+opinion	sympathizer
+seance	medium
+luxury	ascetic
+a
+
+190 FROM REAL SATs
+flippancy	jollity
+recognition	achievement
+practice	expertise
+camaraderie	combativeness
+insolence	pride
+politeness	behavior
+d
+
+190 FROM REAL SATs
+incantation	words
+malediction	harm
+oration	formality
+talisman	object
+enchantment	happiness
+divination	future
+c
+
+190 FROM REAL SATs
+camera	photographer
+house	architect
+sink	plumber
+studio	painter
+meat	butcher
+drill	dentist
+e
+
+190 FROM REAL SATs
+format	newspaper
+binding	book
+design	building
+direction	sign
+market	commodity
+catalogue	library
+b
+
+190 FROM REAL SATs
+decibel	sound
+ingredient	food
+ruler	length
+calories	menu
+degree	temperature
+headphones	music
+d
+
+190 FROM REAL SATs
+arid	dry
+glacial	cold
+coastal	tidal
+damp	muddy
+snowbound	polar
+shallow	deep
+a
+
+190 FROM REAL SATs
+fission	energy
+reaction	response
+distortion	image
+nutrient	growth
+evaporation	liquid
+combustion	heat
+e
+
+190 FROM REAL SATs
+lobbyist	cause
+legislator	voter
+clergy	congregation
+advertiser	product
+defendant	verdict
+consumer	goods
+c
+
+190 FROM REAL SATs
+journal	article
+dance	ballet
+magazine	cover
+set	scenery
+anthology	poem
+concert	orchestra
+d
+
+190 FROM REAL SATs
+emissary	represent
+draftee	enroll
+novice	train
+president	elect
+guard	protect
+comedian	laugh
+d
+
+190 FROM REAL SATs
+potentate	power
+broadcaster	news
+virtuoso	skill
+protege	sponsorship
+maverick	group
+colleague	camaraderie
+b
+
+190 FROM REAL SATs
+postscript	letter
+preamble	document
+footnote	reference
+epilogue	play
+signature	name
+index	page
+c
+
+190 FROM REAL SATs
+impious	reverence
+profane	behavior
+paranoid	persecution
+contrite	offense
+superficial	depth
+contemptuous	scorn
+d
+
+190 FROM REAL SATs
+disingenuous	craftiness
+ecstatic	contentment
+idolatrous	doubt
+narcissistic	appearance
+penitent	wrongdoing
+surreptitious	stealth
+e
+
+190 FROM REAL SATs
+exculpate	blame
+extricate	difficulty
+exemplify	illustration
+expedite	process
+divulge	secret
+bewilder	confusion
+a
+
+190 FROM REAL SATs
+bruise	skin
+muscle	bone
+smudge	blemish
+rash	allergy
+layer	veneer
+stain	fabric
+e
+
+190 FROM REAL SATs
+carpenter	woodwork
+guitarist	pick
+cook	heat
+sculptor	studio
+weaver	cloth
+potter	shape
+d
+
+190 FROM REAL SATs
+walk	scurry
+march	follow
+carouse	revel
+nap	sleep
+impress	notice
+jog	sprint
+e
+
+190 FROM REAL SATs
+regale	entertain
+extol	praise
+educate	learn
+beautify	refresh
+tempt	repel
+hide	secrete
+a
+
+190 FROM REAL SATs
+recycle	waste
+salvage	rescuer
+restate	emphasis
+recall	product
+reclaim	land
+irrigate	earth
+d
+
+190 FROM REAL SATs
+florid	prose
+detailed	sketch
+melodious	music
+colorful	cliche
+tragic	play
+ornate	building
+e
+
+190 FROM REAL SATs
+story	building
+crust	sandwich
+shingle	roof
+data	file
+layer	cake
+root	plant
+d
+
+190 FROM REAL SATs
+sprout	seed
+pollinate	bee
+cure	disease
+stimulate	growth
+hatch	egg
+filter	impurity
+d
+
+190 FROM REAL SATs  (PDT: "place mat" --> "placemat")
+doormat	shoes
+placemat	table
+napkin	mouth
+fork	plate
+lace	boot
+curtain	window
+b
+
+190 FROM REAL SATs
+atlas	maps
+manual	instructions
+directory	pages
+almanac	years
+dictionary	writers
+tome	books
+a
+
+190 FROM REAL SATs
+dodo	bird
+horse	mule
+dinosaur	reptile
+venom	snake
+rooster	hen
+dog	puppy
+b
+
+190 FROM REAL SATs
+procrastinate	action
+reverse	direction
+postpone	event
+assign	choice
+endure	patience
+embezzle	fraud
+b
+
+190 FROM REAL SATs
+lummox	clumsy
+boon	beneficial
+egotist	conceited
+rascal	predictable
+maxim	hackneyed
+toady	important
+b
+
+190 FROM REAL SATs
+siren	warning
+shovel	dirt
+alarm	clock
+barrier	intrusion
+signal	reception
+light	illumination
+e
+
+190 FROM REAL SATs
+preamble	statute
+interlude	musical
+conclusion	argument
+foreword	novel
+epilogue	address
+premiere	performance
+c
+
+190 FROM REAL SATs
+hedonistic	pleasure
+promising	achievement
+vindictive	vengeance
+precocious	youth
+concerned	empathy
+cruel	mercy
+b
+
+190 FROM REAL SATs
+topic	discourse
+title	play
+subject	digression
+guideline	policy
+theme	essay
+footnote	text
+d
+
+190 FROM REAL SATs
+contemporaries	age
+housemates	residence
+faculty	scholarship
+idols	worship
+kin	reunion
+authors	anthology
+a
+
+190 FROM REAL SATs
+querulous	complain
+silent	talk
+humorous	laugh
+dangerous	risk
+deceitful	cheat
+gracious	accept
+d
+
+190 FROM REAL SATs
+seed	plant
+pouch	kangaroo
+root	soil
+drop	water
+bark	tree
+egg	bird
+e
+
+190 FROM REAL SATs
+sandal	footwear
+monarch	castle
+child	parent
+volume	bookcase
+watch	timepiece
+wax	candle
+d
+
+190 FROM REAL SATs
+rent	property
+sue	lawyer
+hire	employee
+pose	painter
+pay	debtor
+purchase	buyer
+b
+
+190 FROM REAL SATs
+virtuoso	music
+bard	poetry
+crescendo	scale
+lyricist	melody
+portrait	photography
+critic	performance
+a
+
+190 FROM REAL SATs
+audacious	boldness
+anonymous	identity
+remorseful	misdeed
+deleterious	result
+impressionable	temptation
+sanctimonious	hypocrisy
+e

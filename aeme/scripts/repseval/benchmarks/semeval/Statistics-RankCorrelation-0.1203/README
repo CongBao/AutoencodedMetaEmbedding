@@ -1,0 +1,48 @@
+MIDI-Simple-Drummer
+
+INSTALLATION
+
+Using CPAN:
+
+  cpan Statistics::RankCorrelation  # Shazaam!
+
+Do it by hand:
+
+  1: Download the current Statistics-RankCorrelation distribution.
+  2: Issue the following shell commands.
+    tar zxvf Statistics-RankCorrelation-XX.YY_ZZ.tar.gz
+    cd Statistics-RankCorrelation-XX.YY_ZZ
+    perl Makefile.PL
+    make
+    make test
+    make install
+
+SUPPORT AND DOCUMENTATION
+
+After installing, you can find documentation for this module with:
+
+    perldoc Statistics::RankCorrelation
+
+You can also look for information at:
+
+    RT, CPAN's request tracker
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=Statistics-RankCorrelation
+
+    AnnoCPAN, Annotated CPAN documentation
+        http://annocpan.org/dist/Statistics-RankCorrelation
+
+    CPAN Ratings
+        http://cpanratings.perl.org/d/Statistics-RankCorrelation
+
+    Search CPAN
+        http://search.cpan.org/dist/Statistics-RankCorrelation/
+
+COPYRIGHT AND LICENCE
+
+Copyright (C) 2009 Gene Boggs
+
+This program is free software; you can redistribute it and/or modify it
+under the terms of either: the GNU General Public License as published
+by the Free Software Foundation; or the Artistic License.
+
+See http://dev.perl.org/licenses/ for more information.

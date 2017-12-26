@@ -1,0 +1,79 @@
+1, a, CLASS-INCLUSION, Taxonomic, flower:tulip, emotion:rage, poem:sonnet
+1, b, CLASS-INCLUSION, Functional, ornament:brooch, weapon:knife, vehicle:car
+1, c, CLASS-INCLUSION, Singular Collective, cutlery:spoon, clothing:shirt, vermin:rat
+1, d, CLASS-INCLUSION, Plural Collective, groceries:eggs, dishes:saucers, refreshments:sandwiches
+1, e, CLASS-INCLUSION, ClassIndividual, queen:Elizabeth, river:Nile, mountain:Everest
+2, a, PART-WHOLE, Object:Component, car:engine, face:nose, novel:epilogue
+2, b, PART-WHOLE, Collection:Member, forest:tree, anthology:poem, fleet:ship
+2, c, PART-WHOLE, Mass:Potion, water:drop, mile:yard, time:moment
+2, d, PART-WHOLE, Event:Feature, rodeo:cowboy, banquet:food, wedding:bride
+2, e, PART-WHOLE, Activity:Stage, shopping:buying, planting:gardening, kickoff:football
+2, f, PART-WHOLE, Item:Topological Part, room:corner, mountain:foot, table:top
+2, g, PART-WHOLE, Object:Stuff, glacier:ice, salt:sodium, lens:glass
+2, h, PART-WHOLE, Creature:Possession, millionaire:money, author:copyright, robin:nest
+2, i, PART-WHOLE, Item:Distinctive Nonpart, tundra:tree, horse:wings, perfection:fault
+2, j, PART-WHOLE, Item:Ex-part/Ex-possession, apostate:belief, wood:splinter, prisoner:freedom
+3, a, SIMILAR, Synonymity, car:auto, buy:purchase, rapid:quick
+3, b, SIMILAR, Dimensional Similarity, enthusiasm:fervor, simmer:boil, stream:river
+3, c, SIMILAR, Dimensional Excessive, eating:gluttony, concerned:obsessed, bleeding:hemorrhage
+3, d, SIMILAR, Dimensional Naughty, copy:plagiarize,listen:eavesdrop, gaze:leer
+3, e, SIMILAR, Conversion, apprentice:master, colt:horse, grape:wine
+3, f, SIMILAR, Attribute Similarity, rake:fork, valley:gutter, painting:movie
+3, g, SIMILAR, Coordinates, ram:ewe, son:daughter, trackpad:mouse
+3, h, SIMILAR, Change, crescendo:sound, brighten:color, discount:price
+4, a, CONTRAST, Contradictory, alive:dead, masculinity:femininity, remember:forget
+4, b, CONTRAST, Contrary, old:young, happy:sad, smooth:rough
+4, c, CONTRAST, Reverse, attack:defend, buy:sell, love:hate
+4, d, CONTRAST, Directional, front:back, left:right,east:west, before:after, inside:outside
+4, e, CONTRAST, Incompatible, happy:morbid, vigilant:careless, slow:stationary
+4, f, CONTRAST, Asymmetric Contrary, hot:cool, destitute:rich, tiny:large, dry:moist
+4, g, CONTRAST, Pseudoantonym, popular:shy, right:bad, believe:deny
+4, h, CONTRAST, Defective, fallacy:logic, astigmatism:sight, limp:walk
+5, a, ATTRIBUTE, ItemAttribute(noun:adjective), beggar:poor, glass:fragile, hero:brave
+5, b, ATTRIBUTE, Object Attribute:Condition, brittle:broken, malleable:molded, edible:eaten
+5, c, ATTRIBUTE, ObjectState(noun:noun), beggar:poverty, dupe:gullibility, novice:inexperience
+5, d, ATTRIBUTE, Agent Attribute:State, contentious:conflict, taciturn:silence,celibate:abstinence
+5, e, ATTRIBUTE, Object:Typical Action (noun.verb), glass:break, soldier:fight, juggernaut:crush
+5, f, ATTRIBUTE, Agent/ObjectAttribute:Typical Action, viable:live, salient:notice, brittle:break
+5, g, ATTRIBUTE, Action:Action Attribute, creep:slow, exercise:vigorous, longing:passionate
+5, h, ATTRIBUTE, Action:Object Attribute, sterilize:infectious, capture:elusive, drink:potable
+5, i, ATTRIBUTE, Action:Resultant Attribute (verb:noun/adjective), rain:wet, riddle:holes,homogenize:uniform
+6, a, NON-ATTRIBUTE, Item:Nonattribute (noun:adjective), harmony:discordant, bulwark: flimsy, sound:inaudible
+6, b, NON-ATTRIBUTE, ObjectAttribute:Noncondition (adjective:adjective), brittle:molded, inconsolable:comforted, exemplary:criticized
+6, c, NON-ATTRIBUTE, Object:Nonstate (noun:noun), laureate:dishonor, famine:plenitude, war:tranquility, desert:lushness
+6, d, NON-ATTRIBUTE, Attribute:Nonstate (adjective:noun), dull:cunning, immortal:death, celibate:promiscuity
+6, e, NON-ATTRIBUTE, Objects:Atypical Action (noun:verb), recluse:socialize, ascetic:indulge, patron:disparage
+6, f, NON-ATTRIBUTE, Agent/Object Attribute: Atypical Action (adjective:verb), reticent:talk, obtrusive:ignore, garbled:comprehend
+6, g, NON-ATTRIBUTE, Action:Action Nonattribute, creep:fast, fade:abruptly, scream:quietly, destroy:gently
+6, h, NON-ATTRIBUTE, Action:Object Nonattribute, embellish:austere, obliterate:extant, cook:raw, mend:broken, contaminate:pure
+7, a, CASE RELATIONS, Agent:Object, tailor:suit, oracle:prophesy, baker:flour
+7, b, CASE RELATIONS, Agent:Recipient, doctor:patient, mentor:protege, judge:litigant
+7, c, CASE RELATIONS, Agent:Instrument, farmer:tractor, conductor:baton, arsonist:match
+7, d, CASE RELATIONS, Action:Object, plow:earth, sing:dirge, pardon:sin
+7, e, CASE RELATIONS, Action:Recipient, bequeath:heir, teach:student, announce:listener
+7, f, CASE RELATIONS, Object:Recipient, inheritance:heir, speech:audience, honor:laureate
+7, g, CASE RELATIONS, Object:Instrument, patient:stethoscope, violin:bow, pipe:wrench
+7, h, CASE RELATIONS, Recipient:Instrument, heir:testament, king:crown, graduate:diploma, police:badge
+8, a, CAUSE-PURPOSE, Cause:Effect, enigma:puzzlement, joke:laughter, practice:improvement
+8, b, CAUSE-PURPOSE, Cause:Compensatory Action, hunger:eat, fatigue:sleep, lateness:hurry
+8, c, CAUSE-PURPOSE, EnablingAgent:Object, match:candle, gasoline:car, mnemonic:memory
+8, d, CAUSE-PURPOSE, Action/Activity:Goal, eat:satiation, flee:escape, fertilize:grow
+8, e, CAUSE-PURPOSE, Agent:Goal, pilgrim:shrine, assassin:death, climber:peak
+8, f, CAUSE-PURPOSE, Instrument:Goal, anesthetic:numbness, ballast:stability, camouflage:concealment
+8, g, CAUSE-PURPOSE, Instrument:Intended Action, gun:shoot, pestle:mash, abacus:calculate
+8, h, CAUSE-PURPOSE, Prevention, pesticide:vermin, antidote:poison, lubricate:friction
+9, a, SPACE-TIME, Item:Location, arsenal:weapon, seminary:theologian, bookshelf:books
+9, b, SPACE-TIME, Location:Process/Product, bakery:bread, quarry:rock, laboratory:science
+9, c, SPACE-TIME, Location:Action/Activity, school:learning, gym:exercise, highway:driving
+9, d, SPACE-TIME, Location:Instrument/Associated Item, school:textbook, farm:tractor, beach:swimsuit
+9, e, SPACE-TIME, Contiguity, coast:ocean, sidewalk:road, horizon:sky, fence:property
+9, f, SPACE-TIME, Time Action/Activity, summer:harvest, childhood:play, spring:graduation
+9, g, SPACE-TIME, Time Associated Item, retirement:pension, infancy:cradle, adolescence:textbooks
+9, h, SPACE-TIME, Sequence, prologue:narrative, inception:development, coda:symphony
+9, i, SPACE-TIME, Attachment, belt:waist, rivet:girder, bowler:head
+10, a, REFERENCE, Sign:Significant, siren:danger, scepter:authority, signature:approval
+10, b, REFERENCE, Expression, smile:friendliness, lamentation:grief, hug:affection
+10, c, REFERENCE, Representation, person:portrait, backdrop:vista, diary:person
+10, d, REFERENCE, Plan, recipe:cake, syllabus:course, blueprint:building
+10, e, REFERENCE, Knowledge, psychology:minds, astronomy:stars, ballistics:projectiles
+10, f, REFERENCE, Concealment, alias:name, camouflage:location, disguise:identity

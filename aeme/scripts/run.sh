@@ -1,14 +1,18 @@
 #!/bin/bash
 
-IN="~/data/CBOW-full.txt ~/data/GloVe-full.txt"
-OUT="~/new_results/ae_SP_5.txt"
-MODEL="ae AEModel"
+MODULE="/home/cong/fyp"
+IN="/home/cong/data/CBOW-full.txt /home/cong/data/GloVe-full.txt"
+OUT="../results"
+RES="$OUT/${1:-"conc.txt"}"
+MODEL=${2:-"conc ConcModel"}
+TYPE=${3:-"MN"}
+RATIO=${4:-"0.1"}
 
 `export PATH=$PATH:/usr/local/cuda/bin`
 `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib:/usr/local/cuda/lib64`
 
-if [ -f "nohup.out" ]; then
-    `rm nohup.out`
+if [ ! -d $OUT ]; then
+    mkdir $OUT
 fi
 
-`nohup python ../execute.py --module-path ~/aeme -m $MODEL -i $IN -o $OUT -b 128 -e 1000 --noise-type SP --noise-ratio 0.05 &`
+`python ../execute.py --module-path $MODULE -m $MODEL -i $IN -o $OUT -b 128 -e 1000 --noise-type $TYPE --noise-ratio $RATIO`

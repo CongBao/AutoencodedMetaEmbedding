@@ -13,5 +13,6 @@ if [ ! -d $OUT ]; then
 fi
 
 for file in $IN/*.txt; do
+    echo "File to process: $file"
     (cd repseval/src && exec python eval.py -m all -d 600 -i $file -o $OUT/${file%.txt}.csv)
 done

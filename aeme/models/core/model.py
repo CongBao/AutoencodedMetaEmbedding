@@ -50,6 +50,7 @@ class Model(object):
         self.activ_func = None
         self.noise_type = None
         self.noise_ratio = None
+        self.meta_type = None
 
         # training data
         self.source = {}
@@ -91,6 +92,7 @@ class Model(object):
             self.activ_func = tf.nn.relu
         self.noise_type = params.get('noise_type')
         self.noise_ratio = params.get('noise_ratio', 0.2)
+        self.meta_type = params.get('meta_type', 'conc')
 
     def _load_data(self):
         self.logger.log('Loading file: %s' % self.input_path['cbow'])
@@ -246,7 +248,16 @@ class Model(object):
                                                         self.input['glove']: i2_glove})
             embed_cbow = embed_cbow.reshape((self.encoder['cbow'].shape[1]))
             embed_glove = embed_glove.reshape((self.encoder['glove'].shape[1]))
-            meta_embedding[word] = np.concatenate([embed_cbow, embed_glove])
+            if self.meta_type == 'src1':
+                meta_embedding[word] = embed_cbow
+            elif self.meta_type == 'src2':
+                meta_embedding[word] = embed_glove
+            elif self.meta_type == 'conc':
+                meta_embedding[word] = np.concatenate([embed_cbow, embed_glove])
+            elif self.meta_type == 'avg':
+                meta_embedding[word] = preprocess.normalize(np.add(embed_cbow, embed_glove), 1.0)
+            elif self.meta_type == 'svd':
+                pass
         self.logger.log('Saving data into output file: %s' % self.output_path)
         io.save_embeddings(meta_embedding, self.output_path)
 

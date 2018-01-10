@@ -15,6 +15,7 @@ MODEL_TYPES = ['ae', 'conc', 'linear', 'sae']
 MODEL_NAMES = ['AEModel', 'TiedAEModel', 'ConcModel', 'LinearModel', 'TiedLinearModel', 'SAEModel']
 ACTIVATION_TYPES = ['sigmoid', 'tanh', 'relu', None]
 NOISE_TYPES = ['GS', 'MN', 'SP', None]
+META_TYPES = ['src1', 'src2', 'conc', 'avg', 'svd']
 
 LOG_PATH = './log/'
 GRAPH_PATH = './graphs/'
@@ -25,6 +26,7 @@ EPOCHS = 1000
 VALIDATION_RATIO = 0.1
 REGULARIZATION_RATIO = None
 ACTIVATION = 'sigmoid_m'
+META_TYPE = 'conc'
 
 NOISE_TYPE = None
 NOISE_RATIO = 0.2
@@ -48,6 +50,7 @@ def main():
     parser.add_argument('--noise-type', dest='type', type=str, default=NOISE_TYPE, help='the type of noise')
     parser.add_argument('--noise-ratio', dest='ratio', type=float, default=NOISE_RATIO, help='the ratio of noise')
     parser.add_argument('--stacked-train', dest='stack', nargs='+', type=int, default=STACK_TRAIN, help='the times of stacked training')
+    parser.add_argument('--meta-type', dest='meta', type=str, default=META_TYPE, help='the type to generate meta embedding')
     parser.add_argument('--cpu-only', dest='cpu', action='store_true', help='if use cpu only')
     args = parser.parse_args()
 
@@ -60,6 +63,7 @@ def main():
     assert model_name in MODEL_NAMES
     assert args.activ in ACTIVATION_TYPES
     assert args.type in NOISE_TYPES
+    assert args.meta in META_TYPES
     exec('from aeme.models.' + model_type + '.' + model_type + '_model import ' + model_name)
     params = {
         'input_path': {
@@ -76,6 +80,7 @@ def main():
         'activ_func': args.activ,
         'noise_type': args.type,
         'noise_ratio': args.ratio,
+        'meta_type': args.meta,
         'stacked_train': {
             'separate': args.stack[0],
             'combine': args.stack[1]
@@ -101,6 +106,7 @@ def main():
             model.logger.log('Noise ratio: %s' % args.ratio)
         if model_type == 'sae':
             model.logger.log('Stacked training times, separate: %s, combine: %s' % (args.stack[0], args.stack[1]))
+        model.logger.log('Meta type: %s' % args.meta)
         model.logger.log('Running on %s' % ('CPU' if args.cpu else 'GPU'))
     model.run(params)
 

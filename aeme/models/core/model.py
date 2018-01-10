@@ -81,8 +81,10 @@ class Model(object):
         self.valid_ratio = params.get('valid_ratio', 0.1)
         self.reg_ratio = params.get('reg_ratio', None)
         activ_type = params.get('activ_func')
-        if activ_type == 'sigmoid':
+        if activ_type == 'sigmoid_m':
             self.activ_func = lambda x: tf.nn.sigmoid(x) - 0.5
+        elif activ_type == 'sigmoid':
+            self.activ_func = tf.nn.sigmoid
         elif activ_type == 'tanh':
             self.activ_func = tf.nn.tanh
         elif activ_type == 'relu':

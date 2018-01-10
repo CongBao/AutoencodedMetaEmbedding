@@ -9,7 +9,9 @@ import sys
 
 __author__ = 'Cong Bao'
 
-MODULE_PATH = r'F:/GitHub/AutoencodingMetaEmbedding'
+MODULE_PATH = r'/home/cong/fyp'
+INPUT_PATH = r'/home/cong/data/CBOW-full.txt /home/cong/data/GloVe-full.txt'
+MODEL = 'ae AEModel'
 
 MODEL_TYPES = ['ae', 'conc', 'linear', 'sae']
 MODEL_NAMES = ['AEModel', 'TiedAEModel', 'ConcModel', 'LinearModel', 'TiedLinearModel', 'SAEModel']
@@ -36,8 +38,8 @@ STACK_TRAIN = [2, 1]
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--module-path', dest='module', type=str, default=MODULE_PATH, help='the path of aeme module')
-    parser.add_argument('-m', dest='model', nargs='+', type=str, required=True, help='the model to train')
-    parser.add_argument('-i', dest='input', nargs='+', type=str, required=True, help='the input file(s) containing source vectors')
+    parser.add_argument('-m', dest='model', nargs='+', type=str, default=MODEL, help='the model to train')
+    parser.add_argument('-i', dest='input', nargs='+', type=str, default=INPUT_PATH, help='the input file(s) containing source vectors')
     parser.add_argument('-o', dest='output', type=str, required=True, help='the output file')
     parser.add_argument('--log-path', dest='log', type=str, default=LOG_PATH, help='the directory of log')
     parser.add_argument('--graph-path', dest='graph', type=str, default=GRAPH_PATH, help='the directory of graph')

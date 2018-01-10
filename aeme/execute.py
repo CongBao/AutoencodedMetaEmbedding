@@ -31,7 +31,7 @@ ACTIVATION = 'sigmoid_m'
 META_TYPE = 'conc'
 
 NOISE_TYPE = None
-NOISE_RATIO = 0.2
+NOISE_RATIO = 0.05
 
 STACK_TRAIN = [2, 1]
 

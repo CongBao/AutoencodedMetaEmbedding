@@ -33,6 +33,7 @@ META_TYPE = 'conc'
 NOISE_TYPE = 'MN'
 NOISE_RATIO = 0.05
 
+FACTORS = [1.0, 1.0, 1.0]
 STACK_TRAIN = [2, 1]
 
 def main():
@@ -47,11 +48,12 @@ def main():
     parser.add_argument('-b', dest='batch', type=int, default=BATCH_SIZE, help='the size of batches')
     parser.add_argument('-e', dest='epoch', type=int, default=EPOCHS, help='the number of epoches to train')
     parser.add_argument('-a', dest='activ', type=str, default=ACTIVATION, help='the activation function')
+    parser.add_argument('-f', dest='factor', type=float, nargs=3, default=FACTORS, help='factors add to loss function')
     parser.add_argument('--valid-ratio', dest='valid', type=float, default=VALIDATION_RATIO, help='the ratio of validation set')
     parser.add_argument('--reg-ratio', dest='reg', type=float, default=REGULARIZATION_RATIO, help='the ratio of regularization')
     parser.add_argument('--noise-type', dest='type', type=str, default=NOISE_TYPE, help='the type of noise')
     parser.add_argument('--noise-ratio', dest='ratio', type=float, default=NOISE_RATIO, help='the ratio of noise')
-    parser.add_argument('--stacked-train', dest='stack', nargs='+', type=int, default=STACK_TRAIN, help='the times of stacked training')
+    parser.add_argument('--stacked-train', dest='stack', nargs='2', type=int, default=STACK_TRAIN, help='the times of stacked training')
     parser.add_argument('--meta-type', dest='meta', type=str, default=META_TYPE, help='the type to generate meta embedding')
     parser.add_argument('--cpu-only', dest='cpu', action='store_true', help='if use cpu only')
     args = parser.parse_args()
@@ -80,6 +82,7 @@ def main():
         'valid_ratio': args.valid,
         'reg_ratio': args.reg,
         'activ_func': args.activ,
+        'factors': tuple(args.factors),
         'noise_type': args.type,
         'noise_ratio': args.ratio,
         'meta_type': args.meta,
@@ -103,6 +106,7 @@ def main():
         model.logger.log('Regularization ratio: %s' % args.reg)
         if model_type == 'ae' or model_type == 'sae':
             model.logger.log('Activation function: %s' % args.activ)
+        model.logger.log('Loss factors: %s' % args.factors)
         model.logger.log('Noise type: %s' % args.type)
         if args.type is not None:
             model.logger.log('Noise ratio: %s' % args.ratio)

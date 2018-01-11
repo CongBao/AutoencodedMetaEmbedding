@@ -48,6 +48,7 @@ class Model(object):
         self.valid_ratio = None
         self.reg_ratio = None
         self.activ_func = None
+        self.factors = None
         self.noise_type = None
         self.noise_ratio = None
         self.meta_type = None
@@ -90,7 +91,8 @@ class Model(object):
             self.activ_func = tf.nn.tanh
         elif activ_type == 'relu':
             self.activ_func = tf.nn.relu
-        self.noise_type = params.get('noise_type')
+        self.factors = params.get('factors', (1.0, 1.0, 1.0))
+        self.noise_type = params.get('noise_type', 'MN')
         self.noise_ratio = params.get('noise_ratio', 0.2)
         self.meta_type = params.get('meta_type', 'conc')
 
@@ -127,7 +129,8 @@ class Model(object):
             part1 = tf.squared_difference(self.encoder['cbow'], self.encoder['glove'])
             part2 = tf.squared_difference(self.decoder['cbow'], self.source['cbow'])
             part3 = tf.squared_difference(self.decoder['glove'], self.source['glove'])
-            self.loss = tf.reduce_mean(part1) + tf.reduce_mean(part2) + tf.reduce_mean(part3)
+            f1, f2, f3 = self.factors
+            self.loss = f1 * tf.reduce_mean(part1) + f2 * tf.reduce_mean(part2) + f3 * tf.reduce_mean(part3)
             if self.reg_ratio is not None:
                 self.loss += tf.reduce_mean(tf.add_n([tf.nn.l2_loss(v) for v in self.reg_var]) * self.reg_ratio)
             tf.summary.scalar('loss', self.loss)

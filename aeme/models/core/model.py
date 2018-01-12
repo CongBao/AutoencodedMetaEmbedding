@@ -91,6 +91,8 @@ class Model(object):
             self.activ_func = tf.nn.tanh
         elif activ_type == 'relu':
             self.activ_func = tf.nn.relu
+        else:
+            self.activ_func = None
         self.factors = params.get('factors', (1.0, 1.0, 1.0))
         self.noise_type = params.get('noise_type', 'MN')
         self.noise_ratio = params.get('noise_ratio', 0.2)

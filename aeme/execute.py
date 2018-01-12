@@ -53,7 +53,7 @@ def main():
     parser.add_argument('--reg-ratio', dest='reg', type=float, default=REGULARIZATION_RATIO, help='the ratio of regularization')
     parser.add_argument('--noise-type', dest='type', type=str, default=NOISE_TYPE, help='the type of noise')
     parser.add_argument('--noise-ratio', dest='ratio', type=float, default=NOISE_RATIO, help='the ratio of noise')
-    parser.add_argument('--stacked-train', dest='stack', nargs='2', type=int, default=STACK_TRAIN, help='the times of stacked training')
+    parser.add_argument('--stacked-train', dest='stack', nargs='+', type=int, default=STACK_TRAIN, help='the times of stacked training')
     parser.add_argument('--meta-type', dest='meta', type=str, default=META_TYPE, help='the type to generate meta embedding')
     parser.add_argument('--cpu-only', dest='cpu', action='store_true', help='if use cpu only')
     args = parser.parse_args()

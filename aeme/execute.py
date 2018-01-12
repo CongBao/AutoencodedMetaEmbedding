@@ -82,7 +82,7 @@ def main():
         'valid_ratio': args.valid,
         'reg_ratio': args.reg,
         'activ_func': args.activ,
-        'factors': tuple(args.factors),
+        'factors': tuple(args.factor),
         'noise_type': args.type,
         'noise_ratio': args.ratio,
         'meta_type': args.meta,
@@ -106,7 +106,7 @@ def main():
         model.logger.log('Regularization ratio: %s' % args.reg)
         if model_type == 'ae' or model_type == 'sae':
             model.logger.log('Activation function: %s' % args.activ)
-        model.logger.log('Loss factors: %s' % args.factors)
+        model.logger.log('Loss factors: %s' % args.factor)
         model.logger.log('Noise type: %s' % args.type)
         if args.type is not None:
             model.logger.log('Noise ratio: %s' % args.ratio)

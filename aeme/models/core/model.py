@@ -11,7 +11,7 @@ import random
 import numpy as np
 import tensorflow as tf
 
-from aeme.utils import io, preprocess
+from aeme.utils import io, data_process
 from aeme.utils.logger import Logger
 
 __author__ = 'Cong Bao'
@@ -102,12 +102,12 @@ class Model(object):
         self.logger.log('Loading file: %s' % self.input_path['cbow'])
         self.source_dict['cbow'] = io.load_embeddings(self.input_path['cbow'])
         self.logger.log('Normalizing source embeddings: cbow')
-        self.source_dict['cbow'] = preprocess.normalize_embeddings(self.source_dict['cbow'], 1.0)
+        self.source_dict['cbow'] = data_process.normalize_embeddings(self.source_dict['cbow'], 1.0)
         self.logger.log('Loading cbow complete')
         self.logger.log('Loading file: %s' % self.input_path['glove'])
         self.source_dict['glove'] = io.load_embeddings(self.input_path['glove'])
         self.logger.log('Normalizing source embeddings: glove')
-        self.source_dict['glove'] = preprocess.normalize_embeddings(self.source_dict['glove'], 1.0)
+        self.source_dict['glove'] = data_process.normalize_embeddings(self.source_dict['glove'], 1.0)
         self.logger.log('Loading glove complete')
         self.inter_words = set(self.source_dict['cbow'].keys()) & set(self.source_dict['glove'].keys())
         self.logger.log('Number of intersection words: %s' % len(self.inter_words))
@@ -257,12 +257,12 @@ class Model(object):
                 meta_embedding[word] = embed_cbow
             elif self.meta_type == 'src2':
                 meta_embedding[word] = embed_glove
-            elif self.meta_type == 'conc':
-                meta_embedding[word] = np.concatenate([embed_cbow, embed_glove])
             elif self.meta_type == 'avg':
-                meta_embedding[word] = preprocess.normalize(np.add(embed_cbow, embed_glove), 1.0)
-            elif self.meta_type == 'svd':
-                pass
+                meta_embedding[word] = data_process.normalize(np.add(embed_cbow, embed_glove), 1.0)
+            else:
+                meta_embedding[word] = np.concatenate([embed_cbow, embed_glove])
+        if self.meta_type == 'svd':
+            meta_embedding = data_process.tsvd(meta_embedding)
         self.logger.log('Saving data into output file: %s' % self.output_path)
         io.save_embeddings(meta_embedding, self.output_path)
 

@@ -23,13 +23,13 @@ def normalize_embeddings(embedding_dict, scale_factor):
         embedding_dict[word] = normalize(values, scale_factor)
     return embedding_dict
 
-def tsvd(embedding_dict, dim=300):
+def tsvd(embedding_dict, dim=300, niter=10):
     """
     perform truncated SVD on embedding set
     """
     words = list(embedding_dict.keys())
     arr = np.asarray([embedding_dict[word] for word in words])
-    svd = TruncatedSVD(dim)
+    svd = TruncatedSVD(n_components=dim, n_iter=niter)
     reduced = svd.fit_transform(arr)
     res = {}
     for i, vec in enumerate(reduced):

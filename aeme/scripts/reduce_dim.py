@@ -8,8 +8,6 @@ import sys
 
 import numpy as np
 
-from aeme.utils import data_process, io
-
 __author__ = 'Cong Bao'
 
 MODULE_PATH = '/home/cong/fyp'
@@ -27,6 +25,7 @@ def main():
     args = parser.parse_args()
     sys.path.append(args.module)
     assert args.method in METHODS
+    from aeme.utils import data_process, io
     raw = io.load_embeddings(args.input)
     new = {}
     if args.method == 'svd':

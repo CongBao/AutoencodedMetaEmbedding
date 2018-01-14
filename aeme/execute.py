@@ -14,7 +14,7 @@ INPUT_PATH = ['/home/cong/data/CBOW-full.txt', '/home/cong/data/GloVe-full.txt']
 MODEL = ['ae', 'AEModel']
 
 MODEL_TYPES = ['ae', 'conc', 'linear', 'sae']
-MODEL_NAMES = ['AEModel', 'TiedAEModel', 'ConcModel', 'LinearModel', 'TiedLinearModel', 'SAEModel']
+MODEL_NAMES = ['AEModel', 'TiedAEModel', 'ZipAEModel', 'ConcModel', 'LinearModel', 'TiedLinearModel', 'SAEModel']
 ACTIVATION_TYPES = ['sigmoid_m', 'sigmoid', 'tanh', 'relu', 'None']
 NOISE_TYPES = ['GS', 'MN', 'SP', 'None']
 META_TYPES = ['src1', 'src2', 'conc', 'avg', 'svd']

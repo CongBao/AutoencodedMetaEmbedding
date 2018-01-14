@@ -24,7 +24,7 @@ class AEModel(Model):
         self.decoder['glove'] = self.add_layer(self.encoder['glove'], (300, 300), None, 'glove_decoder')
 
 class TiedAEModel(Model):
-    """A autoencoder model with tied weights: W_D = W_E.T"""
+    """An autoencoder model with tied weights: W_D = W_E.T"""
     
     def __init__(self, log_path):
         Model.__init__(self, self.__class__.__name__, log_path)
@@ -59,3 +59,15 @@ class TiedAEModel(Model):
         self.decoder['cbow'] = tf.matmul(self.encoder['cbow'], w_cbow_de) + b_cbow_de
         self.encoder['glove'] = self.activ_func(tf.matmul(self.input['glove'], w_glove_en) + b_glove_en)
         self.decoder['glove'] = tf.matmul(self.encoder['glove'], w_glove_de) + b_glove_de
+
+class ZipAEModel(Model):
+    """An autoencoder model with hidden layer size half as input layer size"""
+
+    def __init__(self, log_path):
+        Model.__init__(self, self.__class__.__name__, log_path)
+
+    def build_model(self):
+        self.encoder['cbow'] = self.add_layer(self.input['cbow'], (300, 150), self.activ_func, 'cbow_encoder')
+        self.decoder['cbow'] = self.add_layer(self.encoder['cbow'], (150, 300), None, 'cbow_decoder')
+        self.encoder['glove'] = self.add_layer(self.input['glove'], (300, 150), self.activ_func, 'glove_encoder')
+        self.decoder['glove'] = self.add_layer(self.encoder['glove'], (150, 300), None, 'glove_decoder')

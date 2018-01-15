@@ -136,7 +136,7 @@ class Model(object):
             if self.reg_ratio is not None:
                 self.loss += tf.reduce_mean(tf.add_n([tf.nn.l2_loss(v) for v in self.reg_var]) * self.reg_ratio)
             tf.summary.scalar('loss', self.loss)
-            self.valid = tf.reduce_mean(part1) + tf.reduce_mean(part2) + tf.reduce_mean(part3)
+            self.valid = f1 * tf.reduce_mean(part1) + f2 * tf.reduce_mean(part2) + f3 * tf.reduce_mean(part3)
             if self.reg_ratio is not None:
                 self.valid += tf.reduce_mean(tf.add_n([tf.nn.l2_loss(v) for v in self.reg_var]) * self.reg_ratio)
             tf.summary.scalar('valid', self.valid)

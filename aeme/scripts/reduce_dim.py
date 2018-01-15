@@ -42,17 +42,14 @@ def main():
     add_arg = parser.add_argument
     add_arg('-i', dest='input', type=str, required=True, help='input file')
     add_arg('-o', dest='output', type=str, required=True, help='output file')
-    add_arg('-m', dest='method', type=str, default=METHOD, help='method used to reduce dimensionality')
+    add_arg('-m', dest='method', type=str, nargs='+', default=METHOD, help='method used to reduce dimensionality')
     args = parser.parse_args()
-    assert args.method in METHODS + ['all']
+    assert set(args.method).issubset(set(METHODS + ['all']))
     raw = io.load_embeddings(args.input)
-    if args.method == 'all':
-        out = str(args.output)
-        for mth in METHODS:
-            print('Runing %s...' % mth)
-            io.save_embeddings(reduce_dim(mth, raw), out.replace('.txt', '.' + mth + '.txt'))
-    else:
-        io.save_embeddings(reduce_dim(args.method, raw), args.output)
+    out = str(args.output)
+    for mth in (METHODS if args.method[0] == 'all' else args.method):
+        print('Runing %s...' % mth)
+        io.save_embeddings(reduce_dim(mth, raw), out.replace('.txt', '.' + mth + '.txt'))
 
 if __name__ == '__main__':
     main()

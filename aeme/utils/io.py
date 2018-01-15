@@ -17,7 +17,8 @@ def load_embeddings(file_path, header=None, index=0):
     """
     embeddings = {}
     data = pd.read_table(file_path, sep=' ', header=header, index_col=index, quoting=csv.QUOTE_NONE)
-    for i in tqdm(range(0, len(data.index))):
+    fmt = 'Loading embeddings: {percentage:3.0f}% {r_bar}'
+    for i in tqdm(range(len(data.index)), bar_format=fmt):
         embeddings[data.index[i]] = np.asarray(data.values[i], dtype='float32')
     return embeddings
 

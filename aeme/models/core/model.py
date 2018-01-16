@@ -37,7 +37,7 @@ class Model(object):
         self.inter_words = set()
         self.train_words = set()
         self.valid_words = set()
-        self.source_groups = []
+        #self.source_groups = []
         self.train_groups = []
         self.valid_groups = []
 

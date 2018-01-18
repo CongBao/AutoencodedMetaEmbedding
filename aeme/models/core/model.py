@@ -96,6 +96,8 @@ class Model(object):
             self.activ_func = layers.LeakyReLU(alpha=0.01)
         elif activ_type == 'prelu':
             self.activ_func = layers.PReLU()
+        elif activ_type == 'elu':
+            self.activ_func = layers.ELU()
         else:
             self.activ_func = None
         self.factors = params.get('factors', (1.0, 1.0, 1.0))

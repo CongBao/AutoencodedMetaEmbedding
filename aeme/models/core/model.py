@@ -10,8 +10,9 @@ import random
 
 import numpy as np
 import tensorflow as tf
+from tensorflow.contrib.keras import layers
 
-from aeme.utils import io, data_process
+from aeme.utils import data_process, io
 from aeme.utils.logger import Logger
 
 __author__ = 'Cong Bao'
@@ -91,6 +92,10 @@ class Model(object):
             self.activ_func = tf.nn.tanh
         elif activ_type == 'relu':
             self.activ_func = tf.nn.relu
+        elif activ_type == 'lrelu':
+            self.activ_func = layers.LeakyReLU(alpha=0.01)
+        elif activ_type == 'prelu':
+            self.activ_func = layers.PReLU()
         else:
             self.activ_func = None
         self.factors = params.get('factors', (1.0, 1.0, 1.0))

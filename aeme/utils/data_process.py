@@ -23,6 +23,17 @@ def normalize_embeddings(embedding_dict, scale_factor):
         embedding_dict[word] = normalize(values, scale_factor)
     return embedding_dict
 
+def normalize_emb(emb_dict):
+    """
+    normalize the embeddings
+    """
+    words = list(emb_dict.keys())
+    norm = skpre.normalize([emb_dict[word] for word in words])
+    res = {}
+    for i, vec in enumerate(norm):
+        res[words[i]] = vec
+    return res
+
 def tsvd(embedding_dict, dim=300, niter=10):
     """
     perform truncated SVD on embedding set

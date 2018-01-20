@@ -34,8 +34,8 @@ def reduce_dim(mtd, raw):
     elif mtd == 'avg':
         new = {}
         for word in raw.keys():
-            new[word] = data_process.normalize(np.add(cbow[word], glove[word]), 1.0)
-        return new
+            new[word] = np.add(cbow[word], glove[word])
+        return data_process.normalize_emb(new)
 
 def main():
     parser = argparse.ArgumentParser()

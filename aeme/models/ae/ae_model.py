@@ -71,3 +71,14 @@ class ZipAEModel(Model):
         self.decoder['cbow'] = self.add_layer(self.encoder['cbow'], (150, 300), None, 'cbow_decoder')
         self.encoder['glove'] = self.add_layer(self.input['glove'], (300, 150), self.activ_func, 'glove_encoder')
         self.decoder['glove'] = self.add_layer(self.encoder['glove'], (150, 300), None, 'glove_decoder')
+
+class DActivAEModel(Model):
+    
+    def __init__(self, log_path):
+        Model.__init__(self, self.__class__.__name__, log_path)
+
+    def build_model(self):
+        self.encoder['cbow'] = self.add_layer(self.input['cbow'], (300, 300), self.activ_func, 'cbow_encoder')
+        self.decoder['cbow'] = self.add_layer(self.encoder['cbow'], (300, 300), self.activ_func, 'cbow_decoder')
+        self.encoder['glove'] = self.add_layer(self.input['glove'], (300, 300), self.activ_func, 'glove_encoder')
+        self.decoder['glove'] = self.add_layer(self.encoder['glove'], (300, 300), self.activ_func, 'glove_decoder')

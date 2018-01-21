@@ -11,7 +11,7 @@ sys.path.append('/home/cong/fyp')
 
 import numpy as np
 
-from aeme.utils import data_process, io
+from aeme.utils import data_process, embed_io
 
 __author__ = 'Cong Bao'
 
@@ -45,11 +45,11 @@ def main():
     add_arg('-m', dest='method', type=str, nargs='+', default=METHOD, help='method used to reduce dimensionality')
     args = parser.parse_args()
     assert set(args.method).issubset(set(METHODS + ['all']))
-    raw = io.load_embeddings(args.input)
+    raw = embed_io.load_embeddings(args.input)
     out = str(args.output)
     for mth in (METHODS if args.method[0] == 'all' else args.method):
         print('Runing %s...' % mth)
-        io.save_embeddings(reduce_dim(mth, raw), out.replace('.txt', '.' + mth + '.txt'))
+        embed_io.save_embeddings(reduce_dim(mth, raw), out.replace('.txt', '.' + mth + '.txt'))
 
 if __name__ == '__main__':
     main()

@@ -5,9 +5,11 @@ regular model
 
 from __future__ import division
 
+import numpy as np
 import tensorflow as tf
 
 from aeme.models.core.model import Model
+from aeme.utils import io
 
 __author__ = 'Cong Bao'
 
@@ -88,8 +90,30 @@ class SpecialAEModel(Model):
     def __init__(self, log_path):
         Model.__init__(self, self.__class__.__name__, log_path)
 
+    def _def_inputs(self):
+        with tf.name_scope('inputs'):
+            self.source['cbow'] = tf.placeholder(tf.float32, (None, 200), 's_cbow')
+            self.source['glove'] = tf.placeholder(tf.float32, (None, 200), 's_glove')
+            self.input['cbow'] = tf.placeholder(tf.float32, (None, 200), 'i_cbow')
+            self.input['glove'] = tf.placeholder(tf.float32, (None, 200), 'i_glove')
+
     def build_model(self):
         self.encoder['cbow'] = self.add_layer(self.input['cbow'], (200, 200), self.activ_func, 'cbow_encoder')
         self.decoder['cbow'] = self.add_layer(self.encoder['cbow'], (200, 200), None, 'cbow_decoder')
         self.encoder['glove'] = self.add_layer(self.input['glove'], (200, 200), self.activ_func, 'glove_encoder')
         self.decoder['glove'] = self.add_layer(self.encoder['glove'], (200, 200), None, 'glove_decoder')
+
+    def _generate_meta_embedding(self):
+        meta_embedding = {}
+        self.logger.log('Generating meta embeddings...')
+        for word in self.inter_words:
+            i1_cbow = self.source_dict['cbow'][word].reshape((1, 200))
+            i2_glove = self.source_dict['glove'][word].reshape((1, 200))
+            embed_cbow, embed_glove = self.session.run([self.encoder['cbow'], self.encoder['glove']],
+                                                       {self.input['cbow']: i1_cbow,
+                                                        self.input['glove']: i2_glove})
+            embed_cbow = embed_cbow.reshape((self.encoder['cbow'].shape[1]))
+            embed_glove = embed_glove.reshape((self.encoder['glove'].shape[1]))
+            meta_embedding[word] = np.concatenate([embed_cbow, embed_glove])
+        self.logger.log('Saving data into output file: %s' % self.output_path)
+        io.save_embeddings(meta_embedding, self.output_path)

@@ -98,6 +98,10 @@ class Model(object):
             self.activ_func = layers.PReLU()
         elif activ_type == 'elu':
             self.activ_func = layers.ELU()
+        elif activ_type == 'selu':
+            alpha = 1.6732632423543772848170429916717
+            scale = 1.0507009873554804934193349852946
+            self.activ_func = lambda x: scale * layers.ELU(alpha=alpha)(x)
         else:
             self.activ_func = None
         self.factors = params.get('factors', (1.0, 1.0, 1.0))

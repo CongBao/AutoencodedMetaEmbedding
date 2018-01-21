@@ -12,7 +12,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.contrib.keras import layers
 
-from aeme.utils import data_process, io
+from aeme.utils import data_process, embed_io
 from aeme.utils.logger import Logger
 
 __author__ = 'Cong Bao'
@@ -111,12 +111,12 @@ class Model(object):
 
     def _load_data(self):
         self.logger.log('Loading file: %s' % self.input_path['cbow'])
-        self.source_dict['cbow'] = io.load_embeddings(self.input_path['cbow'])
+        self.source_dict['cbow'] = embed_io.load_embeddings(self.input_path['cbow'])
         self.logger.log('Normalizing source embeddings: cbow')
         self.source_dict['cbow'] = data_process.normalize_embeddings((self.source_dict['cbow']), 1.0)
         self.logger.log('Loading cbow complete')
         self.logger.log('Loading file: %s' % self.input_path['glove'])
-        self.source_dict['glove'] = io.load_embeddings(self.input_path['glove'])
+        self.source_dict['glove'] = embed_io.load_embeddings(self.input_path['glove'])
         self.logger.log('Normalizing source embeddings: glove')
         self.source_dict['glove'] = data_process.normalize_embeddings((self.source_dict['glove']), 1.0)
         self.logger.log('Loading glove complete')
@@ -277,7 +277,7 @@ class Model(object):
         elif self.meta_type == 'svd':
             meta_embedding = data_process.tsvd(meta_embedding)
         self.logger.log('Saving data into output file: %s' % self.output_path)
-        io.save_embeddings(meta_embedding, self.output_path)
+        embed_io.save_embeddings(meta_embedding, self.output_path)
 
     def add_layer(self, pre_layer, shape=None, activ_func=None, name=None):
         """ Function used to add a layer

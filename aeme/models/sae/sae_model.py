@@ -12,7 +12,7 @@ import numpy as np
 import tensorflow as tf
 
 from aeme.models.core.model import Model
-from aeme.utils import io
+from aeme.utils import embed_io
 
 __author__ = 'Cong Bao'
 
@@ -148,7 +148,7 @@ class SAEModel(Model):
 
     def _generate_meta_embedding(self):
         self.logger.log('Saving data into output file: %s' % self.output_path)
-        io.save_embeddings(self.source_dict['meta'], self.output_path)
+        embed_io.save_embeddings(self.source_dict['meta'], self.output_path)
     
     def build_model(self):
         self.encoder['cbow'] = self.add_layer(self.input['cbow'], (300, 300), self.activ_func, 'cbow_encoder')

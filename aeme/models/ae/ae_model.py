@@ -9,7 +9,7 @@ import numpy as np
 import tensorflow as tf
 
 from aeme.models.core.model import Model
-from aeme.utils import io
+from aeme.utils import embed_io
 
 __author__ = 'Cong Bao'
 
@@ -116,4 +116,4 @@ class SpecialAEModel(Model):
             embed_glove = embed_glove.reshape((self.encoder['glove'].shape[1]))
             meta_embedding[word] = np.concatenate([embed_cbow, embed_glove])
         self.logger.log('Saving data into output file: %s' % self.output_path)
-        io.save_embeddings(meta_embedding, self.output_path)
+        embed_io.save_embeddings(meta_embedding, self.output_path)

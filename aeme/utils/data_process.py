@@ -3,7 +3,6 @@
 Preprocessing data
 """
 
-import numpy as np
 import sklearn.preprocessing as skpre
 from sklearn.decomposition import TruncatedSVD
 
@@ -39,9 +38,8 @@ def tsvd(embedding_dict, dim=300, niter=10):
     perform truncated SVD on embedding set
     """
     words = list(embedding_dict.keys())
-    arr = np.asarray([embedding_dict[word] for word in words])
     svd = TruncatedSVD(n_components=dim, n_iter=niter)
-    reduced = svd.fit_transform(arr)
+    reduced = svd.fit_transform([embedding_dict[word] for word in words])
     res = {}
     for i, vec in enumerate(reduced):
         res[words[i]] = vec

@@ -29,6 +29,7 @@ class Model(object):
         self.output_path = None
         self.log_path = log_path
         self.graph_path = None
+        self.checkpoint_path = None
 
         # init logger
         self.logger = Logger(self.name, self.log_path)
@@ -53,6 +54,7 @@ class Model(object):
         self.noise_type = None
         self.noise_ratio = None
         self.meta_type = None
+        self.restore = None
 
         # training data
         self.source = {}
@@ -78,6 +80,7 @@ class Model(object):
         self.input_path = params.get('input_path')
         self.output_path = params.get('output_path')
         self.graph_path = params.get('graph_path', './graphs/') + self.name
+        self.checkpoint_path = params.get('checkpoint_path', './checkpoints/')
         self.learning_rate = params.get('learning_rate', 0.001)
         self.batch_size = params.get('batch_size', 64)
         self.epoch = params.get('epoch', 1000)
@@ -108,6 +111,7 @@ class Model(object):
         self.noise_type = params.get('noise_type', 'MN')
         self.noise_ratio = params.get('noise_ratio', 0.2)
         self.meta_type = params.get('meta_type', 'conc')
+        self.restore = params.get('restore_model', False)
 
     def _load_data(self):
         self.logger.log('Loading file: %s' % self.input_path['cbow'])
@@ -206,11 +210,15 @@ class Model(object):
         return noisy_batch
 
     def _train_model(self):
+        self.saver = tf.train.Saver(tf.global_variables())
         with self.session.as_default():
             self.graph = self.session.graph
             self.merged_summaries = tf.summary.merge_all()
             self.summary_writer = tf.summary.FileWriter(self.graph_path, self.graph)
-            self.session.run(tf.global_variables_initializer())
+            if self.restore:
+                self.saver.restore(self.session, self.checkpoint_path + 'model.ckpt')
+            else:
+                self.session.run(tf.global_variables_initializer())
             n_train = math.ceil(len(self.train_groups) / self.batch_size)
             n_valid = math.ceil(len(self.valid_groups) / self.batch_size)
             for itr in range(self.epoch):
@@ -236,6 +244,9 @@ class Model(object):
                                                    self.input['glove']: i2_batch})
                     valid_loss += batch_loss
                 self.logger.log('[Epoch {0}] loss: {1}, validation: {2}'.format(itr, train_loss / n_train, valid_loss / n_valid))
+                if itr % 10 == 0:
+                    self.logger.log('Saving model...')
+                    self.saver.save(self.session, self.checkpoint_path + 'model.ckpt')
 
                 """
                 if itr % 100 == 0:

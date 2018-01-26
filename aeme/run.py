@@ -21,6 +21,7 @@ META_TYPES = ['src1', 'src2', 'conc', 'avg', 'svd']
 
 LOG_PATH = './log/'
 GRAPH_PATH = './graphs/'
+CHECKPOINT_PATH = './checkpoints/'
 
 LEARNING_RATE = 0.001
 BATCH_SIZE = 128
@@ -44,6 +45,7 @@ def main():
     parser.add_argument('-o', dest='output', type=str, required=True, help='the output file')
     parser.add_argument('--log-path', dest='log', type=str, default=LOG_PATH, help='the directory of log')
     parser.add_argument('--graph-path', dest='graph', type=str, default=GRAPH_PATH, help='the directory of graph')
+    parser.add_argument('--checkpoint-path', dest='checkpoint', type=str, default=CHECKPOINT_PATH, help='the directory of checkpoint')
     parser.add_argument('-r', dest='rate', type=float, default=LEARNING_RATE, help='the learning rate of gradient descent')
     parser.add_argument('-b', dest='batch', type=int, default=BATCH_SIZE, help='the size of batches')
     parser.add_argument('-e', dest='epoch', type=int, default=EPOCHS, help='the number of epoches to train')
@@ -55,6 +57,7 @@ def main():
     parser.add_argument('--noise-ratio', dest='ratio', type=float, default=NOISE_RATIO, help='the ratio of noise')
     parser.add_argument('--stacked-train', dest='stack', nargs='+', type=int, default=STACK_TRAIN, help='the times of stacked training')
     parser.add_argument('--meta-type', dest='meta', type=str, default=META_TYPE, help='the type to generate meta embedding')
+    parser.add_argument('--restore-model', dest='restore', action='store_true', help='if use existing model')
     parser.add_argument('--cpu-only', dest='cpu', action='store_true', help='if use cpu only')
     args = parser.parse_args()
 
@@ -76,6 +79,7 @@ def main():
         },
         'output_path': args.output,
         'graph_path': args.graph,
+        'checkpoint_path': args.checkpoint,
         'learning_rate': args.rate,
         'batch_size': args.batch,
         'epoch': args.epoch,
@@ -89,7 +93,8 @@ def main():
         'stacked_train': {
             'separate': args.stack[0],
             'combine': args.stack[1]
-        }
+        },
+        'restore_model': args.restore
     }
     model = eval(model_name + '(\'' + args.log + '\')')
     model.logger.log('AEME module path: %s' % args.module)
@@ -99,6 +104,7 @@ def main():
     model.logger.log('Log path: %s' % args.log)
     if model_type != 'conc':
         model.logger.log('Graph path: %s' % args.graph)
+        model.logger.log('Checkpoint path: %s' % args.checkpoint)
         model.logger.log('Learning rate: %s' % args.rate)
         model.logger.log('Batch size: %s' % args.batch)
         model.logger.log('Epoches to train: %s' % args.epoch)
@@ -113,6 +119,8 @@ def main():
         if model_type == 'sae':
             model.logger.log('Stacked training times, separate: %s, combine: %s' % (args.stack[0], args.stack[1]))
         model.logger.log('Meta type: %s' % args.meta)
+        if args.restore:
+            model.logger.log('Using variables in prestored model')
         model.logger.log('Running on %s' % ('CPU' if args.cpu else 'GPU'))
     model.run(params)
 

@@ -244,7 +244,7 @@ class Model(object):
                                                    self.input['glove']: i2_batch})
                     valid_loss += batch_loss
                 self.logger.log('[Epoch {0}] loss: {1}, validation: {2}'.format(itr, train_loss / n_train, valid_loss / n_valid))
-                if itr % 10 == 0:
+                if itr % 50 == 0:
                     self.logger.log('Saving model...')
                     self.saver.save(self.session, self.checkpoint_path + 'model.ckpt')
 

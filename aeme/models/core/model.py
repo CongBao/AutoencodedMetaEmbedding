@@ -54,6 +54,7 @@ class Model(object):
         self.noise_type = None
         self.noise_ratio = None
         self.meta_type = None
+        self.ckpt_ratio = None
         self.restore = None
 
         # training data
@@ -111,6 +112,7 @@ class Model(object):
         self.noise_type = params.get('noise_type', 'MN')
         self.noise_ratio = params.get('noise_ratio', 0.2)
         self.meta_type = params.get('meta_type', 'conc')
+        self.ckpt_ratio = params.get('checkpoint_ratio', 0)
         self.restore = params.get('restore_model', False)
 
     def _load_data(self):
@@ -244,7 +246,8 @@ class Model(object):
                                                    self.input['glove']: i2_batch})
                     valid_loss += batch_loss
                 self.logger.log('[Epoch {0}] loss: {1}, validation: {2}'.format(itr, train_loss / n_train, valid_loss / n_valid))
-                if itr % 50 == 0:
+                ck_point = int(self.ckpt_ratio)
+                if ck_point != 0 and itr % ck_point == 0:
                     self.logger.log('Saving model...')
                     self.saver.save(self.session, self.checkpoint_path + 'model.ckpt')
 

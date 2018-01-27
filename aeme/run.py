@@ -30,6 +30,7 @@ VALIDATION_RATIO = 0.05
 REGULARIZATION_RATIO = None
 ACTIVATION = 'sigmoid_m'
 META_TYPE = 'conc'
+CHECKPOINT_RATIO = 0
 
 NOISE_TYPE = 'MN'
 NOISE_RATIO = 0.05
@@ -57,6 +58,7 @@ def main():
     parser.add_argument('--noise-ratio', dest='ratio', type=float, default=NOISE_RATIO, help='the ratio of noise')
     parser.add_argument('--stacked-train', dest='stack', nargs='+', type=int, default=STACK_TRAIN, help='the times of stacked training')
     parser.add_argument('--meta-type', dest='meta', type=str, default=META_TYPE, help='the type to generate meta embedding')
+    parser.add_argument('--checkpoint-ratio', dest='ckptratio', type=int, default=CHECKPOINT_RATIO, help='the number of epoches that checkpoint is saved')
     parser.add_argument('--restore-model', dest='restore', action='store_true', help='if use existing model')
     parser.add_argument('--cpu-only', dest='cpu', action='store_true', help='if use cpu only')
     args = parser.parse_args()
@@ -90,6 +92,7 @@ def main():
         'noise_type': args.type,
         'noise_ratio': args.ratio,
         'meta_type': args.meta,
+        'checkpoint_ratio': args.ckptratio,
         'stacked_train': {
             'separate': args.stack[0],
             'combine': args.stack[1]
@@ -119,6 +122,7 @@ def main():
         if model_type == 'sae':
             model.logger.log('Stacked training times, separate: %s, combine: %s' % (args.stack[0], args.stack[1]))
         model.logger.log('Meta type: %s' % args.meta)
+        model.logger.log('Checkpoint saving ratio: %s' % args.ckptratio)
         if args.restore:
             model.logger.log('Using variables in prestored model')
         model.logger.log('Running on %s' % ('CPU' if args.cpu else 'GPU'))

@@ -247,7 +247,7 @@ class Model(object):
                     valid_loss += batch_loss
                 self.logger.log('[Epoch {0}] loss: {1}, validation: {2}'.format(itr, train_loss / n_train, valid_loss / n_valid))
                 ck_point = int(self.ckpt_ratio)
-                if ck_point != 0 and itr % ck_point == 0:
+                if ck_point != 0 and (itr + 1) % ck_point == 0:
                     self.logger.log('Saving model...')
                     self.saver.save(self.session, self.checkpoint_path + 'model.ckpt')
 

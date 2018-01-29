@@ -110,7 +110,8 @@ class AvgAEModel(Model):
         with tf.name_scope('loss'):
             part1 = tf.squared_difference(self.decoder['cbow'], self.source['cbow'])
             part2 = tf.squared_difference(self.decoder['glove'], self.source['glove'])
-            f1, f2, _ = self.factors
+            f1 = self.factors[0]
+            f2 = self.factors[1]
             self.loss = f1 * tf.reduce_mean(part1) + f2 * tf.reduce_mean(part2)
             if self.reg_ratio is not None:
                 self.loss += tf.reduce_mean(tf.add_n([tf.nn.l2_loss(v) for v in self.reg_var]) * self.reg_ratio)

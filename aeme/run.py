@@ -51,7 +51,7 @@ def main():
     parser.add_argument('-b', dest='batch', type=int, default=BATCH_SIZE, help='the size of batches')
     parser.add_argument('-e', dest='epoch', type=int, default=EPOCHS, help='the number of epoches to train')
     parser.add_argument('-a', dest='activ', type=str, default=ACTIVATION, help='the activation function')
-    parser.add_argument('-f', dest='factor', type=float, nargs=3, default=FACTORS, help='factors add to loss function')
+    parser.add_argument('-f', dest='factor', type=float, nargs='+', default=FACTORS, help='factors add to loss function')
     parser.add_argument('--valid-ratio', dest='valid', type=float, default=VALIDATION_RATIO, help='the ratio of validation set')
     parser.add_argument('--reg-ratio', dest='reg', type=float, default=REGULARIZATION_RATIO, help='the ratio of regularization')
     parser.add_argument('--noise-type', dest='type', type=str, default=NOISE_TYPE, help='the type of noise')

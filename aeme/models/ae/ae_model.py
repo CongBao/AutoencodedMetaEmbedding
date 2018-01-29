@@ -100,3 +100,29 @@ class DeepAEModel(Model):
         self.encoder['glove'] = self.add_layer(glove_en_h, (300, 300), self.activ_func, 'glove_encoder')
         glove_de_h = self.add_layer(self.input['glove'], (300, 300), self.activ_func, 'glove_decoder_h')
         self.decoder['glove'] = self.add_layer(glove_de_h, (300, 300), None, 'glove_decoder')
+
+class AvgAEModel(Model):
+
+    def __init__(self, log_path):
+        Model.__init__(self, self.__class__.__name__, log_path)
+
+    def _def_loss(self):
+        with tf.name_scope('loss'):
+            part1 = tf.squared_difference(self.decoder['cbow'], self.source['cbow'])
+            part2 = tf.squared_difference(self.decoder['glove'], self.source['glove'])
+            f1, f2, _ = self.factors
+            self.loss = f1 * tf.reduce_mean(part1) + f2 * tf.reduce_mean(part2)
+            if self.reg_ratio is not None:
+                self.loss += tf.reduce_mean(tf.add_n([tf.nn.l2_loss(v) for v in self.reg_var]) * self.reg_ratio)
+            tf.summary.scalar('loss', self.loss)
+            self.valid = f1 * tf.reduce_mean(part1) + f2 * tf.reduce_mean(part2)
+            if self.reg_ratio is not None:
+                self.valid += tf.reduce_mean(tf.add_n([tf.nn.l2_loss(v) for v in self.reg_var]) * self.reg_ratio)
+            tf.summary.scalar('valid', self.valid)
+
+    def build_model(self):
+        self.encoder['cbow'] = self.add_layer(self.input['cbow'], (300, 300), self.activ_func, 'cbow_encoder')
+        self.encoder['glove'] = self.add_layer(self.input['glove'], (300, 300), self.activ_func, 'glove_encoder')
+        meta_emb = tf.nn.l2_normalize(tf.add(self.encoder['cbow'], self.encoder['glove']), 1)
+        self.decoder['cbow'] = self.add_layer(meta_emb, (300, 300), None, 'cbow_decoder')
+        self.decoder['glove'] = self.add_layer(meta_emb, (300, 300), None, 'glove_decoder')

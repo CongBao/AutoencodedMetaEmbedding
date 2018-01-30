@@ -19,9 +19,9 @@ METHOD = 'svd'
 
 METHODS = ['src1', 'src2', 'avg', 'svd']
 
-def reduce_dim(mtd, raw):
+def reduce_dim(mtd, raw, dim=300):
     if mtd == 'svd':
-        return data_process.tsvd(raw)
+        return data_process.tsvd(raw, dim)
     cbow = {}
     glove = {}
     for key, val in raw.items():
@@ -43,13 +43,14 @@ def main():
     add_arg('-i', dest='input', type=str, required=True, help='input file')
     add_arg('-o', dest='output', type=str, required=True, help='output file')
     add_arg('-m', dest='method', type=str, nargs='+', default=METHOD, help='method used to reduce dimensionality')
+    add_arg('-d', dest='dim', type=int, default=300, help='only svd will apply this argument')
     args = parser.parse_args()
     assert set(args.method).issubset(set(METHODS + ['all']))
     raw = embed_io.load_embeddings(args.input)
     out = str(args.output)
     for mth in (METHODS if args.method[0] == 'all' else args.method):
         print('Runing %s...' % mth)
-        embed_io.save_embeddings(reduce_dim(mth, raw), out.replace('.txt', '.' + mth + '.txt'))
+        embed_io.save_embeddings(reduce_dim(mth, raw, args.dim), out.replace('.txt', '.' + mth + '.txt'))
 
 if __name__ == '__main__':
     main()

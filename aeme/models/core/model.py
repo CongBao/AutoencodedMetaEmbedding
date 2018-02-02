@@ -97,7 +97,7 @@ class Model(object):
         elif activ_type == 'relu':
             self.activ_func = tf.nn.relu
         elif activ_type == 'lrelu':
-            self.activ_func = layers.LeakyReLU(alpha=0.01)
+            self.activ_func = layers.LeakyReLU()
         elif activ_type == 'prelu':
             self.activ_func = layers.PReLU()
         elif activ_type == 'elu':

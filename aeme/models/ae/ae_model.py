@@ -180,5 +180,5 @@ class DActivAvgAEModel(Model):
         self.encoder['cbow'] = self.add_layer(self.input['cbow'], (300, 300), tf.nn.relu, 'cbow_encoder')
         self.encoder['glove'] = self.add_layer(self.input['glove'], (300, 300), tf.nn.relu, 'glove_encoder')
         meta_emb = tf.nn.l2_normalize(tf.add(self.encoder['cbow'], self.encoder['glove']), 1)
-        self.decoder['cbow'] = self.add_layer(meta_emb, (300, 300), tf.nn.sigmoid, 'cbow_decoder')
-        self.decoder['glove'] = self.add_layer(meta_emb, (300, 300), tf.nn.sigmoid, 'glove_decoder')
+        self.decoder['cbow'] = self.add_layer(meta_emb, (300, 300), tf.nn.tanh, 'cbow_decoder')
+        self.decoder['glove'] = self.add_layer(meta_emb, (300, 300), tf.nn.tanh, 'glove_decoder')

@@ -50,7 +50,9 @@ def main():
     out = str(args.output)
     for mth in (METHODS if args.method[0] == 'all' else args.method):
         print('Runing %s...' % mth)
-        embed_io.save_embeddings(reduce_dim(mth, raw, args.dim), out.replace('.txt', '.' + mth + '.txt'))
+        reduced = reduce_dim(mth, raw, args.dim)
+        print('Saving file...')
+        embed_io.save_embeddings(reduced, out.replace('.txt', '.' + mth + '.txt'))
 
 if __name__ == '__main__':
     main()

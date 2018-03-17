@@ -17,6 +17,8 @@ class AEME(object):
         self.output_path = kwargs['output']
         self.graph_path = kwargs['graph']
         self.checkpoint_path = kwargs['checkpoint']
+        self.model_type = kwargs['model']
+        self.dims = kwargs['dims']
         self.learning_rate = kwargs['learning_rate']
         self.batch_size = kwargs['batch']
         self.epoch = kwargs['epoch']
@@ -24,11 +26,29 @@ class AEME(object):
         self.factors = kwargs['factors']
         self.noise = kwargs['noise']
 
+        self.src_dict_list = []
+        self.inter_words = []
+        self.sources = []
+
+        self.model = None
+
     def load_data(self):
-        src_dict_list = [load_emb(path) for path in self.input_list]
-        inter_words = set.intersection(*[set(src_dict.keys()) for src_dict in src_dict_list])
-        inter_words = sorted(list(inter_words))
-        sources = [utils.normalize([src_dict[word] for word in inter_words]) for src_dict in src_dict_list]
+        self.src_dict_list = [load_emb(path) for path in self.input_list]
+        self.inter_words = sorted(list(set.intersection(*[set(src_dict.keys()) for src_dict in self.src_dict_list])))
+        self.sources = [utils.normalize([src_dict[word] for word in self.inter_words]) for src_dict in self.src_dict_list]
+
+    def build_model(self):
+        _model = AbsModel(self.dims, self.activ)
+        if self.model_type == 'DAEME':
+            _model = DAEME(self.dims, self.activ)
+        elif self.model_type == 'CAEME':
+            _model = CAEME(self.dims, self.activ)
+        elif self.model_type == 'AAEME':
+            _model = AAEME(self.dims, self.activ)
+        self.model = _model.build()
+
+    def train_model(self):
+        pass
 
 class AbsModel(object):
 

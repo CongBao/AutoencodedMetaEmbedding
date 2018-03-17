@@ -3,13 +3,17 @@
 import numpy as np
 from keras import backend as K
 from keras import layers, utils
-from keras.layers import Activation, Dense, Input, Merge
+from keras.layers import Dense, Input, Merge
 from keras.models import Model
+
+from utils import load_emb
+
+__author__ = 'Cong Bao'
 
 class AEME(object):
 
     def __init__(self, **kwargs):
-        self.input_dict = kwargs['input'] # {'path':(dim)}
+        self.input_list = kwargs['input'] # [path, ...]
         self.output_path = kwargs['output']
         self.graph_path = kwargs['graph']
         self.checkpoint_path = kwargs['checkpoint']
@@ -20,7 +24,13 @@ class AEME(object):
         self.factors = kwargs['factors']
         self.noise = kwargs['noise']
 
-class AbstractModel(object):
+    def load_data(self):
+        src_dict_list = [load_emb(path) for path in self.input_list]
+        inter_words = set.intersection(*[set(src_dict.keys()) for src_dict in src_dict_list])
+        inter_words = sorted(list(inter_words))
+        sources = [utils.normalize([src_dict[word] for word in inter_words]) for src_dict in src_dict_list]
+
+class AbsModel(object):
 
     def __init__(self, dims, activ):
         self.dims = dims # [dim, ...]
@@ -33,7 +43,7 @@ class AbstractModel(object):
     def build(self):
         raise NotImplementedError('Model Undefined')
 
-class DAEME(AbstractModel):
+class DAEME(AbsModel):
 
     def build(self):
         srcs = [Input(shape=(dim,)) for dim in self.dims]
@@ -42,7 +52,7 @@ class DAEME(AbstractModel):
         outs = [Dense(dim)(ecd) for dim, ecd in zip(self.dims, enco)]
         return Model(srcs, outs)
 
-class CAEME(AbstractModel):
+class CAEME(AbsModel):
 
     def build(self):
         srcs = [Input(shape=(dim,)) for dim in self.dims]
@@ -50,7 +60,7 @@ class CAEME(AbstractModel):
         outs = [Dense(dim)(self.meta) for dim in self.dims]
         return Model(srcs, outs)
 
-class AAEME(AbstractModel):
+class AAEME(AbsModel):
 
     def build(self):
         srcs = [Input(shape=(dim,)) for dim in self.dims]

@@ -8,7 +8,7 @@ from keras.layers import Dense, Dropout, Input, Merge
 from keras.models import Model
 from keras.optimizers import Adam
 
-from utils import load_emb
+from utils import load_emb, save_emb
 
 __author__ = 'Cong Bao'
 
@@ -28,30 +28,31 @@ class AEME(object):
         self.factors = kwargs['factors']
         self.noise = kwargs['noise']
 
-        self.src_dict_list = []
         self.inter_words = []
         self.sources = []
 
+        self.aeme = None
         self.model = None
 
     def load_data(self):
-        self.src_dict_list = [load_emb(path) for path in self.input_list]
-        self.inter_words = sorted(list(set.intersection(*[set(src_dict.keys()) for src_dict in self.src_dict_list])))
-        self.sources = [utils.normalize([src_dict[word] for word in self.inter_words]) for src_dict in self.src_dict_list]
+        src_dict_list = [load_emb(path) for path in self.input_list]
+        self.inter_words = sorted(list(set.intersection(*[set(src_dict.keys()) for src_dict in src_dict_list])))
+        self.sources = [utils.normalize([src_dict[word] for word in self.inter_words]) for src_dict in src_dict_list]
+        del src_dict_list
 
     def build_model(self):
         params = [self.dims, self.activ, self.noise, self.factors]
-        _model = AbsModel(*params)
+        self.aeme = AbsModel(*params)
         if self.model_type == 'DAEME':
-            _model = DAEME(*params)
+            self.aeme = DAEME(*params)
         elif self.model_type == 'CAEME':
-            _model = CAEME(*params)
+            self.aeme = CAEME(*params)
         elif self.model_type == 'AAEME':
-            _model = AAEME(*params)
-        self.model = _model.build()
-        self.model.add_loss(_model.loss())
+            self.aeme = AAEME(*params)
+        self.model = self.aeme.build()
 
     def train_model(self):
+        self.model.add_loss(self.aeme.loss())
         self.model.compile(optimizer=Adam(lr=self.learning_rate))
         self.model.summary()
         self.model.fit(self.sources, self.sources,
@@ -60,7 +61,9 @@ class AEME(object):
                        callbacks=LearningRateScheduler(lambda e: self.learning_rate * 0.999 ** (e / 50)))
 
     def generate_meta_embed(self):
-        pass
+        generator = self.aeme.extract()
+        generated = generator.predict(self.sources, batch_size=self.batch_size, verbose=1)
+        save_emb({k: v for k, v in zip(self.inter_words, generated)}, self.output_path)
 
 class AbsModel(object):
 

@@ -41,10 +41,11 @@ def main():
         os.environ['CUDA_VISIBLE_DEVICES'] = ''
     assert args.activ in ACTIVS
     assert args.model in MODELS
+    assert len(args.input) == len(args.dims)
     params = {
         'input': tuple(args.input),
         'output': args.output,
-        'graph': args.graphs,
+        'graph': args.graph,
         'checkpoint': args.checkpoint,
         'model': args.model,
         'dims': tuple(args.dims),
@@ -52,7 +53,7 @@ def main():
         'batch': args.batch,
         'epoch': args.epoch,
         'activ': args.activ,
-        'factors': tuple(args.factor) if len(args.factor) > 1 else tuple([FACTOR] * len(args.input)),
+        'factors': tuple(args.factor) if not isinstance(args.factor, float) else tuple([FACTOR] * len(args.input)),
         'noise': args.noise
     }
     print('Source directories: %s' % (params['input'],))

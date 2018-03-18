@@ -1,12 +1,10 @@
 # Model of AEME
 
+from __future__ import print_function
+
 import numpy as np
-from keras import backend as K
-from keras import layers, utils
-from keras.callbacks import LearningRateScheduler
-from keras.layers import Dense, Dropout, Input, Merge
-from keras.models import Model
-from keras.optimizers import Adam
+import sklearn.preprocessing as skpre
+import tensorflow as tf
 
 from utils import load_emb, save_emb
 
@@ -36,8 +34,9 @@ class AEME(object):
 
     def load_data(self):
         src_dict_list = [load_emb(path) for path in self.input_list]
-        self.inter_words = sorted(list(set.intersection(*[set(src_dict.keys()) for src_dict in src_dict_list])))
-        self.sources = [utils.normalize([src_dict[word] for word in self.inter_words]) for src_dict in src_dict_list]
+        self.inter_words = set.intersection(*[set(src_dict.keys()) for src_dict in src_dict_list])
+        print('Intersection Words: %s' % len(self.inter_words))
+        self.sources = [skpre.normalize([src_dict[word] for word in self.inter_words]) for src_dict in src_dict_list]
         del src_dict_list
 
     def build_model(self):
@@ -52,13 +51,15 @@ class AEME(object):
         self.model = self.aeme.build()
 
     def train_model(self):
-        self.model.add_loss(self.aeme.loss())
-        self.model.compile(optimizer=Adam(lr=self.learning_rate))
-        self.model.summary()
-        self.model.fit(self.sources, self.sources,
-                       batch_size=self.batch_size,
-                       epochs=self.epoch,
-                       callbacks=LearningRateScheduler(lambda e: self.learning_rate * 0.999 ** (e / 50)))
+        step = tf.Variable(0, trainable=False)
+        rate = tf.train.exponential_decay(self.learning_rate, step, 50, 0.999)
+        opti = tf.train.AdamOptimizer(rate).minimize(self.aeme.loss(), global_step=step)
+
+    def _next_batch(self):
+        if self.batch_size == 1:
+            yield from zip(*self.sources)
+        elif self.batch_size == len(self.sources[0]):
+            pass
 
     def generate_meta_embed(self):
         generator = self.aeme.extract()
@@ -75,11 +76,13 @@ class AbsModel(object):
 
         self.meta = None
         self.outs = None
-        self.srcs = [Input(shape=(dim,)) for dim in self.dims]
-        self.encoders = [Dense(min(self.dims), activation=self.activ)(Dropout(self.noise)(src)) for src in self.srcs]
+        self.srcs = [tf.placeholder(tf.float32, (None, dim)) for dim in self.dims]
+        self.ipts = [tf.placeholder(tf.float32, (None, dim)) for dim in self.dims]
+        self.encoders = [tf.layers.Dense(min(self.dims), activation=self.activ)(ipt) for ipt in self.ipts]
 
     def extract(self):
-        return Model(self.srcs, self.meta)
+        #return Model(self.srcs, self.meta)
+        pass
 
     def build(self):
         raise NotImplementedError('Model Undefined')
@@ -90,12 +93,12 @@ class AbsModel(object):
 class DAEME(AbsModel):
 
     def build(self):
-        self.meta = utils.normalize(layers.concatenate(self.encoders))
-        self.outs = [Dense(dim)(encoder) for dim, encoder in zip(self.dims, self.encoders)]
-        return Model(self.srcs, self.outs)
+        self.meta = tf.nn.l2_normalize(tf.concat(self.encoders, 1), axis=1)
+        self.outs = [tf.layers.Dense(dim)(encoder) for dim, encoder in zip(self.dims, self.encoders)]
+        return self.srcs, self.ipts
 
     def loss(self):
-        mse = lambda x, y, f: f * K.mean(K.square(y - x), axis=-1)
+        mse = lambda x, y, f: f * tf.reduce_mean(tf.squared_difference(x, y))
         ael = sum([mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors[:-1])])
         mtl = 0.
         for i in range(len(self.encoders)):
@@ -106,21 +109,21 @@ class DAEME(AbsModel):
 class CAEME(AbsModel):
 
     def build(self):
-        self.meta = utils.normalize(layers.concatenate(self.encoders))
-        self.outs = [Dense(dim)(self.meta) for dim in self.dims]
-        return Model(self.srcs, self.outs)
+        self.meta = tf.nn.l2_normalize(tf.concat(self.encoders, 1), axis=1)
+        self.outs = [tf.layers.Dense(dim)(self.meta) for dim in self.dims]
+        return self.srcs, self.ipts
 
     def loss(self):
-        mse = lambda x, y, f: f * K.mean(K.square(y - x), axis=-1)
+        mse = lambda x, y, f: f * tf.reduce_mean(tf.squared_difference(x, y))
         return sum([mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors)])
 
 class AAEME(AbsModel):
 
     def build(self):
-        self.meta = utils.normalize(layers.add(self.encoders))
-        self.outs = [Dense(dim)(self.meta) for dim in self.dims]
-        return Model(self.srcs, self.outs)
+        self.meta = tf.nn.l2_normalize(tf.add_n(self.encoders), axis=1)
+        self.outs = [tf.layers.Dense(dim)(self.meta) for dim in self.dims]
+        return self.srcs, self.ipts
 
     def loss(self):
-        mse = lambda x, y, f: f * K.mean(K.square(y - x), axis=-1)
+        mse = lambda x, y, f: f * tf.reduce_mean(tf.squared_difference(x, y))
         return sum([mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors)])

@@ -68,8 +68,8 @@ class AEME(object):
                 np.random.shuffle(self.sources)
                 train_loss = 0.
                 for batches in self._next_batch(self.sources):
-                    feed = {k:v for k in self.srcs for v in batches}
-                    feed.update({k:self._corrupt(v) for k in self.ipts for v in batches})
+                    feed = {k:v for k, v in zip(self.srcs, batches)}
+                    feed.update({k:self._corrupt(v) for k, v in zip(self.ipts, batches)})
                     _, batch_loss = self.sess.run([opti, loss], feed)
                     train_loss += batch_loss
                 self.logger.log('[Epoch{0}]: loss: {1}'.format(itr, train_loss / num))
@@ -84,7 +84,7 @@ class AEME(object):
         self.batch_size = 1
         try:
             for word, batch in zip(self.inter_words, self._next_batch(self.origin)):
-                meta = self.sess.run(self.aeme.extract(), {k:v for k in self.ipts for v in batch})
+                meta = self.sess.run(self.aeme.extract(), {k:v for k, v in zip(self.ipts, batch)})
                 embed[word] = np.reshape(meta, (np.shape(meta)[1],))
         except (KeyboardInterrupt, SystemExit):
             self.logger.log('Abnormal Exit', level=Logger.ERROR)
@@ -128,6 +128,12 @@ class AbsModel(object):
 
     @staticmethod
     def mse(x, y, f):
+        x_d = x.get_shape().as_list()[1]
+        y_d = y.get_shape().as_list()[1]
+        if x_d != y_d:
+            smaller = min(x_d, y_d)
+            x = tf.slice(x, [0, 0], [tf.shape(x)[0], smaller])
+            y = tf.slice(y, [0, 0], [tf.shape(y)[0], smaller])
         return f * tf.reduce_mean(tf.squared_difference(x, y))
 
     @staticmethod

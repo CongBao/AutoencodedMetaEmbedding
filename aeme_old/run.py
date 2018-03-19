@@ -10,7 +10,7 @@ import sys
 __author__ = 'Cong Bao'
 
 MODULE_PATH = '/home/cong/fyp'
-INPUT_PATH = ['/home/cong/data/CBOW-full.txt', '/home/cong/data/GloVe-full.txt']
+INPUT_PATH = ['/home/cong/data/CBOW.txt', '/home/cong/data/GloVe.txt']
 MODEL = ['ae', 'AEModel']
 
 MODEL_TYPES = ['ae', 'conc', 'linear', 'sae']

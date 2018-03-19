@@ -147,7 +147,7 @@ class DAEME(AbsModel):
         self.outs = [tf.layers.Dense(dim)(encoder) for dim, encoder in zip(self.dims, self.encoders)]
 
     def loss(self):
-        ael = sum([self.mse(x, y, f) for x, y, f in zip(self.ipts, self.outs, self.factors[:-1])])
+        ael = sum([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors[:-1])])
         mtl = 0.
         for i in range(len(self.encoders)):
             for j in range(i + 1, len(self.encoders)):

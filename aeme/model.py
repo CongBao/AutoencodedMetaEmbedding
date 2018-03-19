@@ -6,8 +6,8 @@ import numpy as np
 import sklearn.preprocessing as skpre
 import tensorflow as tf
 
-from utils import load_emb, save_emb
 from logger import Logger
+from utils import load_emb, save_emb
 
 __author__ = 'Cong Bao'
 

@@ -74,6 +74,7 @@ class AEME(object):
                     train_loss += batch_loss
                 self.logger.log('[Epoch{0}]: loss: {1}'.format(itr, train_loss / num))
         except (KeyboardInterrupt, SystemExit):
+            self.logger.log('Abnormal Exit', level=Logger.ERROR)
             self.sess.close()
         finally:
             del self.sources
@@ -86,6 +87,7 @@ class AEME(object):
                 meta = self.sess.run(self.aeme.extract(), {k:v for k in self.ipts for v in batch})
                 embed[word] = np.reshape(meta, (np.shape(meta)[1],))
         except (KeyboardInterrupt, SystemExit):
+            self.logger.log('Abnormal Exit', level=Logger.ERROR)
             raise
         finally:
             self.sess.close()

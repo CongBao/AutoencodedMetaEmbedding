@@ -96,7 +96,7 @@ class AbsModel(object):
 
     def __init__(self, dims, activ, noise, factors):
         self.dims = dims # [dim, ...]
-        self.activ = activ
+        self.activ = tf.keras.layers.Activation(activ)
         self.noise = noise
         self.factors = factors
 

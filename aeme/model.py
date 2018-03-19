@@ -117,7 +117,7 @@ class AbsModel(object):
 
     def __init__(self, dims, activ, noise, factors):
         self.dims = dims # [dim, ...]
-        self.activ = tf.keras.layers.Activation(activ)
+        self.activ = activ
         self.noise = noise
         self.factors = factors
 
@@ -130,13 +130,18 @@ class AbsModel(object):
     def mse(x, y, f):
         return f * tf.reduce_mean(tf.squared_difference(x, y))
 
+    @staticmethod
+    def dense(layer, shape, activ=None):
+        w = tf.Variable(tf.random_normal(shape, stddev=0.01))
+        b = tf.Variable(tf.zeros((1, shape[1])))
+        return tf.keras.layers.Activation(activ)(tf.matmul(layer, w) + b)
+
     def extract(self):
         return self.meta
 
     def build(self, srcs, ipts):
         self.srcs = srcs
         self.ipts = ipts
-        self.encoders = [tf.layers.Dense(min(self.dims), activation=self.activ)(ipt) for ipt in self.ipts]
 
     def loss(self):
         raise NotImplementedError('Loss Function Undefined')
@@ -145,8 +150,9 @@ class DAEME(AbsModel):
 
     def build(self, srcs, ipts):
         AbsModel.build(self, srcs, ipts)
+        self.encoders = [self.dense(ipt, (dim, dim), self.activ) for ipt, dim in zip(self.ipts, self.dims)]
         self.meta = tf.nn.l2_normalize(tf.concat(self.encoders, 1), axis=1)
-        self.outs = [tf.layers.Dense(dim)(encoder) for dim, encoder in zip(self.dims, self.encoders)]
+        self.outs = [self.dense(encoder, (dim, dim)) for encoder, dim in zip(self.encoders, self.dims)]
 
     def loss(self):
         ael = sum([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors[:-1])])
@@ -160,8 +166,9 @@ class CAEME(AbsModel):
 
     def build(self, srcs, ipts):
         AbsModel.build(self, srcs, ipts)
+        self.encoders = [self.dense(ipt, (dim, dim), self.activ) for ipt, dim in zip(self.ipts, self.dims)]
         self.meta = tf.nn.l2_normalize(tf.concat(self.encoders, 1), axis=1)
-        self.outs = [tf.layers.Dense(dim)(self.meta) for dim in self.dims]
+        self.outs = [self.dense(self.meta, (sum(self.dims), dim)) for dim in self.dims]
 
     def loss(self):
         return sum([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors)])
@@ -170,8 +177,9 @@ class AAEME(AbsModel):
 
     def build(self, srcs, ipts):
         AbsModel.build(self, srcs, ipts)
+        self.encoders = [self.dense(ipt, (dim, min(self.dims)), self.activ) for ipt, dim in zip(self.ipts, self.dims)]
         self.meta = tf.nn.l2_normalize(tf.add_n(self.encoders), axis=1)
-        self.outs = [tf.layers.Dense(dim)(self.meta) for dim in self.dims]
+        self.outs = [self.dense(self.meta, (min(self.dims), dim)) for dim in self.dims]
 
     def loss(self):
         return sum([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors)])

@@ -28,7 +28,7 @@ BATCH_SIZE = 128
 EPOCHS = 1000
 VALIDATION_RATIO = 0.05
 REGULARIZATION_RATIO = None
-ACTIVATION = 'sigmoid_m'
+ACTIVATION = 'relu'
 META_TYPE = 'conc'
 CHECKPOINT_RATIO = 0
 
@@ -73,7 +73,7 @@ def main():
     assert args.activ in ACTIVATION_TYPES
     assert args.type in NOISE_TYPES
     assert args.meta in META_TYPES
-    exec('from aeme.models.' + model_type + '.' + model_type + '_model import ' + model_name)
+    exec('from aeme_old.models.' + model_type + '.' + model_type + '_model import ' + model_name)
     params = {
         'input_path': {
             'cbow': args.input[0],

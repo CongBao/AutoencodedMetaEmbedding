@@ -83,8 +83,8 @@ class AEME(object):
         embed= {}
         self.batch_size = 1
         try:
-            for word, batch in zip(self.inter_words, self._next_batch(self.origin)):
-                meta = self.sess.run(self.aeme.extract(), {k:v for k, v in zip(self.ipts, batch)})
+            for word, batches in zip(self.inter_words, self._next_batch(self.origin)):
+                meta = self.sess.run(self.aeme.extract(), {k:v for k, v in zip(self.ipts, batches)})
                 embed[word] = np.reshape(meta, (np.shape(meta)[1],))
         except (KeyboardInterrupt, SystemExit):
             self.logger.log('Abnormal Exit', level=Logger.ERROR)

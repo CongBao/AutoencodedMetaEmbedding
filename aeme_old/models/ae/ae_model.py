@@ -8,8 +8,8 @@ from __future__ import division
 import numpy as np
 import tensorflow as tf
 
-from aeme.models.core.model import Model
-from aeme.utils import embed_io
+from aeme_old.models.core.model import Model
+from aeme_old.utils import embed_io
 
 __author__ = 'Cong Bao'
 

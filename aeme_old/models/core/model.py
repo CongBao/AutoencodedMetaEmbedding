@@ -10,10 +10,9 @@ import random
 
 import numpy as np
 import tensorflow as tf
-from tensorflow.contrib.keras import layers
 
-from aeme.utils import data_process, embed_io
-from aeme.utils.logger import Logger
+from aeme_old.utils import data_process, embed_io
+from aeme_old.utils.logger import Logger
 
 __author__ = 'Cong Bao'
 
@@ -97,15 +96,15 @@ class Model(object):
         elif activ_type == 'relu':
             self.activ_func = tf.nn.relu
         elif activ_type == 'lrelu':
-            self.activ_func = layers.LeakyReLU()
+            self.activ_func = tf.keras.layers.LeakyReLU()
         elif activ_type == 'prelu':
-            self.activ_func = layers.PReLU()
+            self.activ_func = tf.keras.layers.PReLU()
         elif activ_type == 'elu':
-            self.activ_func = layers.ELU()
+            self.activ_func = tf.keras.layers.ELU()
         elif activ_type == 'selu':
             alpha = 1.6732632423543772848170429916717
             scale = 1.0507009873554804934193349852946
-            self.activ_func = lambda x: scale * layers.ELU(alpha=alpha)(x)
+            self.activ_func = lambda x: scale * tf.keras.layers.ELU(alpha=alpha)(x)
         else:
             self.activ_func = None
         self.factors = params.get('factors', (1.0, 1.0, 1.0))
@@ -215,43 +214,42 @@ class Model(object):
 
     def _train_model(self):
         self.saver = tf.train.Saver(tf.global_variables())
-        with self.session.as_default():
-            self.graph = self.session.graph
-            self.merged_summaries = tf.summary.merge_all()
-            self.summary_writer = tf.summary.FileWriter(self.graph_path, self.graph)
-            if self.restore:
-                self.saver.restore(self.session, self.checkpoint_path + 'model.ckpt')
-            else:
-                self.session.run(tf.global_variables_initializer())
-            n_train = math.ceil(len(self.train_groups) / self.batch_size)
-            n_valid = math.ceil(len(self.valid_groups) / self.batch_size)
-            for itr in range(self.epoch):
-                np.random.shuffle(self.train_groups)
-                train_loss = 0.
-                for t1_batch, t2_batch in self._next_batch(self.train_groups):
-                    i1_batch = self._corrupt_input(t1_batch)
-                    i2_batch = self._corrupt_input(t2_batch)
-                    _, batch_loss = self.session.run([self.optimizer, self.loss],
-                                                     {self.source['cbow']: t1_batch,
-                                                      self.source['glove']: t2_batch,
-                                                      self.input['cbow']: i1_batch,
-                                                      self.input['glove']: i2_batch})
-                    train_loss += batch_loss
-                valid_loss = 0.
-                for v1_batch, v2_batch in self._next_batch(self.valid_groups):
-                    i1_batch = self._corrupt_input(v1_batch)
-                    i2_batch = self._corrupt_input(v2_batch)
-                    batch_loss = self.session.run(self.valid,
-                                                  {self.source['cbow']: v1_batch,
-                                                   self.source['glove']: v2_batch,
-                                                   self.input['cbow']: i1_batch,
-                                                   self.input['glove']: i2_batch})
-                    valid_loss += batch_loss
-                self.logger.log('[Epoch {0}] loss: {1}, validation: {2}'.format(itr, train_loss / n_train, valid_loss / n_valid))
-                ck_point = int(self.ckpt_ratio)
-                if ck_point != 0 and (itr + 1) % ck_point == 0:
-                    self.logger.log('Saving model...')
-                    self.saver.save(self.session, self.checkpoint_path + 'model.ckpt')
+        self.graph = self.session.graph
+        self.merged_summaries = tf.summary.merge_all()
+        self.summary_writer = tf.summary.FileWriter(self.graph_path, self.graph)
+        if self.restore:
+            self.saver.restore(self.session, self.checkpoint_path + 'model.ckpt')
+        else:
+            self.session.run(tf.global_variables_initializer())
+        n_train = math.ceil(len(self.train_groups) / self.batch_size)
+        n_valid = math.ceil(len(self.valid_groups) / self.batch_size)
+        for itr in range(self.epoch):
+            np.random.shuffle(self.train_groups)
+            train_loss = 0.
+            for t1_batch, t2_batch in self._next_batch(self.train_groups):
+                i1_batch = self._corrupt_input(t1_batch)
+                i2_batch = self._corrupt_input(t2_batch)
+                _, batch_loss = self.session.run([self.optimizer, self.loss],
+                                                 {self.source['cbow']: t1_batch,
+                                                  self.source['glove']: t2_batch,
+                                                  self.input['cbow']: i1_batch,
+                                                  self.input['glove']: i2_batch})
+                train_loss += batch_loss
+            valid_loss = 0.
+            for v1_batch, v2_batch in self._next_batch(self.valid_groups):
+                i1_batch = self._corrupt_input(v1_batch)
+                i2_batch = self._corrupt_input(v2_batch)
+                batch_loss = self.session.run(self.valid,
+                                              {self.source['cbow']: v1_batch,
+                                               self.source['glove']: v2_batch,
+                                               self.input['cbow']: i1_batch,
+                                               self.input['glove']: i2_batch})
+                valid_loss += batch_loss
+            self.logger.log('[Epoch {0}] loss: {1}, validation: {2}'.format(itr, train_loss / n_train, valid_loss / n_valid))
+            ck_point = int(self.ckpt_ratio)
+            if ck_point != 0 and (itr + 1) % ck_point == 0:
+                self.logger.log('Saving model...')
+                self.saver.save(self.session, self.checkpoint_path + 'model.ckpt')
 
                 """
                 if itr % 100 == 0:
@@ -267,7 +265,7 @@ class Model(object):
                                                self.input['glove']: glove_test})
                     self.summary_writer.add_summary(result, itr)
                 """
-            self.summary_writer.close()
+        self.summary_writer.close()
 
     def _generate_meta_embedding(self):
         meta_embedding = {}
@@ -294,6 +292,7 @@ class Model(object):
             meta_embedding = data_process.tsvd(meta_embedding)
         self.logger.log('Saving data into output file: %s' % self.output_path)
         embed_io.save_embeddings(meta_embedding, self.output_path)
+        self.session.close()
 
     def add_layer(self, pre_layer, shape=None, activ_func=None, name=None):
         """ Function used to add a layer

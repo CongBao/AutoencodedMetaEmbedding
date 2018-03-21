@@ -157,7 +157,7 @@ class DAEME(AbsModel):
     def build(self, srcs, ipts):
         AbsModel.build(self, srcs, ipts)
         self.encoders = [self.dense(ipt, (dim, dim), self.activ) for ipt, dim in zip(self.ipts, self.dims)]
-        self.meta = tf.nn.l2_normalize(tf.concat(self.encoders, 1), axis=1)
+        self.meta = tf.nn.l2_normalize(tf.concat(self.encoders, 1), 1)
         self.outs = [self.dense(encoder, (dim, dim)) for encoder, dim in zip(self.encoders, self.dims)]
 
     def loss(self):
@@ -173,7 +173,7 @@ class CAEME(AbsModel):
     def build(self, srcs, ipts):
         AbsModel.build(self, srcs, ipts)
         self.encoders = [self.dense(ipt, (dim, dim), self.activ) for ipt, dim in zip(self.ipts, self.dims)]
-        self.meta = tf.nn.l2_normalize(tf.concat(self.encoders, 1), axis=1)
+        self.meta = tf.nn.l2_normalize(tf.concat(self.encoders, 1), 1)
         self.outs = [self.dense(self.meta, (sum(self.dims), dim)) for dim in self.dims]
 
     def loss(self):
@@ -184,7 +184,7 @@ class AAEME(AbsModel):
     def build(self, srcs, ipts):
         AbsModel.build(self, srcs, ipts)
         self.encoders = [self.dense(ipt, (dim, min(self.dims)), self.activ) for ipt, dim in zip(self.ipts, self.dims)]
-        self.meta = tf.nn.l2_normalize(tf.add_n(self.encoders), axis=1)
+        self.meta = tf.nn.l2_normalize(tf.add_n(self.encoders), 1)
         self.outs = [self.dense(self.meta, (min(self.dims), dim)) for dim in self.dims]
 
     def loss(self):

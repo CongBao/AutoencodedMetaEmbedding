@@ -136,12 +136,6 @@ class AbsModel(object):
             y = tf.slice(y, [0, 0], [tf.shape(y)[0], smaller])
         return f * tf.reduce_mean(tf.squared_difference(x, y))
 
-    @staticmethod
-    def dense(layer, shape, activ=None):
-        w = tf.Variable(tf.random_normal(shape, stddev=0.01))
-        b = tf.Variable(tf.zeros((1, shape[1])))
-        return tf.keras.layers.Activation(activ)(tf.matmul(layer, w) + b)
-
     def extract(self):
         return self.meta
 

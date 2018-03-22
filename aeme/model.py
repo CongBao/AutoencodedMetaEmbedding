@@ -134,7 +134,7 @@ class AbsModel(object):
             smaller = min(x_d, y_d)
             x = tf.slice(x, [0, 0], [tf.shape(x)[0], smaller])
             y = tf.slice(y, [0, 0], [tf.shape(y)[0], smaller])
-        return f * tf.reduce_mean(tf.squared_difference(x, y))
+        return tf.scalar_mul(f, tf.reduce_mean(tf.squared_difference(x, y)))
 
     def extract(self):
         return self.meta
@@ -155,12 +155,11 @@ class DAEME(AbsModel):
         self.outs = [tf.layers.dense(encoder, dim) for encoder, dim in zip(self.encoders, self.dims)]
 
     def loss(self):
-        ael = sum([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors[:-1])])
-        mtl = 0.
+        los = tf.add_n([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors[:-1])])
         for i in range(len(self.encoders)):
             for j in range(i + 1, len(self.encoders)):
-                mtl += self.mse(self.encoders[i], self.encoders[j], self.factors[-1])
-        return ael + mtl
+                los = tf.add(los, self.mse(self.encoders[i], self.encoders[j], self.factors[-1]))
+        return los
 
 class CAEME(AbsModel):
 
@@ -171,7 +170,7 @@ class CAEME(AbsModel):
         self.outs = [tf.layers.dense(self.meta, dim) for dim in self.dims]
 
     def loss(self):
-        return sum([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors)])
+        return tf.add_n([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors)])
 
 class AAEME(AbsModel):
 
@@ -182,4 +181,4 @@ class AAEME(AbsModel):
         self.outs = [tf.layers.dense(self.meta, dim) for dim in self.dims]
 
     def loss(self):
-        return sum([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors)])
+        return tf.add_n([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors)])

@@ -58,7 +58,7 @@ class AEME(object):
 
     def train_model(self):
         step = tf.Variable(0, trainable=False)
-        rate = tf.train.exponential_decay(self.learning_rate, step, 50, 0.999)
+        rate = tf.train.exponential_decay(self.learning_rate, step, 50, 0.99) # 50 0.999
         loss = self.aeme.loss()
         opti = tf.train.AdamOptimizer(rate).minimize(loss, global_step=step)
         self.sess.run(tf.global_variables_initializer())

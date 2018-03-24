@@ -7,7 +7,7 @@ import sklearn.preprocessing as skpre
 import tensorflow as tf
 
 from logger import Logger
-from utils import load_emb, save_emb
+from utils import Utils
 
 __author__ = 'Cong Bao'
 
@@ -29,6 +29,7 @@ class AEME(object):
         self.noise = kwargs['noise']
 
         self.logger = Logger(self.model_type, self.log_path)
+        self.utils = Utils(self.logger.log)
 
         self.inter_words = []
         self.sources = []
@@ -36,7 +37,7 @@ class AEME(object):
         self.sess = tf.Session()
 
     def load_data(self):
-        src_dict_list = [load_emb(path, self.logger.log) for path in self.input_list]
+        src_dict_list = [self.utils.load_emb(path) for path in self.input_list]
         self.inter_words = list(set.intersection(*[set(src_dict.keys()) for src_dict in src_dict_list]))
         self.logger.log('Intersection Words: %s' % len(self.inter_words))
         self.sources = list(zip(*[skpre.normalize([src_dict[word] for word in self.inter_words]) for src_dict in src_dict_list]))
@@ -92,7 +93,7 @@ class AEME(object):
         finally:
             self.sess.close()
             del self.origin
-        save_emb(embed, self.output_path, self.logger.log)
+        self.utils.save_emb(embed, self.output_path)
 
     def _next_batch(self, source):
         if self.batch_size <= 1:

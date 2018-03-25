@@ -9,7 +9,7 @@ LOG = './log/'
 GRAPH = './graphs/'
 CHECKPOINT = './checkpoints/'
 
-MODELS = ['DAEME', 'CAEME', 'AAEME']
+MODELS = ['DAEME', 'CAEME', 'AAEME', 'SAEME']
 ACTIVS = ['relu', 'sigmoid']
 
 LEARNING_RATE = 0.001

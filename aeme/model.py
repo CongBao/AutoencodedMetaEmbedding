@@ -128,6 +128,11 @@ class AbsModel(object):
         self.encoders = None
 
     @staticmethod
+    def svd(tensor, dim):
+        s, U, _ = tf.svd(tensor)
+        return tf.matmul(U[:, :dim], tf.diag(s[:dim]))
+
+    @staticmethod
     def mse(x, y, f):
         x_d = x.get_shape().as_list()[1]
         y_d = y.get_shape().as_list()[1]

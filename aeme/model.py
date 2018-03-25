@@ -55,8 +55,6 @@ class AEME(object):
             self.aeme = CAEME(*params)
         elif self.model_type == 'AAEME':
             self.aeme = AAEME(*params)
-        elif self.model_type == 'SAEME':
-            self.aeme = SAEME(*params)
         self.aeme.build(self.srcs, self.ipts)
 
     def train_model(self):
@@ -130,11 +128,6 @@ class AbsModel(object):
         self.encoders = None
 
     @staticmethod
-    def svd(tensor, dim):
-        s, U, _ = tf.svd(tensor)
-        return tf.matmul(U[:, :dim], tf.diag(s[:dim]))
-
-    @staticmethod
     def mse(x, y, f):
         x_d = x.get_shape().as_list()[1]
         y_d = y.get_shape().as_list()[1]
@@ -186,18 +179,6 @@ class AAEME(AbsModel):
         AbsModel.build(self, srcs, ipts)
         self.encoders = [tf.layers.dense(ipt, min(self.dims), self.activ) for ipt in self.ipts]
         self.meta = tf.nn.l2_normalize(tf.add_n(self.encoders), 1)
-        self.outs = [tf.layers.dense(self.meta, dim) for dim in self.dims]
-
-    def loss(self):
-        return tf.add_n([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors)])
-
-class SAEME(AbsModel):
-    # require batch size larger than dimension
-
-    def build(self, srcs, ipts):
-        AbsModel.build(self, srcs, ipts)
-        self.encoders = [tf.layers.dense(ipt, dim, self.activ) for ipt, dim in zip(self.ipts, self.dims)]
-        self.meta = tf.nn.l2_normalize(self.svd(tf.concat(self.encoders, 1), min(self.dims)), 1)
         self.outs = [tf.layers.dense(self.meta, dim) for dim in self.dims]
 
     def loss(self):

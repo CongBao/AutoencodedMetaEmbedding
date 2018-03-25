@@ -47,7 +47,8 @@ class AEME(object):
     def build_model(self):
         self.srcs = [tf.placeholder(tf.float32, (None, dim)) for dim in self.dims]
         self.ipts = [tf.placeholder(tf.float32, (None, dim)) for dim in self.dims]
-        params = [self.dims, self.activ, self.noise, self.factors]
+        self.mode = tf.placeholder(tf.bool)
+        params = [self.dims, self.activ, self.noise, self.factors, self.mode]
         self.aeme = AbsModel(*params)
         if self.model_type == 'DAEME':
             self.aeme = DAEME(*params)
@@ -71,6 +72,7 @@ class AEME(object):
                 for batches in self._next_batch(self.sources):
                     feed = {k:v for k, v in zip(self.srcs, batches)}
                     feed.update({k:self._corrupt(v) for k, v in zip(self.ipts, batches)})
+                    feed.update({self.mode: True})
                     _, batch_loss = self.sess.run([opti, loss], feed)
                     train_loss += batch_loss
                 self.logger.log('[Epoch{0}]: loss: {1}'.format(itr, train_loss / num))
@@ -85,7 +87,9 @@ class AEME(object):
         self.batch_size = 1
         try:
             for word, batches in zip(self.inter_words, self._next_batch(self.origin)):
-                meta = self.sess.run(self.aeme.extract(), {k:v for k, v in zip(self.ipts, batches)})
+                feed = {k:v for k, v in zip(self.ipts, batches)}
+                feed.update({self.mode: False})
+                meta = self.sess.run(self.aeme.extract(), feed)
                 embed[word] = np.reshape(meta, (np.shape(meta)[1],))
         except (KeyboardInterrupt, SystemExit):
             self.logger.log('Abnormal Exit', level=Logger.ERROR)
@@ -116,16 +120,14 @@ class AEME(object):
 
 class AbsModel(object):
 
-    def __init__(self, dims, activ, noise, factors):
+    def __init__(self, dims, activ, noise, factors, mode):
         self.dims = dims # [dim, ...]
-        self.activ = tf.keras.layers.Activation(activ)
+        self.activ = activ
         self.noise = noise
         self.factors = factors
+        self.mode = mode
 
         self.meta = None
-        self.outs = None
-        self.ipts = None
-        self.encoders = None
 
     @staticmethod
     def mse(x, y, f):
@@ -136,6 +138,11 @@ class AbsModel(object):
             x = tf.slice(x, [0, 0], [tf.shape(x)[0], smaller])
             y = tf.slice(y, [0, 0], [tf.shape(y)[0], smaller])
         return tf.scalar_mul(f, tf.reduce_mean(tf.squared_difference(x, y)))
+
+    def dense(self, inputs, units, activ=None):
+        layer = tf.layers.dense(inputs, units)
+        layer = tf.layers.batch_normalization(layer, training=self.mode)
+        return tf.keras.layers.Activation(activ)(layer)
 
     def extract(self):
         return self.meta
@@ -151,9 +158,9 @@ class DAEME(AbsModel):
 
     def build(self, srcs, ipts):
         AbsModel.build(self, srcs, ipts)
-        self.encoders = [tf.layers.dense(ipt, dim, self.activ) for ipt, dim in zip(self.ipts, self.dims)]
+        self.encoders = [self.dense(ipt, dim, self.activ) for ipt, dim in zip(self.ipts, self.dims)]
         self.meta = tf.nn.l2_normalize(tf.concat(self.encoders, 1), 1)
-        self.outs = [tf.layers.dense(encoder, dim) for encoder, dim in zip(self.encoders, self.dims)]
+        self.outs = [self.dense(encoder, dim) for encoder, dim in zip(self.encoders, self.dims)]
 
     def loss(self):
         los = tf.add_n([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors[:-1])])
@@ -166,9 +173,9 @@ class CAEME(AbsModel):
 
     def build(self, srcs, ipts):
         AbsModel.build(self, srcs, ipts)
-        self.encoders = [tf.layers.dense(ipt, dim, self.activ) for ipt, dim in zip(self.ipts, self.dims)]
+        self.encoders = [self.dense(ipt, dim, self.activ) for ipt, dim in zip(self.ipts, self.dims)]
         self.meta = tf.nn.l2_normalize(tf.concat(self.encoders, 1), 1)
-        self.outs = [tf.layers.dense(self.meta, dim) for dim in self.dims]
+        self.outs = [self.dense(self.meta, dim) for dim in self.dims]
 
     def loss(self):
         return tf.add_n([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors)])
@@ -177,9 +184,9 @@ class AAEME(AbsModel):
 
     def build(self, srcs, ipts):
         AbsModel.build(self, srcs, ipts)
-        self.encoders = [tf.layers.dense(ipt, min(self.dims), self.activ) for ipt in self.ipts]
+        self.encoders = [self.dense(ipt, min(self.dims), self.activ) for ipt in self.ipts]
         self.meta = tf.nn.l2_normalize(tf.add_n(self.encoders), 1)
-        self.outs = [tf.layers.dense(self.meta, dim) for dim in self.dims]
+        self.outs = [self.dense(self.meta, dim) for dim in self.dims]
 
     def loss(self):
         return tf.add_n([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors)])

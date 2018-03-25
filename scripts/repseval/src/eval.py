@@ -590,22 +590,22 @@ def evaluate_embeddings(embed_fname, dim, res_fname, mode):
     if "ana" in mode or "all" in mode:    
         # word analogy benchmarks.
         google = eval_Google_Analogies(WR, M, cands)
-        res.append(("Google-semantic", google["semantic"]))
-        res.append(("Google-syntactic", google["syntactic"]))
-        res.append(("Google-total", google["total"]))
-        res.append(("MSR", eval_MSR_Analogies(WR, M, cands)))
-        res.append(("SemEval", eval_SemEval(WR, "CosAdd")))
-        res.append(("SAT", eval_SAT_Analogies(WR, "CosAdd")["acc"]))
+        res.append(("Google-semantic", google["semantic"] * 0.01))
+        res.append(("Google-syntactic", google["syntactic"] * 0.01))
+        res.append(("Google-total", google["total"] * 0.01))
+        res.append(("MSR", eval_MSR_Analogies(WR, M, cands) * 0.01))
+        res.append(("SemEval", eval_SemEval(WR, "CosAdd") * 0.01))
+        res.append(("SAT", eval_SAT_Analogies(WR, "CosAdd")["acc"] * 0.01))
 
     if "rel" in mode or "all" in mode:
-        res.append(("DiffVec", eval_diff_vect(WR)))
+        res.append(("DiffVec", eval_diff_vect(WR) * 0.01))
 
     if "txt" in mode or "all" in mode:    
         # short text classification benchmarks.
-        res.append(("TR", eval_short_text_classification("../benchmarks/TR", WR)))
-        res.append(("MR", eval_short_text_classification("../benchmarks/MR", WR)))
-        res.append(("CR", eval_short_text_classification("../benchmarks/CR", WR)))
-        res.append(("SUBJ", eval_short_text_classification("../benchmarks/SUBJ", WR)))
+        res.append(("TR", eval_short_text_classification("../benchmarks/TR", WR) * 0.01))
+        res.append(("MR", eval_short_text_classification("../benchmarks/MR", WR) * 0.01))
+        res.append(("CR", eval_short_text_classification("../benchmarks/CR", WR) * 0.01))
+        res.append(("SUBJ", eval_short_text_classification("../benchmarks/SUBJ", WR) * 0.01))
 
     if "psy" in mode or "all" in mode:
         psy_corr = get_psycho(WR)

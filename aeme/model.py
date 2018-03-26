@@ -62,7 +62,9 @@ class AEME(object):
         step = tf.Variable(0, trainable=False)
         rate = tf.train.exponential_decay(self.learning_rate, step, 50, 0.99)
         loss = self.aeme.loss()
-        opti = tf.train.AdamOptimizer(rate).minimize(loss, global_step=step)
+        bnop = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
+        with tf.control_dependencies(bnop):
+            opti = tf.train.AdamOptimizer(rate).minimize(loss, global_step=step)
         self.sess.run(tf.global_variables_initializer())
         num = len(self.sources) // self.batch_size + 1
         try:
@@ -140,9 +142,15 @@ class AbsModel(object):
         return tf.scalar_mul(f, tf.reduce_mean(tf.squared_difference(x, y)))
 
     def dense(self, inputs, units, activ=None):
-        layer = tf.layers.dense(inputs, units)
-        layer = tf.layers.batch_normalization(layer, training=self.mode)
-        return tf.keras.layers.Activation(activ)(layer)
+        layer = tf.layers.dense(inputs, units, use_bias=False)
+        if activ == 'relu':
+            layer = tf.layers.batch_normalization(layer, training=self.mode, scale=False)
+            return tf.nn.relu(layer)
+        elif activ == 'sigmoid':
+            layer = tf.layers.batch_normalization(layer, training=self.mode)
+            return tf.nn.sigmoid(layer)
+        else:
+            return tf.layers.batch_normalization(layer, training=self.mode, scale=False)
 
     def extract(self):
         return self.meta

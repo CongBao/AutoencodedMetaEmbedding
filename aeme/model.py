@@ -47,8 +47,7 @@ class AEME(object):
     def build_model(self):
         self.srcs = [tf.placeholder(tf.float32, (None, dim)) for dim in self.dims]
         self.ipts = [tf.placeholder(tf.float32, (None, dim)) for dim in self.dims]
-        self.mode = tf.placeholder(tf.bool)
-        params = [self.dims, self.activ, self.noise, self.factors, self.mode]
+        params = [self.dims, self.activ, self.noise, self.factors]
         self.aeme = AbsModel(*params)
         if self.model_type == 'DAEME':
             self.aeme = DAEME(*params)
@@ -62,9 +61,7 @@ class AEME(object):
         step = tf.Variable(0, trainable=False)
         rate = tf.train.exponential_decay(self.learning_rate, step, 50, 0.99)
         loss = self.aeme.loss()
-        bnop = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
-        with tf.control_dependencies(bnop):
-            opti = tf.train.AdamOptimizer(rate).minimize(loss, global_step=step)
+        opti = tf.train.AdamOptimizer(rate).minimize(loss, global_step=step)
         self.sess.run(tf.global_variables_initializer())
         num = len(self.sources) // self.batch_size + 1
         try:
@@ -74,7 +71,6 @@ class AEME(object):
                 for batches in self._next_batch(self.sources):
                     feed = {k:v for k, v in zip(self.srcs, batches)}
                     feed.update({k:self._corrupt(v) for k, v in zip(self.ipts, batches)})
-                    feed.update({self.mode: True})
                     _, batch_loss = self.sess.run([opti, loss], feed)
                     train_loss += batch_loss
                 self.logger.log('[Epoch{0}]: loss: {1}'.format(itr, train_loss / num))
@@ -89,9 +85,7 @@ class AEME(object):
         self.batch_size = 1
         try:
             for word, batches in zip(self.inter_words, self._next_batch(self.origin)):
-                feed = {k:v for k, v in zip(self.ipts, batches)}
-                feed.update({self.mode: False})
-                meta = self.sess.run(self.aeme.extract(), feed)
+                meta = self.sess.run(self.aeme.extract(), {k:v for k, v in zip(self.ipts, batches)})
                 embed[word] = np.reshape(meta, (np.shape(meta)[1],))
         except (KeyboardInterrupt, SystemExit):
             self.logger.log('Abnormal Exit', level=Logger.ERROR)
@@ -122,12 +116,11 @@ class AEME(object):
 
 class AbsModel(object):
 
-    def __init__(self, dims, activ, noise, factors, mode):
+    def __init__(self, dims, activ, noise, factors):
         self.dims = dims # [dim, ...]
-        self.activ = activ
+        self.activ = tf.keras.layers.Activation(activ)
         self.noise = noise
         self.factors = factors
-        self.mode = mode
 
         self.meta = None
 
@@ -140,17 +133,6 @@ class AbsModel(object):
             x = tf.slice(x, [0, 0], [tf.shape(x)[0], smaller])
             y = tf.slice(y, [0, 0], [tf.shape(y)[0], smaller])
         return tf.scalar_mul(f, tf.reduce_mean(tf.squared_difference(x, y)))
-
-    def dense(self, inputs, units, activ=None):
-        layer = tf.layers.dense(inputs, units, use_bias=False)
-        if activ == 'relu':
-            layer = tf.layers.batch_normalization(layer, training=self.mode, scale=False)
-            return tf.nn.relu(layer)
-        elif activ == 'sigmoid':
-            layer = tf.layers.batch_normalization(layer, training=self.mode)
-            return tf.nn.sigmoid(layer)
-        else:
-            return tf.layers.batch_normalization(layer, training=self.mode, scale=False)
 
     def extract(self):
         return self.meta
@@ -166,9 +148,9 @@ class DAEME(AbsModel):
 
     def build(self, srcs, ipts):
         AbsModel.build(self, srcs, ipts)
-        self.encoders = [self.dense(ipt, dim, self.activ) for ipt, dim in zip(self.ipts, self.dims)]
+        self.encoders = [tf.layers.dense(ipt, dim, self.activ) for ipt, dim in zip(self.ipts, self.dims)]
         self.meta = tf.nn.l2_normalize(tf.concat(self.encoders, 1), 1)
-        self.outs = [self.dense(encoder, dim) for encoder, dim in zip(self.encoders, self.dims)]
+        self.outs = [tf.layers.dense(encoder, dim) for encoder, dim in zip(self.encoders, self.dims)]
 
     def loss(self):
         los = tf.add_n([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors[:-1])])
@@ -181,9 +163,9 @@ class CAEME(AbsModel):
 
     def build(self, srcs, ipts):
         AbsModel.build(self, srcs, ipts)
-        self.encoders = [self.dense(ipt, dim, self.activ) for ipt, dim in zip(self.ipts, self.dims)]
+        self.encoders = [tf.layers.dense(ipt, dim, self.activ) for ipt, dim in zip(self.ipts, self.dims)]
         self.meta = tf.nn.l2_normalize(tf.concat(self.encoders, 1), 1)
-        self.outs = [self.dense(self.meta, dim) for dim in self.dims]
+        self.outs = [tf.layers.dense(self.meta, dim) for dim in self.dims]
 
     def loss(self):
         return tf.add_n([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors)])
@@ -192,9 +174,9 @@ class AAEME(AbsModel):
 
     def build(self, srcs, ipts):
         AbsModel.build(self, srcs, ipts)
-        self.encoders = [self.dense(ipt, min(self.dims), self.activ) for ipt in self.ipts]
+        self.encoders = [tf.layers.dense(ipt, min(self.dims), self.activ) for ipt in self.ipts]
         self.meta = tf.nn.l2_normalize(tf.add_n(self.encoders), 1)
-        self.outs = [self.dense(self.meta, dim) for dim in self.dims]
+        self.outs = [tf.layers.dense(self.meta, dim) for dim in self.dims]
 
     def loss(self):
         return tf.add_n([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors)])

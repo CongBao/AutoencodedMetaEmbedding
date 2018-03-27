@@ -10,7 +10,7 @@ GRAPH = './graphs/'
 CHECKPOINT = './checkpoints/'
 
 MODELS = ['DAEME', 'CAEME', 'AAEME']
-ACTIVS = ['relu', 'sigmoid']
+ACTIVS = ['relu', 'sigmoid', 'tanh']
 
 LEARNING_RATE = 0.001
 BATCH_SIZE = 128

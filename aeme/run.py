@@ -32,6 +32,7 @@ def main():
     add_arg('-a', dest='activ',  type=str,   default=ACTIV,             help='activation function within %s, default %s' % (ACTIVS, ACTIV))
     add_arg('-n', dest='noise',  type=float, default=NOISE,             help='ratio of noise, default %s' % NOISE)
     add_arg('-f', dest='factor', type=float, default=FACTOR, nargs='+', help='factors of loss function')
+    add_arg('--embed-dim',       dest='emb', type=int, default=300,     help='the dimension of embeddings when applying AAEME')
     add_arg('--log-path',        dest='log', type=str, default=LOG,     help='the directory of log, default %s' % LOG)
     add_arg('--cpu-only',        dest='cpu', action='store_true',       help='whether use cpu only or not, default False')
     args = parser.parse_args()
@@ -51,7 +52,8 @@ def main():
         'epoch': args.epoch,
         'activ': args.activ,
         'factors': args.factor,
-        'noise': args.noise
+        'noise': args.noise,
+        'emb': args.emb
     }
     if not isinstance(args.factor, float):
         params['factors'] = tuple(args.factor)
@@ -72,6 +74,8 @@ def main():
     aeme.logger.log('Activation function: %s' % params['activ'])
     aeme.logger.log('Factors: %s' % (params['factors'],))
     aeme.logger.log('Noise rate: %s' % params['noise'])
+    if params['model'] == 'AAEME':
+        aeme.logger.log('Embedding dimensionality: %s' % params['emb'])
     aeme.load_data()
     aeme.build_model()
     aeme.train_model()

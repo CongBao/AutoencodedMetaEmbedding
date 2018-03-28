@@ -25,6 +25,7 @@ class AEME(object):
         self.activ = kwargs['activ']
         self.factors = kwargs['factors']
         self.noise = kwargs['noise']
+        self.emb_dim = kwargs['emb']
 
         self.logger = Logger(self.model_type, self.log_path)
         self.utils = Utils(self.logger.log)
@@ -52,7 +53,7 @@ class AEME(object):
         elif self.model_type == 'CAEME':
             self.aeme = CAEME(*params)
         elif self.model_type == 'AAEME':
-            self.aeme = AAEME(*params)
+            self.aeme = AAEME(*params, emb_dim=self.emb_dim)
         self.aeme.build(self.srcs, self.ipts)
 
     def train_model(self):
@@ -170,9 +171,13 @@ class CAEME(AbsModel):
 
 class AAEME(AbsModel):
 
+    def __init__(self, *args, **kwargs):
+        AbsModel.__init__(self, *args)
+        self.emb_dim = kwargs['emb_dim']
+
     def build(self, srcs, ipts):
         AbsModel.build(self, srcs, ipts)
-        self.encoders = [tf.layers.dense(ipt, min(self.dims), self.activ) for ipt in self.ipts]
+        self.encoders = [tf.layers.dense(ipt, self.emb_dim, self.activ) for ipt in self.ipts]
         self.meta = tf.nn.l2_normalize(tf.add_n(self.encoders), 1)
         self.outs = [tf.layers.dense(self.meta, dim) for dim in self.dims]
 

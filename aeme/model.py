@@ -17,8 +17,6 @@ class AEME(object):
         self.input_list = kwargs['input'] # [path, ...]
         self.output_path = kwargs['output']
         self.log_path = kwargs['log']
-        self.graph_path = kwargs['graph']
-        self.checkpoint_path = kwargs['checkpoint']
         self.model_type = kwargs['model']
         self.dims = kwargs['dims']
         self.learning_rate = kwargs['learning_rate']

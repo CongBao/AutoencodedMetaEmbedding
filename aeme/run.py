@@ -32,10 +32,8 @@ def main():
     add_arg('-a', dest='activ',  type=str,   default=ACTIV,             help='activation function within %s, default %s' % (ACTIVS, ACTIV))
     add_arg('-n', dest='noise',  type=float, default=NOISE,             help='ratio of noise, default %s' % NOISE)
     add_arg('-f', dest='factor', type=float, default=FACTOR, nargs='+', help='factors of loss function')
-    add_arg('--log-path',        dest='log',        type=str, default=LOG,        help='the directory of log, default %s' % LOG)
-    add_arg('--graph-path',      dest='graph',      type=str, default=GRAPH,      help='path to save tensor graphs, default %s' % GRAPH)
-    add_arg('--checkpoint-path', dest='checkpoint', type=str, default=CHECKPOINT, help='path to save checkpoint files, default %s' % CHECKPOINT)
-    add_arg('--cpu-only',        dest='cpu',        action='store_true',          help='whether use cpu only or not, default False')
+    add_arg('--log-path',        dest='log', type=str, default=LOG,     help='the directory of log, default %s' % LOG)
+    add_arg('--cpu-only',        dest='cpu', action='store_true',       help='whether use cpu only or not, default False')
     args = parser.parse_args()
     if args.cpu:
         os.environ['CUDA_VISIBLE_DEVICES'] = ''
@@ -46,8 +44,6 @@ def main():
         'input': tuple(args.input),
         'output': args.output,
         'log': args.log,
-        'graph': args.graph,
-        'checkpoint': args.checkpoint,
         'model': args.model,
         'dims': tuple(args.dims),
         'learning_rate': args.rate,
@@ -68,8 +64,6 @@ def main():
     aeme = AEME(**params)
     aeme.logger.log('Source directories: %s' % (params['input'],))
     aeme.logger.log('Output directory: %s' % params['output'])
-    aeme.logger.log('Graph path: %s' % params['graph'])
-    aeme.logger.log('Checkpoint path: %s' % params['checkpoint'])
     aeme.logger.log('Model type: %s' % params['model'])
     aeme.logger.log('Dimensionalities: %s' % (params['dims'],))
     aeme.logger.log('Learning rate: %s' % params['learning_rate'])

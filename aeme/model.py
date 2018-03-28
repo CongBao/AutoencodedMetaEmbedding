@@ -72,7 +72,7 @@ class AEME(object):
                     feed.update({k:self._corrupt(v) for k, v in zip(self.ipts, batches)})
                     _, batch_loss = self.sess.run([opti, loss], feed)
                     train_loss += batch_loss
-                self.logger.log('[Epoch{0}]: loss: {1}'.format(itr, train_loss / num))
+                self.logger.log('[Epoch{0}] loss: {1}'.format(itr, train_loss / num))
         except (KeyboardInterrupt, SystemExit):
             self.logger.log('Abnormal Exit', level=Logger.ERROR)
             self.sess.close()

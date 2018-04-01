@@ -78,8 +78,11 @@ def main():
         aeme.logger.log('Embedding dimensionality: %s' % params['emb'])
     aeme.load_data()
     aeme.build_model()
-    aeme.train_model()
-    aeme.generate_meta_embed()
+    try:
+        aeme.train_model()
+        aeme.generate_meta_embed()
+    except (KeyboardInterrupt, SystemExit):
+        aeme.logger.log('Abort!', level=aeme.logger.WARN)
 
 if __name__ == '__main__':
     main()

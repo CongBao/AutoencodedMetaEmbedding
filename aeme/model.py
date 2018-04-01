@@ -39,9 +39,8 @@ class AEME(object):
         src_dict_list = [self.utils.load_emb(path) for path in self.input_list]
         self.inter_words = list(set.intersection(*[set(src_dict.keys()) for src_dict in src_dict_list]))
         self.logger.log('Intersection Words: %s' % len(self.inter_words))
-        self.sources = list(zip(*[skpre.normalize([src_dict[word] for word in self.inter_words]) for src_dict in src_dict_list]))
+        self.sources = np.stack([skpre.normalize([src_dict[word] for word in self.inter_words]) for src_dict in src_dict_list], axis=1)
         del src_dict_list
-        self.origin = self.sources[:]
 
     def build_model(self):
         self.srcs = [tf.placeholder(tf.float32, (None, dim)) for dim in self.dims]
@@ -63,46 +62,26 @@ class AEME(object):
         opti = tf.train.AdamOptimizer(rate).minimize(loss, global_step=step)
         self.sess.run(tf.global_variables_initializer())
         num = len(self.sources) // self.batch_size + 1
-        try:
-            for itr in range(self.epoch):
-                np.random.shuffle(self.sources)
-                train_loss = 0.
-                for batches in self._next_batch(self.sources):
-                    feed = {k:v for k, v in zip(self.srcs, batches)}
-                    feed.update({k:self._corrupt(v) for k, v in zip(self.ipts, batches)})
-                    _, batch_loss = self.sess.run([opti, loss], feed)
-                    train_loss += batch_loss
-                self.logger.log('[Epoch{0}] loss: {1}'.format(itr, train_loss / num))
-        except (KeyboardInterrupt, SystemExit):
-            self.logger.log('Abnormal Exit', level=Logger.ERROR)
-            self.sess.close()
-        finally:
-            del self.sources
+        for itr in range(self.epoch):
+            indexes = np.random.permutation(len(self.sources))
+            train_loss = 0.
+            for idx in range(int(len(self.sources) / self.batch_size)):
+                batch_idx = indexes[idx * self.batch_size : (idx + 1) * self.batch_size]
+                batches = np.stack(self.sources[batch_idx], axis=1)
+                feed = {k:v for k, v in zip(self.srcs, batches)}
+                feed.update({k:self._corrupt(v) for k, v in zip(self.ipts, batches)})
+                _, batch_loss = self.sess.run([opti, loss], feed)
+                train_loss += batch_loss
+            self.logger.log('[Epoch{0}] loss: {1}'.format(itr, train_loss / num))
 
     def generate_meta_embed(self):
         embed= {}
-        self.batch_size = 1
-        try:
-            for word, batches in zip(self.inter_words, self._next_batch(self.origin)):
-                meta = self.sess.run(self.aeme.extract(), {k:v for k, v in zip(self.ipts, batches)})
-                embed[word] = np.reshape(meta, (np.shape(meta)[1],))
-        except (KeyboardInterrupt, SystemExit):
-            self.logger.log('Abnormal Exit', level=Logger.ERROR)
-            raise
-        finally:
-            self.sess.close()
-            del self.origin
+        for i, word in enumerate(self.inter_words):
+            meta = self.sess.run(self.aeme.extract(), {k:[v] for k, v in zip(self.ipts, self.sources[i])})
+            embed[word] = np.reshape(meta, (np.shape(meta)[1],))
+        self.sess.close()
+        del self.sources
         self.utils.save_emb(embed, self.output_path)
-
-    def _next_batch(self, source):
-        if self.batch_size <= 1:
-            for items in source:
-                yield [np.asarray([x]) for x in items]
-        elif self.batch_size >= len(source):
-            yield [np.asarray(x) for x in zip(*source)]
-        else:
-            for n in range(0, len(source), self.batch_size):
-                yield [np.asarray(x) for x in zip(*source[n:n+self.batch_size])]
 
     def _corrupt(self, batch):
         noised = np.copy(batch)

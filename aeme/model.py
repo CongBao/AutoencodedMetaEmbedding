@@ -61,11 +61,11 @@ class AEME(object):
         loss = self.aeme.loss()
         opti = tf.train.AdamOptimizer(rate).minimize(loss, global_step=step)
         self.sess.run(tf.global_variables_initializer())
-        num = len(self.sources) // self.batch_size + 1
+        num = len(self.sources) // self.batch_size
         for itr in range(self.epoch):
             indexes = np.random.permutation(len(self.sources))
             train_loss = 0.
-            for idx in range(int(len(self.sources) / self.batch_size)):
+            for idx in range(num):
                 batch_idx = indexes[idx * self.batch_size : (idx + 1) * self.batch_size]
                 batches = np.stack(self.sources[batch_idx], axis=1)
                 feed = {k:v for k, v in zip(self.srcs, batches)}
@@ -76,6 +76,7 @@ class AEME(object):
 
     def generate_meta_embed(self):
         embed= {}
+        self.logger.log('Generating meta embeddings...')
         for i, word in enumerate(self.inter_words):
             meta = self.sess.run(self.aeme.extract(), {k:[v] for k, v in zip(self.ipts, self.sources[i])})
             embed[word] = np.reshape(meta, (np.shape(meta)[1],))

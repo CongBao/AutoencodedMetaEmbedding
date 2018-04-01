@@ -39,7 +39,7 @@ class AEME(object):
         src_dict_list = [self.utils.load_emb(path) for path in self.input_list]
         self.inter_words = list(set.intersection(*[set(src_dict.keys()) for src_dict in src_dict_list]))
         self.logger.log('Intersection Words: %s' % len(self.inter_words))
-        self.sources = np.stack([skpre.normalize([src_dict[word] for word in self.inter_words]) for src_dict in src_dict_list], axis=1)
+        self.sources = np.asarray(list(zip(*[skpre.normalize([src_dict[word] for word in self.inter_words]) for src_dict in src_dict_list])))
         del src_dict_list
 
     def build_model(self):
@@ -67,7 +67,7 @@ class AEME(object):
             train_loss = 0.
             for idx in range(num):
                 batch_idx = indexes[idx * self.batch_size : (idx + 1) * self.batch_size]
-                batches = np.stack(self.sources[batch_idx], axis=1)
+                batches = list(zip(*self.sources[batch_idx]))
                 feed = {k:v for k, v in zip(self.srcs, batches)}
                 feed.update({k:self._corrupt(v) for k, v in zip(self.ipts, batches)})
                 _, batch_loss = self.sess.run([opti, loss], feed)

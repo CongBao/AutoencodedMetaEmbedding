@@ -6,8 +6,7 @@ import numpy as np
 import sklearn.preprocessing as skpre
 import tensorflow as tf
 
-from logger import Logger
-from utils import Utils
+from utils import Logger, Utils
 
 __author__ = 'Cong Bao'
 

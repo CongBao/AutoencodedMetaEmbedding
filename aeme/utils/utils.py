@@ -15,9 +15,15 @@ class Utils(object):
     def __init__(self, log=None):
         self.log = log if log else print
 
+    def load_words(self, file_path):
+        self.log('Loading %s' % file_path)
+        with open(file_path) as f:
+            word_list = f.readlines()
+        return [x.strip() for x in word_list]
+
     def load_emb(self, file_path):
         embed = {}
-        self.log('loading %s' % file_path)
+        self.log('Loading %s' % file_path)
         data = pd.read_table(file_path, sep=' ', header=None, index_col=0, quoting=csv.QUOTE_NONE)
         for i in tqdm(range(len(data.index)), bar_format='Progress: {percentage:3.0f}% {r_bar}'):
             embed[str(data.index[i])] = np.asarray(data.values[i], dtype='float32')

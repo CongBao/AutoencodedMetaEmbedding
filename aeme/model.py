@@ -96,9 +96,15 @@ class AbsModel(object):
 
     def __init__(self, dims, activ, noise, factors):
         self.dims = dims # [dim, ...]
-        self.activ = tf.keras.layers.Activation(activ)
         self.noise = noise
         self.factors = factors
+
+        if activ == 'lrelu':
+            self.activ = tf.keras.layers.LeakyReLU(0.2)
+        elif activ == 'prelu':
+            self.activ = tf.keras.layers.PReLU()
+        else:
+            self.activ = tf.keras.layers.Activation(activ)
 
         self.meta = None
 

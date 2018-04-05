@@ -12,7 +12,7 @@ from utils import Utils
 
 __author__ = 'Cong Bao'
 
-def visualize(input_path, output_path):
+def visualize(input_path, output_path, fig_size=(64, 64)):
     util = Utils()
     emb_dict = util.load_emb(input_path)
     labels = []
@@ -29,7 +29,7 @@ def visualize(input_path, output_path):
     for embed in zipped:
         x.append(embed[0])
         y.append(embed[1])
-    plt.figure(figsize=(32, 32))
+    plt.figure(figsize=tuple(fig_size))
     for i in range(len(x)):
         plt.scatter(x[i], y[i])
         plt.annotate(labels[i], xy=(x[i], y[i]), xytext=(5, 2), textcoords='offset points', ha='right', va='bottom')
@@ -42,9 +42,10 @@ def main():
     add_arg = parser.add_argument
     add_arg('-i', dest='input', type=str, required=True, help='embedding path')
     add_arg('-o', dest='output', type=str, required=True, help='figure saving path')
+    add_arg('-s', dest='size', type=int, nargs='+', default=[64, 64], help='the size of figure in inches')
     args = parser.parse_args()
     try:
-        visualize(args.input, args.output)
+        visualize(args.input, args.output, args.size)
     except (KeyboardInterrupt, SystemExit):
         print('Abort!')
 

@@ -10,7 +10,6 @@ GRAPH = './graphs/'
 CHECKPOINT = './checkpoints/'
 
 MODELS = ['DAEME', 'CAEME', 'AAEME']
-ACTIVS = ['relu', 'sigmoid', 'tanh']
 
 LEARNING_RATE = 0.001
 BATCH_SIZE = 128
@@ -29,7 +28,7 @@ def main():
     add_arg('-r', dest='rate',   type=float, default=LEARNING_RATE,     help='learning rate, default %s' % LEARNING_RATE)
     add_arg('-b', dest='batch',  type=int,   default=BATCH_SIZE,        help='batch size, default %s' % BATCH_SIZE)
     add_arg('-e', dest='epoch',  type=int,   default=EPOCH,             help='number of epoches, default %s' % EPOCH)
-    add_arg('-a', dest='activ',  type=str,   default=ACTIV,             help='activation function within %s, default %s' % (ACTIVS, ACTIV))
+    add_arg('-a', dest='activ',  type=str,   default=ACTIV,             help='activation function, default %s' % ACTIV)
     add_arg('-n', dest='noise',  type=float, default=NOISE,             help='ratio of noise, default %s' % NOISE)
     add_arg('-f', dest='factor', type=float, default=FACTOR, nargs='+', help='factors of loss function')
     add_arg('--embed-dim',       dest='emb', type=int, default=300,     help='the dimension of embeddings when applying AAEME')
@@ -38,7 +37,6 @@ def main():
     args = parser.parse_args()
     if args.cpu:
         os.environ['CUDA_VISIBLE_DEVICES'] = ''
-    assert args.activ in ACTIVS
     assert args.model in MODELS
     assert len(args.input) == len(args.dims)
     params = {

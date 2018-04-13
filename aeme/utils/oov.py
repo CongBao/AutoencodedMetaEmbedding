@@ -9,7 +9,7 @@ from keras.layers import Dense, Input
 from keras.losses import mse
 from keras.models import Model
 from keras.optimizers import Adam
-from sklearn.preprocessing import minmax_scale, normalize
+from sklearn.preprocessing import minmax_scale, normalize, scale, maxabs_scale
 
 from utils import Utils
 
@@ -20,10 +20,10 @@ class Regressor(object):
     def __init__(self,
                  in_size,
                  out_size,
-                 activ_func='sigmoid',
-                 batch_size=64,
+                 activ_func='tanh',
+                 batch_size=128,
                  learning_rate=0.001,
-                 epoch=100):
+                 epoch=50):
         self.in_size = in_size
         self.out_size = out_size
         self.activ_func = activ_func
@@ -48,7 +48,7 @@ def preprocess(src_dict):
     arr = []
     for word in word_list:
         arr.append(src_dict[word])
-    arr = normalize(minmax_scale(arr))
+    arr = normalize(arr)
     new_dict = {}
     for i, word in enumerate(word_list):
         new_dict[word] = arr[i]

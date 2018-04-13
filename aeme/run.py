@@ -74,6 +74,7 @@ def main():
     aeme.logger.log('Noise rate: %s' % params['noise'])
     if params['model'] == 'AAEME':
         aeme.logger.log('Embedding dimensionality: %s' % params['emb'])
+    aeme.logger.log('Running on %s' % ('CPU' if args.cpu else 'GPU'))
     aeme.load_data()
     aeme.build_model()
     try:

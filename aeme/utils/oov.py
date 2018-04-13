@@ -1,9 +1,19 @@
 # pre-processing to predict oovs
 
-from keras.models import Model
-from keras.layers import Input, Dense
-from keras.optimizers import Adam
+import argparse
+import os
+from itertools import combinations as comb
+
+import numpy as np
+from keras.layers import Dense, Input
 from keras.losses import mse
+from keras.models import Model
+from keras.optimizers import Adam
+from keras.utils import normalize
+
+from . import Utils
+
+__author__ = 'Cong Bao'
 
 class Regressor(object):
     
@@ -31,4 +41,72 @@ class Regressor(object):
         self.model.fit(x, y, batch_size=self.batch_size, epochs=self.epoch)
 
     def predict(self, x):
-        self.model.predict(x, batch_size=self.batch_size)
+        return self.model.predict(x, batch_size=self.batch_size)
+
+def process(inputs, outputs, dims, mode='max'):
+    utils = Utils()
+    src_dicts = [utils.load_emb(path) for path in inputs]
+    new_dicts = [{}] * len(inputs)
+    indexes = list(range(len(inputs)))
+    for k in range(len(inputs), 1, -1):
+        if mode == 'max' and k < len(inputs):
+            break
+        for group in comb(indexes, k):
+            for teachers in comb(group, k - 1):
+                student = (set(group) - set(teachers)).pop()
+                tech_CK = set.intersection(*[set(src_dicts[idx].keys()) for idx in teachers]) # teachers' common knowledge
+                stu_CK = set(src_dicts[student].keys()) & tech_CK # student's common knowledge with teachers
+                stu_NK = tech_CK - stu_CK # what student don't know, but teachers know
+                if not stu_NK:
+                    continue
+                stu_CK = list(stu_CK)
+                stu_NK = list(stu_NK)
+                taught = []
+                for tc in teachers:
+                    reg = Regressor(dims[tc], dims[student])
+                    reg.build()
+                    x = []
+                    y = []
+                    for word in stu_CK:
+                        x.append(src_dicts[tc][word])
+                        y.append(src_dicts[student][word])
+                    reg.train(x, y)
+                    t = []
+                    for word in stu_NK:
+                        t.append(src_dicts[tc][word])
+                    taught.append(reg.predict(t))
+                learned = []
+                for new_know in zip(*taught):
+                    learned.append(normalize(np.sum(new_know, axis=0))[0])
+                for word, know in zip(stu_NK, learned):
+                    new_dicts[student][word] = know
+    for idx in indexes:
+        src_dicts[idx].update(new_dicts[idx])
+    for i, path in enumerate(outputs):
+        utils.save_emb(src_dicts[i], path)
+
+def main():
+    parser = argparse.ArgumentParser()
+    add_arg = parser.add_argument
+    add_arg('-i', dest='input', type=str, required=True, nargs='+', help='inputs directories')
+    add_arg('-o', dest='output', type=str, required=True, nargs='+', help='output directories')
+    add_arg('-d', dest='dim', type=int, required=True, nargs='+', help='dimensionality of each input')
+    add_arg('-m', dest='mode', type=str, default='max', help='mode of oov prediction, max or all')
+    add_arg('--cpu-only', dest='cpu', action='store_true', help='whether use cpu only or not')
+    args = parser.parse_args()
+    if args.cpu:
+        os.environ['CUDA_VISIBLE_DEVICES'] = ''
+    assert len(args.input) == len(args.output)
+    assert len(args.input) == len(args.dim)
+    print('Inputs: %s' % args.inputs)
+    print('Outputs: %s' % args.output)
+    print('Dimensions: %s' % args.dim)
+    print('Mode: %s' % args.mode)
+    print('Running on %s' % ('CPU' if args.cpu else 'GPU'))
+    try:
+        process(args.inputs, args.outputs, args.dims, args.mode)
+    except (KeyboardInterrupt, SystemExit):
+        print('Abort!')
+
+if __name__ == '__main__':
+    main()

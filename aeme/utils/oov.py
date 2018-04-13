@@ -9,9 +9,9 @@ from keras.layers import Dense, Input
 from keras.losses import mse
 from keras.models import Model
 from keras.optimizers import Adam
-from keras.utils import normalize
+from sklearn.preprocessing import minmax_scale, normalize
 
-from . import Utils
+from utils import Utils
 
 __author__ = 'Cong Bao'
 
@@ -43,17 +43,31 @@ class Regressor(object):
     def predict(self, x):
         return self.model.predict(x, batch_size=self.batch_size)
 
+def preprocess(src_dict):
+    word_list = list(src_dict.keys())
+    arr = []
+    for word in word_list:
+        arr.append(src_dict[word])
+    arr = normalize(minmax_scale(arr))
+    new_dict = {}
+    for i, word in enumerate(word_list):
+        new_dict[word] = arr[i]
+    return new_dict
+
 def process(inputs, outputs, dims, mode='max'):
-    utils = Utils()
-    src_dicts = [utils.load_emb(path) for path in inputs]
+    util = Utils()
+    src_dicts = [preprocess(util.load_emb(path)) for path in inputs]
     new_dicts = [{}] * len(inputs)
     indexes = list(range(len(inputs)))
     for k in range(len(inputs), 1, -1):
         if mode == 'max' and k < len(inputs):
             break
         for group in comb(indexes, k):
+            print('Group: %s' % (group,))
             for teachers in comb(group, k - 1):
+                print('Teachers: %s' % (teachers,))
                 student = (set(group) - set(teachers)).pop()
+                print('Student: %s' % student)
                 tech_CK = set.intersection(*[set(src_dicts[idx].keys()) for idx in teachers]) # teachers' common knowledge
                 stu_CK = set(src_dicts[student].keys()) & tech_CK # student's common knowledge with teachers
                 stu_NK = tech_CK - stu_CK # what student don't know, but teachers know
@@ -63,6 +77,7 @@ def process(inputs, outputs, dims, mode='max'):
                 stu_NK = list(stu_NK)
                 taught = []
                 for tc in teachers:
+                    print('Teacher %s teaching...' % tc)
                     reg = Regressor(dims[tc], dims[student])
                     reg.build()
                     x = []
@@ -70,20 +85,21 @@ def process(inputs, outputs, dims, mode='max'):
                     for word in stu_CK:
                         x.append(src_dicts[tc][word])
                         y.append(src_dicts[student][word])
-                    reg.train(x, y)
+                    reg.train(np.asarray(x), np.asarray(y))
                     t = []
                     for word in stu_NK:
                         t.append(src_dicts[tc][word])
-                    taught.append(reg.predict(t))
+                    taught.append(reg.predict(np.asarray(t)))
                 learned = []
                 for new_know in zip(*taught):
-                    learned.append(normalize(np.sum(new_know, axis=0))[0])
+                    learned.append(np.sum(new_know, axis=0))
+                learned = normalize(learned)
                 for word, know in zip(stu_NK, learned):
                     new_dicts[student][word] = know
     for idx in indexes:
         src_dicts[idx].update(new_dicts[idx])
     for i, path in enumerate(outputs):
-        utils.save_emb(src_dicts[i], path)
+        util.save_emb(src_dicts[i], path)
 
 def main():
     parser = argparse.ArgumentParser()
@@ -98,13 +114,14 @@ def main():
         os.environ['CUDA_VISIBLE_DEVICES'] = ''
     assert len(args.input) == len(args.output)
     assert len(args.input) == len(args.dim)
-    print('Inputs: %s' % args.inputs)
+    print('Inputs: %s' % args.input)
     print('Outputs: %s' % args.output)
     print('Dimensions: %s' % args.dim)
     print('Mode: %s' % args.mode)
     print('Running on %s' % ('CPU' if args.cpu else 'GPU'))
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
     try:
-        process(args.inputs, args.outputs, args.dims, args.mode)
+        process(args.input, args.output, args.dim, args.mode)
     except (KeyboardInterrupt, SystemExit):
         print('Abort!')
 

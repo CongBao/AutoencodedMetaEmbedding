@@ -86,16 +86,20 @@ def process(inputs, outputs, dims, mode='max'):
                         x.append(src_dicts[tc][word])
                         y.append(src_dicts[student][word])
                     reg.train(np.asarray(x), np.asarray(y))
+                    del x, y
                     t = []
                     for word in stu_NK:
                         t.append(src_dicts[tc][word])
                     taught.append(reg.predict(np.asarray(t)))
+                    del t
                 learned = []
                 for new_know in zip(*taught):
                     learned.append(np.sum(new_know, axis=0))
+                del taught
                 learned = normalize(learned)
                 for word, know in zip(stu_NK, learned):
                     new_dicts[student][word] = know
+                del learned
     for idx in indexes:
         src_dicts[idx].update(new_dicts[idx])
     for i, path in enumerate(outputs):

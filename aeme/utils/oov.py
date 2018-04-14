@@ -9,7 +9,7 @@ from keras.layers import Dense, Input
 from keras.losses import mse
 from keras.models import Model
 from keras.optimizers import Adam
-from sklearn.preprocessing import minmax_scale, normalize, scale, maxabs_scale
+from sklearn.preprocessing import normalize
 
 from utils import Utils
 

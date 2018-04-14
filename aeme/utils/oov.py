@@ -23,7 +23,7 @@ class Regressor(object):
                  activ_func='tanh',
                  batch_size=128,
                  learning_rate=0.001,
-                 epoch=50):
+                 epoch=20):
         self.in_size = in_size
         self.out_size = out_size
         self.activ_func = activ_func

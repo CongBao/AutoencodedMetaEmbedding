@@ -25,20 +25,33 @@ class AEME(object):
         self.factors = kwargs['factors']
         self.noise = kwargs['noise']
         self.emb_dim = kwargs['emb']
+        self.oov = kwargs['oov']
 
         self.logger = Logger(self.model_type, self.log_path)
         self.utils = Utils(self.logger.log)
-
-        self.inter_words = []
-        self.sources = []
 
         self.sess = tf.Session()
 
     def load_data(self):
         src_dict_list = [self.utils.load_emb(path) for path in self.input_list]
-        self.inter_words = list(set.intersection(*[set(src_dict.keys()) for src_dict in src_dict_list]))
-        self.logger.log('Intersection Words: %s' % len(self.inter_words))
-        self.sources = np.asarray(list(zip(*[skpre.normalize([src_dict[word] for word in self.inter_words]) for src_dict in src_dict_list])))
+        if self.oov:
+            self.union_words = list(set.union(*[set(src_dict.keys()) for src_dict in src_dict_list]))
+            self.logger.log('Union Words: %s' % len(self.union_words))
+            source = []
+            for i, src_dict in enumerate(src_dict_list):
+                embed_mat = []
+                for word in self.union_words:
+                    embed = src_dict.get(word)
+                    if embed is not None:
+                        embed_mat.append(embed)
+                    else:
+                        embed_mat.append(np.zeros(self.dims[i]))
+                source.append(skpre.normalize(embed_mat))
+            self.sources = np.asarray(list(zip(*source)))
+        else:
+            self.inter_words = list(set.intersection(*[set(src_dict.keys()) for src_dict in src_dict_list]))
+            self.logger.log('Intersection Words: %s' % len(self.inter_words))
+            self.sources = np.asarray(list(zip(*[skpre.normalize([src_dict[word] for word in self.inter_words]) for src_dict in src_dict_list])))
         del src_dict_list
 
     def build_model(self):

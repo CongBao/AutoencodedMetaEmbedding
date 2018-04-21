@@ -36,8 +36,6 @@ def main():
     add_arg('--oov',             dest='oov', action='store_true',       help='whether to deal with OOV, default False')
     add_arg('--cpu-only',        dest='cpu', action='store_true',       help='whether use cpu only or not, default False')
     args = parser.parse_args()
-    if args.cpu:
-        os.environ['CUDA_VISIBLE_DEVICES'] = ''
     assert args.model in MODELS
     assert len(args.input) == len(args.dims)
     params = {
@@ -61,6 +59,8 @@ def main():
         params['factors'] = tuple([FACTOR] * (len(args.input) + 1))
     else:
         params['factors'] = tuple([FACTOR] * len(args.input))
+    if args.cpu:
+        os.environ['CUDA_VISIBLE_DEVICES'] = ''
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
     from model import AEME
     aeme = AEME(**params)

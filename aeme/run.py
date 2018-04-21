@@ -64,27 +64,28 @@ def main():
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
     from model import AEME
     aeme = AEME(**params)
-    aeme.logger.log('Source directories: %s' % (params['input'],))
-    aeme.logger.log('Output directory: %s' % params['output'])
-    aeme.logger.log('Model type: %s' % params['model'])
-    aeme.logger.log('Dimensionalities: %s' % (params['dims'],))
-    aeme.logger.log('Learning rate: %s' % params['learning_rate'])
-    aeme.logger.log('Batch size: %s' % params['batch'])
-    aeme.logger.log('Epoch: %s' % params['epoch'])
-    aeme.logger.log('Activation function: %s' % params['activ'])
-    aeme.logger.log('Factors: %s' % (params['factors'],))
-    aeme.logger.log('Noise rate: %s' % params['noise'])
+    log = aeme.logger.log
+    log('Source directories: %s' % (params['input'],))
+    log('Output directory: %s' % params['output'])
+    log('Model type: %s' % params['model'])
+    log('Dimensionalities: %s' % (params['dims'],))
+    log('Learning rate: %s' % params['learning_rate'])
+    log('Batch size: %s' % params['batch'])
+    log('Epoch: %s' % params['epoch'])
+    log('Activation function: %s' % params['activ'])
+    log('Factors: %s' % (params['factors'],))
+    log('Noise rate: %s' % params['noise'])
     if params['model'] == 'AAEME':
-        aeme.logger.log('Embedding dimensionality: %s' % params['emb'])
-    aeme.logger.log('Output embedding will%s include OOV words' % ('' if args.oov else ' NOT'))
-    aeme.logger.log('Running on %s' % ('CPU' if args.cpu else 'GPU'))
+        log('Embedding dimensionality: %s' % params['emb'])
+    log('Output embedding will%s include OOV words' % ('' if args.oov else ' NOT'))
+    log('Running on %s' % ('CPU' if args.cpu else 'GPU'))
     aeme.load_data()
     aeme.build_model()
     try:
         aeme.train_model()
         aeme.generate_meta_embed()
     except (KeyboardInterrupt, SystemExit):
-        aeme.logger.log('Abort!', level=aeme.logger.WARN)
+        log('Abort!', level=aeme.logger.WARN)
 
 if __name__ == '__main__':
     main()

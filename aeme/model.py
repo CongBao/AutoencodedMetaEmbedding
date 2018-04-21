@@ -120,7 +120,9 @@ class AEME(object):
                 noised[i][m] = 0.
         return noised
 
-class AbsModel(object, metaclass=ABCMeta):
+class AbsModel(object):
+
+    __metaclass__ = ABCMeta
 
     def __init__(self, dims, activ, noise, factors):
         self.dims = dims # [dim, ...]

@@ -2,6 +2,7 @@
 
 import argparse
 import os
+
 from utils import Corrector
 
 __author__ = 'Cong Bao'

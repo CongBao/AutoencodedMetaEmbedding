@@ -3,6 +3,7 @@
 from __future__ import division
 
 from abc import ABCMeta, abstractmethod
+from itertools import combinations
 
 import numpy as np
 import sklearn.preprocessing as skpre
@@ -154,9 +155,8 @@ class DAEME(AbsModel):
 
     def loss(self):
         los = tf.add_n([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors[:-1])])
-        for i in range(len(self.encoders)):
-            for j in range(i + 1, len(self.encoders)):
-                los = tf.add(los, self.mse(self.encoders[i], self.encoders[j], self.factors[-1]))
+        for x, y in combinations(self.encoders, 2):
+            los = tf.add(los, self.mse(x, y, self.factors[-1]))
         return los
 
 class CAEME(AbsModel):

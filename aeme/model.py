@@ -19,6 +19,7 @@ class AEME(object):
         self.input_list = kwargs['input'] # [path, ...]
         self.output_path = kwargs['output']
         self.log_path = kwargs['log']
+        self.ckpt_path = kwargs['ckpt'] + 'model.ckpt'
         self.model_type = kwargs['model']
         self.dims = kwargs['dims']
         self.learning_rate = kwargs['learning_rate']
@@ -29,11 +30,13 @@ class AEME(object):
         self.noise = kwargs['noise']
         self.emb_dim = kwargs['emb']
         self.oov = kwargs['oov']
+        self.restore = kwargs['restore']
 
         self.logger = Logger(self.model_type, self.log_path)
         self.utils = Utils(self.logger.log)
 
         self.sess = tf.Session()
+        self.ckpt = None
 
     def load_data(self):
         src_dict_list = [self.utils.load_emb(path) for path in self.input_list]
@@ -74,23 +77,33 @@ class AEME(object):
         rate = tf.train.exponential_decay(self.learning_rate, step, 50, 0.99)
         loss = self.aeme.loss()
         opti = tf.train.AdamOptimizer(rate).minimize(loss, global_step=step)
-        self.sess.run(tf.global_variables_initializer())
-        num = len(self.sources) // self.batch_size
+        self.ckpt = tf.train.Saver(tf.global_variables())
+        if self.restore:
+            self.ckpt.restore(self.sess, self.ckpt_path)
+        else:
+            self.sess.run(tf.global_variables_initializer())
+        size = len(self.sources) // self.batch_size
+        best = float('inf')
         for itr in range(self.epoch):
             indexes = np.random.permutation(len(self.sources))
             train_loss = 0.
-            for idx in range(num):
+            for idx in range(size):
                 batch_idx = indexes[idx * self.batch_size : (idx + 1) * self.batch_size]
                 batches = list(zip(*self.sources[batch_idx]))
                 feed = {k:v for k, v in zip(self.srcs, batches)}
                 feed.update({k:self._corrupt(v) for k, v in zip(self.ipts, batches)})
                 _, batch_loss = self.sess.run([opti, loss], feed)
                 train_loss += batch_loss
-            self.logger.log('[Epoch{0}] loss: {1}'.format(itr, train_loss / num))
+            epoch_loss = train_loss / size
+            if epoch_loss < best:
+                self.ckpt.save(self.sess, self.ckpt_path)
+                best = epoch_loss
+            self.logger.log('[Epoch{0}] loss: {1}'.format(itr, epoch_loss))
 
     def generate_meta_embed(self):
         embed= {}
         self.logger.log('Generating meta embeddings...')
+        self.ckpt.restore(self.sess, self.ckpt_path)
         for i, word in enumerate(self.inter_words):
             meta = self.sess.run(self.aeme.extract(), {k:[v] for k, v in zip(self.ipts, self.sources[i])})
             embed[word] = np.reshape(meta, (np.shape(meta)[1],))

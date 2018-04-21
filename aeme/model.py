@@ -2,6 +2,8 @@
 
 from __future__ import division
 
+from abc import ABCMeta, abstractmethod
+
 import numpy as np
 import sklearn.preprocessing as skpre
 import tensorflow as tf
@@ -58,7 +60,6 @@ class AEME(object):
         self.srcs = [tf.placeholder(tf.float32, (None, dim)) for dim in self.dims]
         self.ipts = [tf.placeholder(tf.float32, (None, dim)) for dim in self.dims]
         params = [self.dims, self.activ, self.noise, self.factors]
-        self.aeme = AbsModel(*params)
         if self.model_type == 'DAEME':
             self.aeme = DAEME(*params)
         elif self.model_type == 'CAEME':
@@ -105,7 +106,7 @@ class AEME(object):
                 noised[i][m] = 0.
         return noised
 
-class AbsModel(object):
+class AbsModel(object, metaclass=ABCMeta):
 
     def __init__(self, dims, activ, noise, factors):
         self.dims = dims # [dim, ...]
@@ -134,12 +135,14 @@ class AbsModel(object):
     def extract(self):
         return self.meta
 
+    @abstractmethod
     def build(self, srcs, ipts):
         self.srcs = srcs
         self.ipts = ipts
 
+    @abstractmethod
     def loss(self):
-        raise NotImplementedError('Loss Function Undefined')
+        pass
 
 class DAEME(AbsModel):
 

@@ -104,7 +104,11 @@ class AEME(object):
         embed= {}
         self.logger.log('Generating meta embeddings...')
         self.ckpt.restore(self.sess, self.ckpt_path)
-        for i, word in enumerate(self.inter_words):
+        if self.oov:
+            vocabulary = self.union_words
+        else:
+            vocabulary = self.inter_words
+        for i, word in enumerate(vocabulary):
             meta = self.sess.run(self.aeme.extract(), {k:[v] for k, v in zip(self.ipts, self.sources[i])})
             embed[word] = np.reshape(meta, (np.shape(meta)[1],))
         self.sess.close()

@@ -97,6 +97,7 @@ def main():
     try:
         aeme.train_model()
         aeme.generate_meta_embed()
+        log('Complete')
     except (KeyboardInterrupt, SystemExit):
         log('Abort!', level=aeme.logger.WARN)
 

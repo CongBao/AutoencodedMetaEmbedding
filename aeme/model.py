@@ -1,5 +1,5 @@
 """ Model of AEME
-    File name: model.py
+    File: model.py
     Author: Cong Bao
 """
 

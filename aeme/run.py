@@ -1,4 +1,7 @@
-# train the model and generate meta embeddings
+""" Launch the model
+    File: run.py
+    Author: Cong Bao
+"""
 
 import argparse
 import os
@@ -21,6 +24,7 @@ NOISE = 0.05
 FACTOR = 1.0
 
 def main():
+    """ The main method to receive user inputs """
     parser = argparse.ArgumentParser()
     add_arg = parser.add_argument
     add_arg('-i', dest='input',  type=str, required=True, nargs='+',        help='directory of source embeddings')

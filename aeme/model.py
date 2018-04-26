@@ -1,4 +1,7 @@
-# Model of AEME
+""" Model of AEME
+    File name: model.py
+    Author: Cong Bao
+"""
 
 from __future__ import division
 
@@ -60,6 +63,10 @@ class AEME(object):
         self.ckpt = None
 
     def load_data(self):
+        """ Load individual source embeddings and store intersection/union words and embeddings in separate lists.
+            If oov is True, word list will be the union of individual vocabularies.
+            If oov is False, word list will be the intersection of individual vocabularies.
+        """
         src_dict_list = [self.utils.load_emb(path) for path in self.input_list]
         if self.oov:
             self.union_words = list(set.union(*[set(src_dict.keys()) for src_dict in src_dict_list]))
@@ -82,6 +89,9 @@ class AEME(object):
         del src_dict_list
 
     def build_model(self):
+        """ Build the model of AEME.
+            The model to build will be one of DAEME, CAEME, or AAEME.
+        """
         self.srcs = [tf.placeholder(tf.float32, (None, dim)) for dim in self.dims]
         self.ipts = [tf.placeholder(tf.float32, (None, dim)) for dim in self.dims]
         params = [self.dims, self.activ, self.factors]
@@ -94,6 +104,9 @@ class AEME(object):
         self.aeme.build(self.srcs, self.ipts)
 
     def train_model(self):
+        """ Train the model.
+            Variables with least losses will be stored in checkpoint file.
+        """
         step = tf.Variable(0, trainable=False)
         rate = tf.train.exponential_decay(self.learning_rate, step, 50, 0.99)
         loss = self.aeme.loss()
@@ -122,6 +135,9 @@ class AEME(object):
             self.logger.log('[Epoch{0}] loss: {1}'.format(itr, epoch_loss))
 
     def generate_meta_embed(self):
+        """ Generate meta-embedding and save as local file.
+            Variables used to predict are these with least losses during training.
+        """
         embed= {}
         self.logger.log('Generating meta embeddings...')
         self.ckpt.restore(self.sess, self.ckpt_path)
@@ -137,6 +153,10 @@ class AEME(object):
         self.utils.save_emb(embed, self.output_path)
 
     def _corrupt(self, batch):
+        """ Corrupt a batch using masking noises.
+            :param batch: the batch to be corrupted
+            :return: a new batch after corrupting
+        """
         noised = np.copy(batch)
         batch_size, feature_size = np.shape(batch)
         for i in range(batch_size):

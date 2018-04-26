@@ -14,6 +14,27 @@ from utils import Logger, Utils
 __author__ = 'Cong Bao'
 
 class AEME(object):
+    """ Autoencoded Meta-Embedding.
+        :param input_list: a list of source embedding path
+        :param output_path: a string path of output file
+        :param log_path: a string path of log file
+        :param ckpt_path: a string path of checkpoint file
+        :param model_type: the type of model, among DAEME, CAEME, AAEME
+        :param dims: a list of dimensionalities of each source embedding
+        :param learning_rate: a float number of the learning rate
+        :param batch_size: a int number of the batch size
+        :param epoch: a int number of the epoch
+        :param activ: a string name of activation function
+        :param factors: a list of coefficients of each loss part
+        :param noise: a float number between 0 and 1 of the masking noise rate
+        :param emb_dim: a int number of meta-embedding dimensionality, only used in AAEME model
+        :param oov: a boolean value whether to initialize inputs with oov or not
+        :param restore: a boolean value whether to restore checkpoint from local file or 
+        :property logger: a logger to record log information
+        :property utils: a utility tool for I/O
+        :property sess: a tensorflow session
+        :property ckpt: a tensorflow saver 
+    """
 
     def __init__(self, **kwargs):
         self.input_list = kwargs['input'] # [path, ...]
@@ -63,7 +84,7 @@ class AEME(object):
     def build_model(self):
         self.srcs = [tf.placeholder(tf.float32, (None, dim)) for dim in self.dims]
         self.ipts = [tf.placeholder(tf.float32, (None, dim)) for dim in self.dims]
-        params = [self.dims, self.activ, self.noise, self.factors]
+        params = [self.dims, self.activ, self.factors]
         if self.model_type == 'DAEME':
             self.aeme = DAEME(*params)
         elif self.model_type == 'CAEME':
@@ -125,12 +146,16 @@ class AEME(object):
         return noised
 
 class AbsModel(object):
+    """ Base class of all proposed methods.
+        :param dims: a list of dimensionalities of each input
+        :param activ: the string name of activation function
+        :param factors: a list of coefficients of each loss part
+    """
 
     __metaclass__ = ABCMeta
 
-    def __init__(self, dims, activ, noise, factors):
-        self.dims = dims # [dim, ...]
-        self.noise = noise
+    def __init__(self, dims, activ, factors):
+        self.dims = dims
         self.factors = factors
 
         if activ == 'lrelu':
@@ -144,6 +169,14 @@ class AbsModel(object):
 
     @staticmethod
     def mse(x, y, f):
+        """ Mean Squared Error with slicing.
+            This method will slice vector with higher dimension to the lower one,
+            if the two vector have different dimensions.
+            :param x: first vector
+            :param y: second vector
+            :param f: coefficient
+            :return: a tensor after calculating f * (1 / d) * ||x - y||^2
+        """
         x_d = x.get_shape().as_list()[1]
         y_d = y.get_shape().as_list()[1]
         if x_d != y_d:
@@ -153,18 +186,34 @@ class AbsModel(object):
         return tf.scalar_mul(f, tf.reduce_mean(tf.squared_difference(x, y)))
 
     def extract(self):
+        """ Extract the meta-embeddding model.
+            :return: the meta-embedding model
+        """
         return self.meta
 
     @abstractmethod
     def build(self, srcs, ipts):
+        """ Abstract method.
+            Build the model.
+            :param srcs: source embeddings
+            :param ipts: input embeddings
+        """
         self.srcs = srcs
         self.ipts = ipts
 
     @abstractmethod
     def loss(self):
+        """ Abstract method.
+            Obtain the loss function of model.
+            :return: a tensor calculating the loss function
+        """
         pass
 
 class DAEME(AbsModel):
+    """ Decoupled Autoencoded Meta-Embedding.
+        This method calculate meta-embedding as the concatenation of encoded source embeddings.
+        The loss function is defined as the sum of mse of each autoencoder and the mse between meta parts.
+    """
 
     def build(self, srcs, ipts):
         AbsModel.build(self, srcs, ipts)
@@ -179,6 +228,10 @@ class DAEME(AbsModel):
         return los
 
 class CAEME(AbsModel):
+    """ Concatenated Autoencoded Meta-Embedding.
+        This method calculate meta-embedding as the concatenation of encoded source embeddings.
+        The loss function is defined as the sum of mse of each autoencoder.
+    """
 
     def build(self, srcs, ipts):
         AbsModel.build(self, srcs, ipts)
@@ -190,6 +243,11 @@ class CAEME(AbsModel):
         return tf.add_n([self.mse(x, y, f) for x, y, f in zip(self.srcs, self.outs, self.factors)])
 
 class AAEME(AbsModel):
+    """ Averaged Autoencoded Meta-Embedding.
+        This method calculate meta-embedding as the averaging of encoded source embeddings.
+        The loss function is defined as the sum of mse of each autoencoder.
+        :param emb_dim: the dimensionality of meta-embedding
+    """
 
     def __init__(self, *args, **kwargs):
         AbsModel.__init__(self, *args)

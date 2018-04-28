@@ -129,7 +129,7 @@ class AEME(object):
                 _, batch_loss = self.sess.run([opti, loss], feed)
                 train_loss += batch_loss
             epoch_loss = train_loss / size
-            if epoch_loss < best:
+            if epoch_loss <= best:
                 self.ckpt.save(self.sess, self.ckpt_path)
                 best = epoch_loss
             self.logger.log('[Epoch{0}] loss: {1}'.format(itr, epoch_loss))

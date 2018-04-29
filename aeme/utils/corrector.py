@@ -1,4 +1,6 @@
-""" Check and revise user inputs """
+# Correct user inputs with regular expression
+# File: corrector.py
+# Author: Cong Bao
 
 import re
 

@@ -1,4 +1,6 @@
 # Visualize embeddings
+# File: visualize.py
+# Author: Cong Bao
 
 import argparse
 
@@ -13,6 +15,11 @@ from utils import Utils
 __author__ = 'Cong Bao'
 
 def visualize(input_path, output_path, fig_size=(64, 64)):
+    """ Visualize the word embeddings.
+        :param input_path: path of word embedding file
+        :param output_path: path of output image
+        :param fig_size: size of image
+    """
     util = Utils()
     emb_dict = util.load_emb(input_path)
     labels = []
@@ -38,6 +45,7 @@ def visualize(input_path, output_path, fig_size=(64, 64)):
     plt.close('all')
 
 def main():
+    """ Launch the processing """
     parser = argparse.ArgumentParser()
     add_arg = parser.add_argument
     add_arg('-i', dest='input', type=str, required=True, help='embedding path')

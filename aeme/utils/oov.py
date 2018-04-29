@@ -1,4 +1,6 @@
-# pre-processing to predict oovs
+# pre-processing to predict out-of-vocabulary words
+# File: oov.py
+# Author: Cong Bao
 
 import argparse
 import os
@@ -16,6 +18,14 @@ from utils import Utils
 __author__ = 'Cong Bao'
 
 class Regressor(object):
+    """ A simple regressive model.
+        :param in_size: the size of input
+        :param out_size: the size of output
+        :param activ_func: activation function, default tanh
+        :param batch_size: size of each mini-batch, default 128
+        :param learning_rate: the learning_rate during training, default 0.001
+        :param epoch: the number of epoches to train, default 20
+    """
     
     def __init__(self,
                  in_size,
@@ -32,18 +42,31 @@ class Regressor(object):
         self.epoch = epoch
 
     def build(self):
+        """ Build the model. """
         src = Input(shape=(self.in_size,))
         out = Dense(self.out_size, activation=self.activ_func)(src)
         self.model = Model(src, out)
         self.model.compile(Adam(lr=self.learning_rate), loss=mse)
     
     def train(self, x, y):
+        """ Train the model.
+            :param x: the input data
+            :param y: the labelled output
+        """
         self.model.fit(x, y, batch_size=self.batch_size, epochs=self.epoch)
 
     def predict(self, x):
+        """ Predict output with given data.
+            :param x: the data given to predict
+            :return: predicted output
+        """
         return self.model.predict(x, batch_size=self.batch_size)
 
 def preprocess(src_dict):
+    """ Preprocess data before training.
+        :param src_dict: the source dict {word:embedding}
+        :return: a new dict after preprocessing
+    """
     word_list = list(src_dict.keys())
     arr = []
     for word in word_list:
@@ -55,6 +78,12 @@ def preprocess(src_dict):
     return new_dict
 
 def process(inputs, outputs, dims, mode='max'):
+    """ Process the oovs.
+        :param inputs: a list of paths of inputs
+        :param outputs: a list of paths of outputs
+        :param dims: a list of dimensionalities of inputs
+        :param mode: the mode of processing, if max, only iterate once, if all, iterate the length of inputs times
+    """
     util = Utils()
     src_dicts = [preprocess(util.load_emb(path)) for path in inputs]
     new_dicts = [{}] * len(inputs)
@@ -106,6 +135,7 @@ def process(inputs, outputs, dims, mode='max'):
         util.save_emb(src_dicts[i], path)
 
 def main():
+    """ Launch the processing. """
     parser = argparse.ArgumentParser()
     add_arg = parser.add_argument
     add_arg('-i', dest='input', type=str, required=True, nargs='+', help='inputs directories')

@@ -1,4 +1,6 @@
-# pick out intersection of source embedding
+# Pick out intersection of source embeddings
+# File: pickout.py
+# Author: Cong Bao
 
 from __future__ import print_function
 
@@ -12,6 +14,11 @@ from utils import Utils
 __author__ = 'Cong Bao'
 
 def pickout_intersection(inputs, outputs, norm=True):
+    """ Pick out intersection of source embeddings.
+        :param inputs: path of source embeddings
+        :param outputs: path of output files
+        :param norm: whether to perform normalization on inputs or not
+    """
     utils = Utils()
     src_dict_list = [utils.load_emb(path) for path in inputs]
     inter_words = list(set.intersection(*[set(src_dict.keys()) for src_dict in src_dict_list]))
@@ -27,6 +34,12 @@ def pickout_intersection(inputs, outputs, norm=True):
         utils.save_emb(selected, path)
 
 def pickout_words(inputs, outputs, word_path, norm=True):
+    """ Pick out embeddings with given words.
+        :param inputs: path of source embeddings
+        :param outputs: path of output files
+        :param word_path: path of word list file
+        :param norm: whether to perform nomalization on inputs or not
+    """
     utils = Utils()
     src_dict_list = [utils.load_emb(path) for path in inputs]
     word_list = utils.load_words(word_path)
@@ -43,6 +56,7 @@ def pickout_words(inputs, outputs, word_path, norm=True):
         utils.save_emb(selected, path)
 
 def main():
+    """ Launch the processing """
     parser = argparse.ArgumentParser()
     add_arg = parser.add_argument
     add_arg('-i', dest='input',  nargs='+', type=str, required=True, help='input files')

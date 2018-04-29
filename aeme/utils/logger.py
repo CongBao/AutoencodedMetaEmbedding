@@ -1,4 +1,6 @@
 # A class used to log status
+# File: logger.py
+# Author: Cong Bao
 
 import logging
 import os
@@ -7,6 +9,11 @@ import time
 __author__ = 'Cong Bao'
 
 class Logger(object):
+    """ The class of logger.
+        Logs will be save to given file location and also show on the command line.
+        :param name: the name of log file
+        :param log_dir: the directory of log file
+    """
 
     DEBUG = 'DEBUG'
     INFO = 'INFO'
@@ -33,6 +40,10 @@ class Logger(object):
         self.__logger.addHandler(sh)
 
     def log(self, msg, level='INFO'):
+        """ Log information with given level.
+            :param msg: the message to record
+            :param level: the level of message
+        """
         if level == Logger.DEBUG:
             self.__logger.debug(msg)
         elif level == Logger.INFO:

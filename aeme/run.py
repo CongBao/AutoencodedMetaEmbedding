@@ -1,7 +1,6 @@
-""" Launch the model
-    File: run.py
-    Author: Cong Bao
-"""
+# Launch the training of model and generating meta-embeddings
+# File: run.py
+# Author: Cong Bao
 
 import argparse
 import os

@@ -1,7 +1,6 @@
-""" Model of AEME
-    File: model.py
-    Author: Cong Bao
-"""
+# Model of AEME
+# File: model.py
+# Author: Cong Bao
 
 from __future__ import division
 
@@ -67,7 +66,10 @@ class AEME(object):
             If oov is True, word list will be the union of individual vocabularies.
             If oov is False, word list will be the intersection of individual vocabularies.
         """
+        # a list of source embedding dict {word:embedding}
         src_dict_list = [self.utils.load_emb(path) for path in self.input_list]
+        # if consider out-of-vocabulary words, initialize embeddings of them with zero vectors
+        # the final vocabulary is the union of source vocabularies
         if self.oov:
             self.union_words = list(set.union(*[set(src_dict.keys()) for src_dict in src_dict_list]))
             self.logger.log('Union Words: %s' % len(self.union_words))
@@ -82,18 +84,23 @@ class AEME(object):
                         embed_mat.append(np.zeros(self.dims[i]))
                 source.append(skpre.normalize(embed_mat))
             self.sources = np.asarray(list(zip(*source)))
+        # if do not consider out-of-vocabulary, just load the embeddings from dict
+        # the final vocabulary is the intersection of source vocabularies 
         else:
             self.inter_words = list(set.intersection(*[set(src_dict.keys()) for src_dict in src_dict_list]))
             self.logger.log('Intersection Words: %s' % len(self.inter_words))
             self.sources = np.asarray(list(zip(*[skpre.normalize([src_dict[word] for word in self.inter_words]) for src_dict in src_dict_list])))
+        # delete the list of dicts to release memory
         del src_dict_list
 
     def build_model(self):
         """ Build the model of AEME.
             The model to build will be one of DAEME, CAEME, or AAEME.
         """
+        # initialize sources and inputs
         self.srcs = [tf.placeholder(tf.float32, (None, dim)) for dim in self.dims]
         self.ipts = [tf.placeholder(tf.float32, (None, dim)) for dim in self.dims]
+        # select and build models
         params = [self.dims, self.activ, self.factors]
         if self.model_type == 'DAEME':
             self.aeme = DAEME(*params)
@@ -116,11 +123,13 @@ class AEME(object):
             self.ckpt.restore(self.sess, self.ckpt_path)
         else:
             self.sess.run(tf.global_variables_initializer())
-        size = len(self.sources) // self.batch_size
+        size = len(self.sources) // self.batch_size # the number of batches
         best = float('inf')
+        # loop for N epoches
         for itr in range(self.epoch):
-            indexes = np.random.permutation(len(self.sources))
+            indexes = np.random.permutation(len(self.sources)) # shuffle training inputs
             train_loss = 0.
+            # train with mini-batches
             for idx in range(size):
                 batch_idx = indexes[idx * self.batch_size : (idx + 1) * self.batch_size]
                 batches = list(zip(*self.sources[batch_idx]))
@@ -129,6 +138,7 @@ class AEME(object):
                 _, batch_loss = self.sess.run([opti, loss], feed)
                 train_loss += batch_loss
             epoch_loss = train_loss / size
+            # save the checkpoint with least loss
             if epoch_loss <= best:
                 self.ckpt.save(self.sess, self.ckpt_path)
                 best = epoch_loss

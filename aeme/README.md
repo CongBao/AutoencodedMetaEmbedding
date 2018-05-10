@@ -12,4 +12,29 @@
     + __utils.py__ Scripts used for large-scale data I/O
     + __visualize.py__ A tool used to visualize word embeddings
 
-## Instructions on this tool
+## Instructions on AEME training
+
+Start training by:
+
+    python run.py -m AAEME -i ~/data/CBOW.txt ~/data/GloVe.txt -d 300 300 -o ~/results/res.txt
+
+Tune hyperparameters:
+
++ __-r__ learning rate, default 0.001
++ __-b__ batch size, default 128
++ __-e__ number of epoches, default 500
++ __-a__ activation function, default relu
++ __-n__ ratio of noise, default 0.05
++ __-f__ loss function coefficients
++ __--embed-dim__ the dimensionality of embeddings when applying AAEME, default 300
+
+Set path parameters:
+
++ __--log-path__ the directory of log, default ./log/
++ __--ckpt-path__ the directory to store checkpoint file, default ./checkpoints/
+
+Set boolean parameters:
+
++ __--oov__ whether to deal with OOV, default False
++ __--restore__ whether restore saved checkpoint, default False
++ __--cpu-only__ whether use cpu only or not, default False

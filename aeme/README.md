@@ -18,6 +18,13 @@ Start training by:
 
     python run.py -m AAEME -i ~/data/CBOW.txt ~/data/GloVe.txt -d 300 300 -o ~/results/res.txt
 
+required parameters:
+
++ __-i__ directory of source embeddings
++ __-o__ directory of yielded meta-embedding
++ __-m__ the model to train, within (DAEME, CAEME, AAEME)
++ __-d__ the dimensionality of each source embedding
+
 Tune hyperparameters:
 
 + __-r__ learning rate, default 0.001

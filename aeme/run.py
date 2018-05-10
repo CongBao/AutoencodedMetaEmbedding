@@ -27,7 +27,7 @@ def main():
     parser = argparse.ArgumentParser()
     add_arg = parser.add_argument
     add_arg('-i', dest='input',  type=str,    required=True, nargs='+',     help='directory of source embeddings')
-    add_arg('-o', dest='output', type=str,    required=True,                help='directory of output meta embedding')
+    add_arg('-o', dest='output', type=str,    required=True,                help='directory of yielded meta-embedding')
     add_arg('-m', dest='model',  type=str,    required=True,                help='the model to train, within %s' % MODELS)
     add_arg('-d', dest='dims',   type=int,    required=True, nargs='+',     help='the dimensionality of each source embedding')
     add_arg('-r', dest='rate',   type=float,  default=LEARNING_RATE,        help='learning rate, default %s' % LEARNING_RATE)

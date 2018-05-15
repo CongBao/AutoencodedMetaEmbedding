@@ -13,7 +13,7 @@ from utils import Utils
 
 __author__ = 'Cong Bao'
 
-def pickout_intersection(inputs, outputs, norm=True):
+def pickout_intersection(inputs, outputs, norm=False):
     """ Pick out intersection of source embeddings.
         :param inputs: path of source embeddings
         :param outputs: path of output files
@@ -33,7 +33,7 @@ def pickout_intersection(inputs, outputs, norm=True):
             selected[word] = normalize(src_dict_list[i][word])
         utils.save_emb(selected, path)
 
-def pickout_words(inputs, outputs, word_path, norm=True):
+def pickout_words(inputs, outputs, word_path, norm=False):
     """ Pick out embeddings with given words.
         :param inputs: path of source embeddings
         :param outputs: path of output files
@@ -62,7 +62,7 @@ def main():
     add_arg('-i', dest='input',  nargs='+', type=str, required=True, help='input files')
     add_arg('-o', dest='output', nargs='+', type=str, required=True, help='output files')
     add_arg('-w', dest='words',  type=str,  default=None,            help='word list file')
-    add_arg('-N', dest='norm', action='store_true', help='do not perform normalization')
+    add_arg('-N', dest='norm',   action='store_true',                help='perform normalization')
     args = parser.parse_args()
     assert len(args.input) == len(args.output)
     print('Input files: %s'  % args.input)

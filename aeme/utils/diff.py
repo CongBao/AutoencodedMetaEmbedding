@@ -2,6 +2,8 @@
 # File: diff.py
 # Author: Cong Bao
 
+from __future__ import print_function
+
 import argparse
 from heapq import heappop, heappush
 from operator import itemgetter

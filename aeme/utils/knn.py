@@ -2,6 +2,8 @@
 # File: knn.py
 # Author: Cong Bao
 
+from __future__ import print_function
+
 import argparse
 from operator import itemgetter
 

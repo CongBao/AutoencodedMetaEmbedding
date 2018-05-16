@@ -11,7 +11,7 @@ from utils import Utils
 
 __author__ = 'Cong Bao'
 
-def _knn(emb_dict, word, k, output_path):
+def _knn(emb_dict, word, k=None, output_path=None, return_dis=False):
     dis_list = []
     if word not in emb_dict.keys():
         print('Word not in vocabulary!')
@@ -21,6 +21,8 @@ def _knn(emb_dict, word, k, output_path):
         if key != word:
             dis_list.append((key, 1 - cosine(word_val, val)))
     dis_list.sort(key=itemgetter(1), reverse=True)
+    if return_dis:
+        return dis_list
     if output_path:
         res_dict = {}
         for item in dis_list[:k]:

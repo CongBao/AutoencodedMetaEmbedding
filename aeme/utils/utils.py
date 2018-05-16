@@ -30,6 +30,16 @@ class Utils(object):
             word_list = f.readlines()
         return [x.strip() for x in word_list]
 
+    def save_words(self, iterable, file_path):
+        """ Save a list of words to file.
+            :param iterable: a list of words
+            :param file_path: path of target file
+        """
+        self.log('Saving to %s' % file_path)
+        with open(file_path, 'w') as f:
+            for item in iterable:
+                f.write('%s\n' % str(item))
+
     def load_emb(self, file_path):
         """ Load word embeddings from file.
             :param file_path: path of word embedding file

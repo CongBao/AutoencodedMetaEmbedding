@@ -28,7 +28,7 @@ def visualize(input_path, output_path, fig_size=(64, 64)):
         labels.append(word)
         tokens.append(embed)
     del emb_dict
-    tsne = TSNE(perplexity=40, n_iter=3000, init='pca', verbose=2)
+    tsne = TSNE(perplexity=40, n_iter=5000, n_iter_without_progress=5000, init='pca', verbose=2)
     zipped = tsne.fit_transform(tokens)
     del tokens
     x = []

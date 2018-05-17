@@ -6,6 +6,8 @@
 + __run.py__ Scripts used to launch the training of AEMEs
 + __utils__ Including some useful scripts
     + __corrector.py__ Scripts used to correct user inputs with regex
+    + __diff.py__ A tool to find most different words in source embedding sets
+    + __knn.py__ A tool to find k-nearest neighbours of a word in a specific embedding set
     + __logger.py__ A tool to keep logging in disc and command line
     + __oov.py__ A tool to predict OOV words as pre-processing
     + __pickout.py__ A tool used to pick out intersection word embeddings

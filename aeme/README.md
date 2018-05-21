@@ -1,4 +1,4 @@
-# Autoencoding Meta-Embedding
+# Autoencoded Meta-Embedding
 
 ## File listing
 
@@ -44,6 +44,6 @@ Set path parameters:
 
 Set boolean parameters:
 
-+ __--oov__ whether to deal with OOV, default False
++ __--oov__ whether to deal with OOV (not pre-processing, just padding missing words with zeros), default False
 + __--restore__ whether restore saved checkpoint, default False
 + __--cpu-only__ whether use cpu only or not, default False

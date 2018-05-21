@@ -1,3 +1,3 @@
-# Autoencoding Meta Embeddings
+# Autoencoded Meta Embeddings
 
-My Final Year Project
+Code for the paper *Learning Word Meta-Embeddings by Autoencoding*

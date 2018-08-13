@@ -14,7 +14,7 @@ from utils import Utils
 
 __author__ = 'Cong Bao'
 
-def visualize(input_path, output_path, fig_size=(64, 64)):
+def visualize(input_path, output_path, fig_size=(8, 8)):
     """ Visualize the word embeddings.
         :param input_path: path of word embedding file
         :param output_path: path of output image
@@ -28,7 +28,7 @@ def visualize(input_path, output_path, fig_size=(64, 64)):
         labels.append(word)
         tokens.append(embed)
     del emb_dict
-    tsne = TSNE(perplexity=40, n_iter=5000, n_iter_without_progress=5000, init='pca', verbose=2)
+    tsne = TSNE(perplexity=40, learning_rate=100, n_iter=5000, n_iter_without_progress=5000, init='pca', verbose=2)
     zipped = tsne.fit_transform(tokens)
     del tokens
     x = []
@@ -50,7 +50,7 @@ def main():
     add_arg = parser.add_argument
     add_arg('-i', dest='input', type=str, required=True, help='embedding path')
     add_arg('-o', dest='output', type=str, required=True, help='figure saving path')
-    add_arg('-s', dest='size', type=int, nargs='+', default=[64, 64], help='the size of figure in inches')
+    add_arg('-s', dest='size', type=int, nargs='+', default=[8, 8], help='the size of figure in inches')
     args = parser.parse_args()
     try:
         visualize(args.input, args.output, args.size)

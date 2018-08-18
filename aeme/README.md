@@ -5,6 +5,7 @@
 + __model.py__ The main implementation of Autoencoded Meta-Embeddings
 + __run.py__ Scripts used to launch the training of AEMEs
 + __utils__ Including some useful scripts
+    + __cluster.py__ A tool used to cluster embeddings into groups
     + __corrector.py__ Scripts used to correct user inputs with regex
     + __diff.py__ A tool to find most different words in source embedding sets
     + __knn.py__ A tool to find k-nearest neighbours of a word in a specific embedding set

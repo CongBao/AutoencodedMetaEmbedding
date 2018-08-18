@@ -14,6 +14,11 @@ from utils import Utils
 __author__ = 'Cong Bao'
 
 def cluster(input_path, pred_word, n):
+    """ Classify data into clusters.
+        :param input_path: path of input data
+        :param pred_word: word to predict
+        :param n: number of clusters
+    """
     util = Utils()
     emb_dict = util.load_emb(input_path)
     test = emb_dict.pop(pred_word)
@@ -31,6 +36,7 @@ def cluster(input_path, pred_word, n):
     print("[Predict Result] %s: %d" % (pred_word, res[0]))
 
 def main():
+    """ Lunch the processing """
     parser = argparse.ArgumentParser()
     add_arg = parser.add_argument
     add_arg('-i', dest='input', type=str, required=True, help='embedding path')

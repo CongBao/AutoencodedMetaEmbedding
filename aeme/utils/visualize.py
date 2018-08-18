@@ -20,7 +20,10 @@ def visualize(input_path, output_path, fig_size=(8, 8), cluster=0, p_word=None, 
     """ Visualize the word embeddings.
         :param input_path: path of word embedding file
         :param output_path: path of output image
-        :param fig_size: size of image
+        :param fig_size: size of image, deefault 8x8
+        :param cluster: number of cluster to color, if 0, random color
+        :param p_word: words to pickout
+        :param algo: algorithm used to visualize, default PCA
     """
     util = Utils()
     emb_dict = util.load_emb(input_path)
